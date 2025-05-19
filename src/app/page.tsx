@@ -10,8 +10,8 @@ import { Bot, ArrowRight, Download, MessageSquare } from "lucide-react"; // Icon
 export const metadata: Metadata = {
   // Updated title to be more descriptive
   title: "Parker Van Ham - Computer Scientist & Full-Stack Developer",
-  // You can add a description here for SEO
-  // description: "Welcome to Parker Van Ham's portfolio. Explore projects, skills, and get in touch.",
+  description:
+    "Welcome to Parker Van Ham's portfolio. Explore projects, skills, and get in touch.",
 };
 
 export default function Home() {
@@ -59,7 +59,7 @@ export default function Home() {
             <div className="relative">
               <Image
                 src={me}
-                alt="A photo of Parker Van Ham"
+                alt="A photo of me"
                 height={320} // Slightly increased size
                 width={320} // Slightly increased size
                 className="border-primary/50 aspect-square rounded-full border-4 object-cover shadow-xl" // Enhanced border
