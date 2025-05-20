@@ -16,7 +16,7 @@ export default function ThemeToggle() {
   if (!mounted) {
     return (
       <button
-        className="relative inline-flex items-center justify-center p-2 rounded-md opacity-50 cursor-default"
+        className="relative inline-flex cursor-default items-center justify-center rounded-md p-2 opacity-50"
         aria-label="Toggle theme"
         disabled
       >
@@ -31,16 +31,16 @@ export default function ThemeToggle() {
     <button
       onClick={() => setTheme(isCurrentlyDark ? "light" : "dark")}
       // Removed focus:ring-2 and focus:ring-ring
-      className="relative inline-flex items-center justify-center p-2 rounded-md focus:outline-none transition-colors hover:bg-accent hover:text-accent-foreground"
+      className="hover:bg-accent hover:text-accent-foreground relative inline-flex items-center justify-center rounded-md p-2 transition-colors focus:outline-none"
       aria-label="Toggle theme"
     >
       <Sun
-        size={20}
+        size={24}
         className={
           "absolute transition-all duration-300 ease-in-out " +
           (isCurrentlyDark
-            ? "opacity-100 scale-100 rotate-0"
-            : "opacity-0 scale-50 rotate-90")
+            ? "scale-100 rotate-0 opacity-100"
+            : "scale-50 rotate-90 opacity-0")
         }
       />
       <Moon
@@ -48,12 +48,12 @@ export default function ThemeToggle() {
         className={
           "absolute transition-all duration-300 ease-in-out " +
           (!isCurrentlyDark
-            ? "opacity-100 scale-100 rotate-0"
-            : "opacity-0 scale-50 -rotate-90")
+            ? "scale-100 rotate-0 opacity-100"
+            : "scale-50 -rotate-90 opacity-0")
         }
       />
       <span className="opacity-0">
-        <Moon size={20} />
+        <Moon size={24} />
       </span>
     </button>
   );

@@ -45,7 +45,7 @@ export default function Page() {
             </li>
             <li>
               <a
-                href="[YOUR_GITHUB_PROFILE_URL]" // Replace with your actual GitHub URL
+                href="https://github.com/pvanham" // Replace with your actual GitHub URL
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary hover:underline"
@@ -55,7 +55,7 @@ export default function Page() {
             </li>
             <li>
               <a
-                href="[YOUR_HANDSHAKE_PROFILE_URL]" // Replace with your actual Handshake URL
+                href="https://wpi.joinhandshake.com/profiles/bd3v4z" // Replace with your actual Handshake URL
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary hover:underline"
@@ -65,7 +65,7 @@ export default function Page() {
             </li>
             <li>
               <a
-                href="[YOUR_INDEED_PROFILE_URL]" // Replace with your actual Indeed URL (if applicable)
+                href="https://profile.indeed.com/p/parkerv-kpk1504" // Replace with your actual Indeed URL (if applicable)
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary hover:underline"
