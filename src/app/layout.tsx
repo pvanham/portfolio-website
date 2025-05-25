@@ -1,18 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { ChatStateProvider } from "@/components/ChatContext"; // Import the new provider
+import ChatbotUI from "@/components/ChatbotUI"; // Import ChatbotUI
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,25 +31,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-      <html lang="en" suppressHydrationWarning>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <ThemeProvider
+          attribute="class"
+          // defaultTheme="system" // Keep these if you had them
+          // enableSystem
+          // disableTransitionOnChange
         >
-          <ThemeProvider
-            attribute="class"
-            // defaultTheme="system" // Keep these if you had them
-            // enableSystem
-            // disableTransitionOnChange
-          >
+          <ChatStateProvider>
             {" "}
             {/* Wrap components that need chat state */}
             <Navbar /> {/* Navbar will now use the context */}
             <main className="mx-auto max-w-4xl px-3 py-10">{children}</main>
+            <ChatbotUI /> {/* ChatbotUI will also use the context */}
             <Footer />
-          </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+          </ChatStateProvider>
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }

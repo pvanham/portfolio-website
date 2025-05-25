@@ -1,0 +1,33 @@
+The skills page provides a summary of Parker's technical skills.
+This page has navigation links to: Home, Projects, Skills, Resume, Contact.
+Key actions on this page include buttons for: Using The Chatbot(the little robot icon in the top right) and a Dark Mode Toggle(the moon/sun icon in the top right).
+
+Technical Skills
+A summary of my technical proficiencies across various domains
+
+Programming Languages 
+Java
+Python
+JavaScript
+TypeScript
+C
+HTML
+CSS
+SQL
+
+Frameworks and Tools
+React
+Node.js
+Express
+MongoDB
+Git
+Microsoft Office
+Oracle
+SolidWorks
+
+Concepts and Methodologies
+Object-Oriented Programming (OOP)
+Full-Stack Development
+Agile/Scrum Methodologies
+Web Development
+Database Systems & Management
