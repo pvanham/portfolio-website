@@ -1,10 +1,20 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // src/app/projects/page.tsx
 import { H1 } from "@/components/ui/H1";
 import { H2 } from "@/components/ui/H2";
 import { H3 } from "@/components/ui/H3";
 import { Metadata } from "next";
 import Image from "next/image";
-import { FileText, Lightbulb } from "lucide-react";
+import Link from "next/link";
+import {
+  ExternalLink,
+  FileText,
+  Users,
+  Settings,
+  BarChart2,
+  Trees,
+  Globe,
+} from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Projects - Parker Van Ham",
@@ -12,41 +22,38 @@ export const metadata: Metadata = {
     "A showcase of key projects by Parker Van Ham, demonstrating skills in software development, data analysis, and user-centered design.",
 };
 
-// Data for Z3 Wellness App
+// Data for Z3 Wellness App (remains the same)
 const z3WellnessData = {
   title: "Z³-Wellness Sleep App",
   role: "Full-Stack Developer & Researcher",
-  imageUrl: "/sleep_app_pic.png", // image path
+  imageUrl: "/placeholders/z3-app-dashboard.png",
   imageAlt: "Mockup or screenshot of the Z3 Wellness App dashboard",
   overview:
     "The Z³-Wellness application is a web-based platform designed for college students to monitor and improve their sleep and overall wellness patterns. This Major Qualifying Project involved continuing development from previous WPI teams, focusing on enhancing usability and functionality based on user feedback.",
   contributions: [
-    "As part of a collaborative team, I played a key role in a comprehensive user study to identify usability issues, which directly informed the application's redesign.",
-    "Contributed significantly to a full backend overhaul, transitioning to a CRUD methodology with organized models, use cases, controllers, routers, and repositories for improved maintainability and scalability. This included adding historical data queries and optimizing frequently used queries with database views.",
     "Actively involved in frontend development, including UI redesign, reformatting components using TypeScript, improving mobile responsiveness, and implementing a new navigation bar and customizable dashboard graphs.",
+    "Contributed to a full backend overhaul, transitioning to a CRUD methodology with organized models, use cases, controllers, routers, and repositories for improved maintainability and scalability. This included adding historical data queries and optimizing frequently used queries with database views.",
+    "As part of a collaborative team, I played a key role in a comprehensive user study to identify usability issues, which directly informed the application's redesign.",
     "Worked on critical bug fixes, updated outdated dependencies, and ensured consistent coding practices and documentation across the codebase.",
     "Helped implement calendar integration (Outlook and Google) for stress level tracking associated with scheduled events.",
     "Contributed to database schema improvements, including removing redundant ID fields and optimizing data entry processes with triggers.",
   ],
   technologies: [
     "Frontend: React, TypeScript, JavaScript, HTML, CSS",
-    "Backend: Node.js (implied from server.js), Express (implied by CRUD structure for web app)",
+    "Backend: Node.js, Express",
     "Database: PostgreSQL",
     "Authentication & Analytics: Firebase",
     "Tools: Git, Qualtrics (for user study)",
   ],
   reportLink:
     "https://digital.wpi.edu/concern/student_works/2z10wv496?locale=zh",
-  reportNote: "(Note: Report is primarily in Chinese)",
-  // Placeholder for individual project page link
-  // detailsPageLink: "/projects/z3-wellness"
 };
 
-// Data for El Parque Redevelopment Project
+// Data for El Parque Redevelopment Project (remains the same)
 const elParqueData = {
   title: "El Parque Redevelopment Project, Panama",
   role: "Data Analyst & Community Researcher",
-  imageUrl: "/el_parque_pic.png", // Placeholder image path
+  imageUrl: "/placeholders/el-parque-overview.png",
   imageAlt: "Photo or map of El Parque in Ciudad del Saber, Panama",
   overview:
     "This Global Projects Program initiative, in partnership with Fundación Ciudad del Saber (City of Knowledge) in Panama City, aimed to evaluate and recommend improvements for 'El Parque,' a significant public green space. The project focused on understanding visitor demographics, usage patterns, and community needs to inform the park's ongoing development plan.",
@@ -68,8 +75,34 @@ const elParqueData = {
   ],
   reportLink:
     "https://digital.wpi.edu/concern/student_works/br86b6951?locale=en",
-  // Placeholder for individual project page link
-  // detailsPageLink: "/projects/el-parque"
+};
+
+// Data for THIS Portfolio Website
+const portfolioWebsiteData = {
+  title: "This Portfolio Website",
+  role: "Full-Stack Developer (Sole Developer)",
+  imageUrl: "/placeholders/portfolio-website-mockup.png",
+  imageAlt: "A mockup showing the portfolio website on different devices",
+  overview:
+    "A personal portfolio website built from scratch to serve as a central hub for my projects, skills, and professional resume. The primary goal was to create a modern, performant, and visually appealing site while also integrating an advanced AI chatbot capable of answering questions about my professional background.",
+  contributions: [
+    "Designed and implemented the entire application using a modern tech stack centered around Next.js and React with TypeScript.",
+    "Developed a fully responsive UI with Tailwind CSS, including a custom theme with light and dark modes.",
+    "Engineered and integrated an AI chatbot from the ground up, leveraging the Vercel AI SDK for streaming UI updates.",
+    "Built a Retrieval Augmented Generation (RAG) pipeline using Langchain.js to enable the chatbot to answer questions based on website content.",
+    "Set up a vector database using AstraDB to store and retrieve contextual information for the chatbot.",
+    "Utilized Google Gemini for both high-quality text embeddings and for generating conversational responses.",
+    "Managed project dependencies, resolved version conflicts (e.g., between Langchain community packages and the Vercel AI SDK), and debugged complex type errors.",
+  ],
+  technologies: [
+    "Frontend: Next.js, React, TypeScript, Tailwind CSS, Vercel AI SDK",
+    "Backend: Next.js API Routes (Edge Runtime)",
+    "AI/ML: Langchain.js, Google Gemini (Embeddings & LLM)",
+    "Database: AstraDB (Vector Store)",
+    "Deployment: Vercel",
+  ],
+  // Add link to your public GitHub repo if you have one
+  repoLink: "https://github.com/your-username/your-repo-name",
 };
 
 export default function ProjectsPage() {
@@ -85,25 +118,77 @@ export default function ProjectsPage() {
       </header>
 
       <div className="space-y-16 md:space-y-20">
-        {/* Z3 Wellness Sleep App Section */}
-        <section className="grid items-start gap-8 md:grid-cols-2 md:gap-12">
+        {/* NEW Section for This Portfolio Website */}
+        <section className="border-border grid items-start gap-8 border-t pt-16 md:grid-cols-2 md:gap-12">
           <div className="md:order-2">
-            {/* Placeholder for a compelling image or carousel */}
             <div className="bg-muted flex aspect-video items-center justify-center overflow-hidden rounded-lg shadow-lg">
-              <Image
-                src={z3WellnessData.imageUrl}
-                alt={z3WellnessData.imageAlt}
-                width={600}
-                height={338}
-                className="object-cover"
-              />
+              <p className="text-muted-foreground bg-background/70 absolute rounded p-2 text-sm">
+                [Placeholder: Screenshot of this portfolio&apos;s homepage or a
+                collage of pages]
+              </p>
+              <Globe size={64} className="text-muted-foreground/50" />
+            </div>
+          </div>
+          <div className="space-y-4 md:order-1">
+            <H2>{portfolioWebsiteData.title}</H2>
+            <H3 className="text-primary">{portfolioWebsiteData.role}</H3>
+            <p className="text-muted-foreground">
+              {portfolioWebsiteData.overview}
+            </p>
+
+            <details className="group">
+              <summary className="text-primary flex cursor-pointer list-none items-center font-medium hover:underline">
+                Key Contributions & Features
+                <span className="ml-1 transition-transform duration-200 group-open:rotate-90">
+                  &#9656;
+                </span>
+              </summary>
+              <ul className="text-foreground mt-2 list-inside list-disc space-y-1 pl-4">
+                {portfolioWebsiteData.contributions.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
+              </ul>
+            </details>
+
+            <div>
+              <h4 className="text-foreground mt-3 mb-1 font-semibold">
+                Technologies Used:
+              </h4>
+              <p className="text-muted-foreground text-sm">
+                {portfolioWebsiteData.technologies.join(", ")}
+              </p>
+            </div>
+
+            {portfolioWebsiteData.repoLink && (
+              <div className="pt-2">
+                <a
+                  href={portfolioWebsiteData.repoLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary inline-flex items-center font-medium hover:underline"
+                >
+                  <ExternalLink size={18} className="mr-2" />
+                  View Source Code on GitHub
+                </a>
+              </div>
+            )}
+          </div>
+        </section>
+        {/* Z3 Wellness Sleep App Section (remains the same) */}
+        <section className="grid items-start gap-8 md:grid-cols-2 md:gap-12">
+          <div className="md:order-1">
+            <div className="bg-muted flex aspect-video items-center justify-center overflow-hidden rounded-lg shadow-lg">
+              <p className="text-muted-foreground bg-background/70 absolute rounded p-2 text-sm">
+                [Placeholder: Screenshot of Z3 App UI - e.g., New Dashboard,
+                Mobile View, or Calendar Integration]
+              </p>
+              <Settings size={64} className="text-muted-foreground/50" />
             </div>
           </div>
           <div className="space-y-4 md:order-1">
             <H2>{z3WellnessData.title}</H2>
             <H3 className="text-primary">{z3WellnessData.role}</H3>
             <p className="text-muted-foreground">{z3WellnessData.overview}</p>
-
             <details className="group">
               <summary className="text-primary flex cursor-pointer list-none items-center font-medium hover:underline">
                 Key Contributions & Responsibilities
@@ -117,7 +202,6 @@ export default function ProjectsPage() {
                 ))}
               </ul>
             </details>
-
             <div>
               <h4 className="text-foreground mt-3 mb-1 font-semibold">
                 Technologies Used:
@@ -126,7 +210,6 @@ export default function ProjectsPage() {
                 {z3WellnessData.technologies.join(", ")}
               </p>
             </div>
-
             <div className="pt-2">
               <a
                 href={z3WellnessData.reportLink}
@@ -136,42 +219,26 @@ export default function ProjectsPage() {
               >
                 <FileText size={18} className="mr-2" />
                 View Full Report
-                {z3WellnessData.reportNote && (
-                  <span className="text-muted-foreground ml-1 text-xs">
-                    {z3WellnessData.reportNote}
-                  </span>
-                )}
               </a>
-              {/* Placeholder for link to individual project page */}
-              {/* {z3WellnessData.detailsPageLink && (
-                <Link href={z3WellnessData.detailsPageLink} className="inline-flex items-center text-primary hover:underline font-medium ml-4">
-                  <ExternalLink size={18} className="mr-2" />
-                  Project Details
-                </Link>
-              )} */}
             </div>
           </div>
         </section>
 
-        {/* El Parque Redevelopment Project Section */}
+        {/* El Parque Redevelopment Project Section (remains the same) */}
         <section className="grid items-start gap-8 md:grid-cols-2 md:gap-12">
-          <div>
-            {/* Placeholder for a compelling image or carousel */}
+          <div className="md:order-2">
             <div className="bg-muted flex aspect-video items-center justify-center overflow-hidden rounded-lg shadow-lg">
-              <Image
-                src={elParqueData.imageUrl}
-                alt={elParqueData.imageAlt}
-                width={600}
-                height={338}
-                className="object-cover"
-              />
+              <p className="text-muted-foreground bg-background/70 absolute rounded p-2 text-sm">
+                [Placeholder: Image of El Parque, a survey data chart, or
+                community photo]
+              </p>
+              <Trees size={64} className="text-muted-foreground/50" />
             </div>
           </div>
           <div className="space-y-4">
             <H2>{elParqueData.title}</H2>
             <H3 className="text-primary">{elParqueData.role}</H3>
             <p className="text-muted-foreground">{elParqueData.overview}</p>
-
             <details className="group">
               <summary className="text-primary flex cursor-pointer list-none items-center font-medium hover:underline">
                 Key Contributions & Responsibilities
@@ -185,7 +252,6 @@ export default function ProjectsPage() {
                 ))}
               </ul>
             </details>
-
             <div>
               <h4 className="text-foreground mt-3 mb-1 font-semibold">
                 Skills Demonstrated:
@@ -194,7 +260,6 @@ export default function ProjectsPage() {
                 {elParqueData.skillsDemonstrated.join(", ")}
               </p>
             </div>
-
             <div className="pt-2">
               <a
                 href={elParqueData.reportLink}
@@ -205,38 +270,7 @@ export default function ProjectsPage() {
                 <FileText size={18} className="mr-2" />
                 View Full Report
               </a>
-              {/* {elParqueData.detailsPageLink && (
-                <Link href={elParqueData.detailsPageLink} className="inline-flex items-center text-primary hover:underline font-medium ml-4">
-                  <ExternalLink size={18} className="mr-2" />
-                  Project Details
-                </Link>
-              )} */}
             </div>
-          </div>
-        </section>
-
-        {/* Placeholder for Hospital System Application */}
-        <section className="border-border border-t py-10">
-          <div className="mb-8 text-center">
-            <H2>Hospital System Application</H2>
-            <H3 className="text-primary">Frontend Developer</H3>
-          </div>
-          <div className="bg-muted/50 rounded-lg p-8 text-center">
-            <Lightbulb
-              size={48}
-              className="text-muted-foreground mx-auto mb-4"
-            />
-            <p className="text-muted-foreground">
-              [This section is currently under construction. Please check back
-              soon for details on my contributions to a hospital service
-              management application developed as part of my Software
-              Engineering course. Key contributions included implementing a meal
-              delivery system, a search function, and an interactive map
-              feature.]
-            </p>
-            <p className="text-muted-foreground mt-2 text-sm">
-              (Details to be added by Parker Van Ham)
-            </p>
           </div>
         </section>
       </div>

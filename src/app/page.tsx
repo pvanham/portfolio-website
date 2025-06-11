@@ -4,7 +4,7 @@ import Link from "next/link"; // Import Link for navigation
 import { H1 } from "@/components/ui/H1";
 import { H2 } from "@/components/ui/H2";
 import { Metadata } from "next";
-import me from "@/assets/IMG_0689.jpg"; // Your profile picture
+import me from "@/assets/IMG_4678.png"; // Your profile picture
 import { Bot, ArrowRight, Download, MessageSquare } from "lucide-react"; // Icons
 
 export const metadata: Metadata = {
@@ -62,7 +62,7 @@ export default function Home() {
                 alt="A photo of me"
                 height={320} // Slightly increased size
                 width={320} // Slightly increased size
-                className="border-primary/50 aspect-square rounded-full border-4 object-cover shadow-xl" // Enhanced border
+                className="border-primary/50 aspect-square justify-baseline rounded-full border-4 object-cover shadow-xl" // Enhanced border
                 priority // Load image faster as it's LCP
               />
               {/* Decorative element behind image */}
