@@ -1,63 +1,90 @@
 // src/components/Navbar.tsx
 "use client";
+
+import { useState } from "react";
 import Link from "next/link";
-import ThemeToggle from "./ThemeToggle"; // Assuming ThemeToggle is in the same directory
-import { Bot } from "lucide-react";
-import { useChatState } from "@/components/ChatContext"; // Import the custom hook
+import ThemeToggle from "./ThemeToggle";
+import { Bot, Menu, X } from "lucide-react"; // Import Menu and X icons
+import { useChatState } from "@/components/ChatContext";
 
 export default function Navbar() {
-  const { toggleChat } = useChatState(); // Get toggleChat from context
+  const { toggleChat } = useChatState();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Function to close the menu, useful when a link is clicked
+  const closeMenu = () => setIsMenuOpen(false);
+
+  const navLinks = [
+    { href: "/", label: "Home" },
+    { href: "/projects", label: "Projects" },
+    { href: "/skills", label: "Skills" },
+    { href: "/resume", label: "Resume" },
+    { href: "/contact", label: "Contact" },
+  ];
+
   return (
     <header className="bg-background sticky top-0 z-50 shadow-md">
-      {/* Increased z-index to z-50 and added shadow-md */}
       <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8">
-        {/* Used container for consistent width, items-center for vertical alignment, adjusted padding */}
-        <nav className="space-x-4 text-sm font-medium sm:text-base">
-          {/* Adjusted font size for responsiveness */}
-          <Link
-            href="/"
-            className="text-foreground hover:text-primary transition-colors"
-          >
-            Home
-          </Link>
-          <Link
-            href="/projects"
-            className="text-foreground hover:text-primary transition-colors"
-          >
-            Projects
-          </Link>
-          <Link
-            href="/skills"
-            className="text-foreground hover:text-primary transition-colors"
-          >
-            Skills
-          </Link>
-          <Link
-            href="/resume"
-            className="text-foreground hover:text-primary transition-colors"
-          >
-            Resume
-          </Link>
-          <Link
-            href="/contact"
-            className="text-foreground hover:text-primary transition-colors"
-          >
-            Contact
-          </Link>
+        {/* Home/Brand Link - Placed on the far left */}
+        <Link
+          href="/"
+          className="text-foreground hover:text-primary text-xl font-bold transition-colors"
+          onClick={closeMenu}
+        >
+          Parker Van Ham
+        </Link>
+
+        {/* Desktop Navigation Links - Hidden on small screens */}
+        <nav className="hidden space-x-4 text-sm font-medium sm:flex sm:text-base">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-foreground hover:text-primary transition-colors"
+            >
+              {link.label}
+            </Link>
+          ))}
         </nav>
-        <div className="flex items-center">
-          {" "}
-          {/* Ensured ThemeToggle is vertically aligned if navbar height increases */}
+
+        {/* Right-side Icons */}
+        <div className="flex items-center gap-2">
           <ThemeToggle />
-          {/* Optional: Add your AI Chatbot toggle icon here as well if it's part of the navbar */}
           <button
-            onClick={toggleChat} // Use toggleChat from context
-            className="text-foreground hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring rounded-full p-2 focus-visible:ring-2 focus-visible:outline-none"
+            onClick={toggleChat}
+            className="text-foreground hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring rounded-full p-2 transition-colors focus-visible:ring-2 focus-visible:outline-none"
             aria-label="Toggle AI Chatbot"
           >
             <Bot size={24} />
           </button>
+
+          {/* Hamburger Menu Button - Only visible on small screens */}
+          <div className="sm:hidden">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="text-foreground focus:ring-ring rounded-md p-2 focus:ring-2 focus:outline-none"
+              aria-label="Toggle menu"
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Menu Dropdown - Conditionally rendered */}
+        {isMenuOpen && (
+          <nav className="mt-2 flex w-full flex-col items-start space-y-2 sm:hidden">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-foreground hover:text-primary hover:bg-accent w-full rounded-md p-2 transition-colors"
+                onClick={closeMenu} // Close menu when a link is clicked
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+        )}
       </div>
     </header>
   );

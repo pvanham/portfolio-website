@@ -15,6 +15,9 @@ import {
   Trees,
   Globe,
 } from "lucide-react";
+import pic1 from "@/assets/site_screenshot.png";
+import pic2 from "../../../public/sleep_app_pic.png";
+import pic3 from "../../../public/el_parque_pic.png";
 
 export const metadata: Metadata = {
   title: "Projects - Parker Van Ham",
@@ -122,11 +125,7 @@ export default function ProjectsPage() {
         <section className="border-border grid items-start gap-8 border-t pt-16 md:grid-cols-2 md:gap-12">
           <div className="md:order-2">
             <div className="bg-muted flex aspect-video items-center justify-center overflow-hidden rounded-lg shadow-lg">
-              <p className="text-muted-foreground bg-background/70 absolute rounded p-2 text-sm">
-                [Placeholder: Screenshot of this portfolio&apos;s homepage or a
-                collage of pages]
-              </p>
-              <Globe size={64} className="text-muted-foreground/50" />
+              <Image src={pic1} alt="A photo of this website" />
             </div>
           </div>
           <div className="space-y-4 md:order-1">
@@ -178,11 +177,7 @@ export default function ProjectsPage() {
         <section className="grid items-start gap-8 md:grid-cols-2 md:gap-12">
           <div className="md:order-1">
             <div className="bg-muted flex aspect-video items-center justify-center overflow-hidden rounded-lg shadow-lg">
-              <p className="text-muted-foreground bg-background/70 absolute rounded p-2 text-sm">
-                [Placeholder: Screenshot of Z3 App UI - e.g., New Dashboard,
-                Mobile View, or Calendar Integration]
-              </p>
-              <Settings size={64} className="text-muted-foreground/50" />
+              <Image src={pic2} alt="A photo of the Z3 Wellness App" />
             </div>
           </div>
           <div className="space-y-4 md:order-1">
@@ -228,11 +223,7 @@ export default function ProjectsPage() {
         <section className="grid items-start gap-8 md:grid-cols-2 md:gap-12">
           <div className="md:order-2">
             <div className="bg-muted flex aspect-video items-center justify-center overflow-hidden rounded-lg shadow-lg">
-              <p className="text-muted-foreground bg-background/70 absolute rounded p-2 text-sm">
-                [Placeholder: Image of El Parque, a survey data chart, or
-                community photo]
-              </p>
-              <Trees size={64} className="text-muted-foreground/50" />
+              <Image src={pic3} alt="A photo of El Parque" />
             </div>
           </div>
           <div className="space-y-4">
