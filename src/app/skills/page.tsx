@@ -49,6 +49,7 @@ const skillsData: SkillCategory[] = [
       { name: "Agile/Scrum Methodologies" },
       { name: "Web Development" },
       { name: "Database Systems & Management" },
+      { name: "Retrieval-Augmented Generation (RAG)" },
     ],
   },
 ];
@@ -85,18 +86,6 @@ export default function SkillsPage() {
           </section>
         ))}
       </div>
-
-      {/* Optional: Section for "Currently Learning" or "Interests" */}
-      {/* <section className="mt-12 md:mt-16">
-        <h2 className="text-2xl font-semibold text-primary mb-4 pb-2 border-b border-border sm:text-3xl">
-          Currently Exploring
-        </h2>
-        <ul className="list-disc list-inside text-muted-foreground space-y-1">
-          <li>[Placeholder: e.g., Advanced AI/ML Concepts]</li>
-          <li>[Placeholder: e.g., Cloud Platform (AWS/Azure/GCP)]</li>
-        </ul>
-      </section>
-      */}
     </main>
   );
 }

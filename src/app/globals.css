@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-/* 1. Define your base CSS variables (for light and dark themes) */
 :root {
   --background: hsl(0 0% 100%);
   --foreground: hsl(222.2 84% 4.9%);
@@ -23,7 +22,6 @@
   --ring: hsl(221.2 83.2% 53.3%);
   --radius: 0.5rem;
 
-  /* Define your font variables */
   --font-geist-sans:
     "Geist Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
@@ -55,9 +53,6 @@
   --ring: hsl(224.3 76.3% 48%);
 }
 
-/* 2. Define/alias CSS variables using @theme inline (shadcn/ui consistent syntax) */
-/* This block defines CSS variables. It does NOT directly configure Tailwind's theme scale (e.g. colors.primary). */
-/* That mapping needs to happen in tailwind.config.js or a standard @theme block. */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -80,21 +75,12 @@
   --color-ring: var(--ring);
 }
 
-/* 3. Apply base styles using your themed utilities */
 @layer base {
   * {
-    /* This will attempt to use a 'border-border' utility. */
-    /* For this to work, 'border' must be defined in your Tailwind theme (e.g., in tailwind.config.js referencing var(--border) or var(--color-border)). */
     @apply border-border;
   }
   body {
-    /* These will attempt to use 'bg-background' and 'text-foreground' utilities. */
-    /* These also need to be defined in your Tailwind theme via tailwind.config.js or a standard @theme block. */
     @apply bg-background text-foreground;
-    /* Applies the default sans-serif font from your theme. */
-    /* This requires 'font-sans' to be configured in Tailwind's theme. */
-    font-family: var(
-      --font-geist-sans
-    ); /* Or theme('fontFamily.sans') if using @apply */
+    font-family: var(--font-geist-sans);
   }
 }

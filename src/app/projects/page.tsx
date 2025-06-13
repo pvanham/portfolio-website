@@ -1,20 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 // src/app/projects/page.tsx
 import { H1 } from "@/components/ui/H1";
 import { H2 } from "@/components/ui/H2";
 import { H3 } from "@/components/ui/H3";
 import { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import {
-  ExternalLink,
-  FileText,
-  Users,
-  Settings,
-  BarChart2,
-  Trees,
-  Globe,
-} from "lucide-react";
+import { ExternalLink, FileText } from "lucide-react";
 import pic1 from "@/assets/site_screenshot.png";
 import pic2 from "../../../public/sleep_app_pic.png";
 import pic3 from "../../../public/el_parque_pic.png";
@@ -104,7 +94,6 @@ const portfolioWebsiteData = {
     "Database: AstraDB (Vector Store)",
     "Deployment: Vercel",
   ],
-  // Add link to your public GitHub repo if you have one
   repoLink: "https://github.com/pvanham/portfolio-website",
 };
 
@@ -121,7 +110,7 @@ export default function ProjectsPage() {
       </header>
 
       <div className="space-y-16 md:space-y-20">
-        {/* NEW Section for This Portfolio Website */}
+        {/* Section for This Portfolio Website */}
         <section className="border-border grid items-start gap-8 border-t pt-16 md:grid-cols-2 md:gap-12">
           <div className="md:order-2">
             <div className="bg-muted flex aspect-video items-center justify-center overflow-hidden rounded-lg shadow-lg">
@@ -173,7 +162,7 @@ export default function ProjectsPage() {
             )}
           </div>
         </section>
-        {/* Z3 Wellness Sleep App Section (remains the same) */}
+        {/* Z3 Wellness Sleep App Section */}
         <section className="grid items-start gap-8 md:grid-cols-2 md:gap-12">
           <div className="md:order-1">
             <div className="bg-muted flex aspect-video items-center justify-center overflow-hidden rounded-lg shadow-lg">
@@ -219,7 +208,7 @@ export default function ProjectsPage() {
           </div>
         </section>
 
-        {/* El Parque Redevelopment Project Section (remains the same) */}
+        {/* El Parque Redevelopment Project Section */}
         <section className="grid items-start gap-8 md:grid-cols-2 md:gap-12">
           <div className="md:order-2">
             <div className="bg-muted flex aspect-video items-center justify-center overflow-hidden rounded-lg shadow-lg">

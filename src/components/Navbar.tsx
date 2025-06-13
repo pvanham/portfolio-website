@@ -4,14 +4,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
-import { Bot, Menu, X } from "lucide-react"; // Import Menu and X icons
+import { Bot, Menu, X } from "lucide-react";
 import { useChatState } from "@/components/ChatContext";
 
 export default function Navbar() {
   const { toggleChat } = useChatState();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Function to close the menu, useful when a link is clicked
   const closeMenu = () => setIsMenuOpen(false);
 
   const navLinks = [
@@ -25,7 +24,6 @@ export default function Navbar() {
   return (
     <header className="bg-background sticky top-0 z-50 shadow-md">
       <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8">
-        {/* Home/Brand Link - Placed on the far left */}
         <Link
           href="/"
           className="text-foreground hover:text-primary text-xl font-bold transition-colors"
@@ -78,7 +76,7 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 className="text-foreground hover:text-primary hover:bg-accent w-full rounded-md p-2 transition-colors"
-                onClick={closeMenu} // Close menu when a link is clicked
+                onClick={closeMenu}
               >
                 {link.label}
               </Link>

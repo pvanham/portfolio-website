@@ -5,7 +5,7 @@ import { z } from "zod";
 import { Resend } from "resend";
 import ContactEmail from "@/components/email/ContactEmail";
 
-// Initialize Resend with your API key
+// Initialize Resend
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Define the schema for form data validation
@@ -16,7 +16,6 @@ const contactSchema = z.object({
   message: z.string().min(10, "Message must be at least 10 characters."),
 });
 
-// Define a type for our form state
 export type FormState = {
   message: string;
   fields?: Record<string, string>;
@@ -47,9 +46,9 @@ export async function sendContactEmail(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { data, error } = await resend.emails.send({
       from: "Portfolio Contact <onboarding@resend.dev>", // Can be this default for now
-      to: ["parkervanham@gmail.com"], // Your personal email address
+      to: ["parkervanham@gmail.com"],
       subject: `New Message from Portfolio: ${subject}`,
-      replyTo: email, // Corrected from reply_to to replyTo (camelCase)
+      replyTo: email,
       react: (
         <ContactEmail
           name={name}

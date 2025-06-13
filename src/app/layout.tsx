@@ -4,8 +4,8 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { ChatStateProvider } from "@/components/ChatContext"; // Import the new provider
-import ChatbotUI from "@/components/ChatbotUI"; // Import ChatbotUI
+import { ChatStateProvider } from "@/components/ChatContext";
+import ChatbotUI from "@/components/ChatbotUI";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,12 +35,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          // defaultTheme="system" // Keep these if you had them
-          // enableSystem
-          // disableTransitionOnChange
-        >
+        <ThemeProvider attribute="class">
           <ChatStateProvider>
             {" "}
             {/* Wrap components that need chat state */}

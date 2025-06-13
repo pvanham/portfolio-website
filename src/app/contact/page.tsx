@@ -1,8 +1,8 @@
 // src/app/contact/page.tsx
-import { H1 } from "@/components/ui/H1"; // Assuming you have these custom components
+import { H1 } from "@/components/ui/H1";
 import { H2 } from "@/components/ui/H2";
 import { Metadata } from "next";
-import ContactForm from "@/components/ContactForm"; // Adjust path if you place it elsewhere
+import ContactForm from "@/components/ContactForm";
 
 export const metadata: Metadata = {
   title: "Contact Parker Van Ham",
@@ -12,14 +12,11 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    // Added container, mx-auto for centering, and padding
     <main className="container mx-auto px-4 py-12 md:py-16 lg:py-20">
       <section className="space-y-8">
         {" "}
-        {/* Increased spacing for sections */}
         <header className="text-center">
           {" "}
-          {/* Centered header */}
           <H1>Get In Touch</H1>
           <p className="text-muted-foreground mt-3 text-lg sm:mt-4 sm:text-xl">
             I&apos;m always open to discussing new opportunities, projects, or
@@ -32,7 +29,6 @@ export default function Page() {
           <p>Connect with me on various platforms:</p>
           <ul className="list-inside list-disc space-y-2">
             {" "}
-            {/* Increased spacing for list items */}
             <li>
               <a
                 href="https://www.linkedin.com/in/parker-van-ham-8545ab220"
@@ -45,7 +41,7 @@ export default function Page() {
             </li>
             <li>
               <a
-                href="https://github.com/pvanham" // Replace with your actual GitHub URL
+                href="https://github.com/pvanham"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary hover:underline"
@@ -55,7 +51,7 @@ export default function Page() {
             </li>
             <li>
               <a
-                href="https://wpi.joinhandshake.com/profiles/bd3v4z" // Replace with your actual Handshake URL
+                href="https://wpi.joinhandshake.com/profiles/bd3v4z"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary hover:underline"
@@ -65,7 +61,7 @@ export default function Page() {
             </li>
             <li>
               <a
-                href="https://profile.indeed.com/p/parkerv-kpk1504" // Replace with your actual Indeed URL (if applicable)
+                href="https://profile.indeed.com/p/parkerv-kpk1504"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary hover:underline"
@@ -79,7 +75,6 @@ export default function Page() {
           <H2>Direct Contact Information</H2>
           <ul className="space-y-2">
             {" "}
-            {/* Removed list-disc for a cleaner look here */}
             <li>
               <strong>Personal Email:</strong>{" "}
               <a
@@ -114,10 +109,8 @@ export default function Page() {
         </section>
         <section className="space-y-4">
           <H2 className="text-center">Send Me a Message</H2>{" "}
-          {/* Centered form title */}
           <div className="mx-auto max-w-xl">
             {" "}
-            {/* Constrain form width and center it */}
             <ContactForm />
           </div>
         </section>

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default function ResumePage() {
-  const resumePdfUrl = "/Resume_Website.pdf"; // Path to your resume in the 'public' folder
+  const resumePdfUrl = "/Resume_Website.pdf";
 
   return (
     <main className="container mx-auto px-4 py-12 md:py-16 lg:py-20">

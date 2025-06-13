@@ -1,32 +1,19 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 // src/components/ChatbotUI.tsx
 "use client";
 
 //import { useChat, Message } from "ai/react"; // Core hook from Vercel AI SDK
 import { useChat, Message } from "@ai-sdk/react";
-import { Bot, Send, User, Loader2, X } from "lucide-react"; // Icons
+import { Bot, Send, Loader2, X } from "lucide-react";
 import { FormEvent, useRef, useEffect } from "react";
-import { useChatState } from "@/components/ChatContext"; //Import the custom hook
-
-// interface ChatbotUIProps {
-//   isOpen: boolean;
-//   onClose: () => void;
-// }
+import { useChatState } from "@/components/ChatContext";
 
 export default function ChatbotUI() {
   const { isChatOpen, toggleChat: onClose } = useChatState(); // Get state and toggle from context
 
-  const {
-    messages,
-    input,
-    handleInputChange,
-    handleSubmit,
-    isLoading,
-    error,
-    setMessages,
-  } = useChat({
-    api: "/api/chat", // Your backend API endpoint created in Phase 3
-  });
+  const { messages, input, handleInputChange, handleSubmit, isLoading, error } =
+    useChat({
+      api: "/api/chat",
+    });
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -49,7 +36,6 @@ export default function ChatbotUI() {
     // Main chat window container
     <div className="fixed right-4 bottom-4 z-[60] w-[calc(100%-2rem)] max-w-sm sm:right-8 sm:bottom-8 sm:max-w-md">
       {" "}
-      {/* Adjusted max-width */}
       <div className="bg-card border-border flex h-[70vh] max-h-[500px] flex-col overflow-hidden rounded-xl border shadow-xl sm:max-h-[550px]">
         {/* Header */}
         <div className="border-border bg-muted/50 flex items-center justify-between border-b p-3 sm:p-4">

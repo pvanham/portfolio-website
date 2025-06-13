@@ -1,14 +1,13 @@
 // src/app/page.tsx
 import Image from "next/image";
-import Link from "next/link"; // Import Link for navigation
+import Link from "next/link";
 import { H1 } from "@/components/ui/H1";
 import { H2 } from "@/components/ui/H2";
 import { Metadata } from "next";
-import me from "@/assets/me.png"; // Your profile picture
-import { Bot, ArrowRight, Download, MessageSquare } from "lucide-react"; // Icons
+import me from "@/assets/me.png";
+import { Bot, ArrowRight, Download, MessageSquare } from "lucide-react";
 
 export const metadata: Metadata = {
-  // Updated title to be more descriptive
   title: "Parker Van Ham - Computer Scientist & Full-Stack Developer",
   description:
     "Welcome to Parker Van Ham's portfolio. Explore projects, skills, and get in touch.",
@@ -58,8 +57,8 @@ export default function Home() {
               <Image
                 src={me}
                 alt="A photo of me"
-                height={320} // Slightly increased size
-                width={320} // Slightly increased size
+                height={320}
+                width={320}
                 className="border-primary/50 aspect-square justify-baseline rounded-full border-b-4 bg-white/5 object-cover shadow-xl" // Enhanced border
                 priority // Load image faster as it's LCP
               />

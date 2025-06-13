@@ -78,7 +78,7 @@ async function main() {
   const astraConfig: AstraLibArgs = {
     token: astraToken,
     endpoint: astraEndpoint,
-    collection: "portfolio_embeddings", // Name your collection
+    collection: "portfolio_embeddings",
     namespace: astraKeyspace,
     collectionOptions: {
       vector: {
