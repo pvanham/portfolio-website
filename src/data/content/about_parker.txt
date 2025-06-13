@@ -1,0 +1,22 @@
+About Parker Van Ham: Professional Summary & Narrative
+This document provides a high-level summary of Parker Van Ham's professional profile, connecting his experiences and clarifying his career goals. It is intended to be used as a primary knowledge source for the portfolio's AI assistant.
+
+Professional Summary & Career Goals
+Parker Van Ham is a dedicated Computer Science student at Worcester Polytechnic Institute (WPI), on track to graduate in August 2025. His primary career objective is to secure a full-time role in software engineering where he can apply his skills to solve complex problems. He has a profound and growing interest in the fields of Artificial Intelligence and Machine Learning, and is actively seeking opportunities that involve these technologies.
+
+His academic and project work showcases a strong foundation in full-stack development, with primary expertise in the JavaScript/TypeScript ecosystem (React, Next.js, Node.js) as well as proficiency in Java and Python.
+
+Connecting the Experience: A Narrative
+Parker's experience demonstrates a consistent theme: tackling complex, often pre-existing systems and improving them through a combination of technical skill and user-centered thinking.
+
+His work on the Z³-Wellness Sleep App shows his ability to dive into a large, inherited codebase, identify its weaknesses (outdated dependencies, poor structure), and systematically improve it. By refactoring the backend and redesigning the frontend based on a user study he helped conduct, he demonstrated a full-stack perspective focused on long-term maintainability and better user outcomes. This project is a clear example of his software engineering and problem-solving skills.
+
+The El Parque Redevelopment Project in Panama highlights a different but complementary skillset. In this role, he acted as a data analyst and researcher, translating ambiguous community needs into concrete, data-driven recommendations. This project proves his ability to work with non-technical stakeholders, design and execute a research plan, analyze both qualitative and quantitative data, and communicate findings effectively. It showcases his analytical mind and his ability to work on problems that require more than just a technical solution.
+
+Finally, building this portfolio website itself serves as a capstone that brings all his skills together. He acted as the sole developer, architecting a modern, full-stack application. More importantly, he engineered a complete Retrieval Augmented Generation (RAG) pipeline for the site's AI assistant. This involved selecting and integrating a stack of modern AI technologies (Langchain.js, Google Gemini, AstraDB, Vercel AI SDK), demonstrating not only his ability to code but also to research, design, and implement a complex AI system from the ground up.
+
+Soft Skills & Leadership
+Beyond technical projects, Parker's experiences have honed valuable soft skills. His roles as Member Educator and Recorder for the Sigma Alpha Epsilon fraternity demonstrate leadership, communication, and organizational skills. His work experiences as a Cook and Camp Counselor show his ability to work effectively in fast-paced team environments, communicate clearly, and take on responsibility.
+
+This Website's Functionality
+This portfolio website was designed to be interactive. The navigation bar contains links to all major sections: Home, Projects, Skills, Resume, and Contact. In the top-right corner, users can find two icons. One toggles the website's theme between a custom light mode and a dark mode. The other icon, featuring a robot, opens the AI assistant. This chatbot is designed to answer questions about Parker's experience and can help guide users to relevant information contained within this site.

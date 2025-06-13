@@ -105,7 +105,7 @@ const portfolioWebsiteData = {
     "Deployment: Vercel",
   ],
   // Add link to your public GitHub repo if you have one
-  repoLink: "https://github.com/your-username/your-repo-name",
+  repoLink: "https://github.com/pvanham/portfolio-website",
 };
 
 export default function ProjectsPage() {

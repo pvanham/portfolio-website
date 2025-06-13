@@ -26,15 +26,6 @@ export default function ChatbotUI() {
     setMessages,
   } = useChat({
     api: "/api/chat", // Your backend API endpoint created in Phase 3
-    // Optional: You can provide initial messages if needed
-    // initialMessages: [
-    //   { id: 'initial-1', role: 'assistant', content: "Hi! I'm Parker's AI assistant. How can I help you learn more about his portfolio?" }
-    // ],
-    // Optional: onError callback
-    // onError: (err) => {
-    //   console.error("Chat error:", err);
-    //   // Potentially display a user-friendly error message
-    // },
   });
 
   const messagesEndRef = useRef<HTMLDivElement>(null);

@@ -30,6 +30,8 @@ const skillsData: SkillCategory[] = [
     title: "Frameworks & Tools",
     skills: [
       { name: "React" },
+      { name: "Next.js" },
+      { name: "Tailwindcss" },
       { name: "Node.js" },
       { name: "Express" },
       { name: "MongoDB" },

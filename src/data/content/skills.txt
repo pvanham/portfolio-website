@@ -1,33 +1,54 @@
-The skills page provides a summary of Parker's technical skills.
-This page has navigation links to: Home, Projects, Skills, Resume, Contact.
-Key actions on this page include buttons for: Using The Chatbot(the little robot icon in the top right) and a Dark Mode Toggle(the moon/sun icon in the top right).
+Parker Van Ham's Technical Skills & Proficiencies
+This document provides a detailed overview of Parker Van Ham's technical skills. The goal is to give a clear picture of his capabilities and how they have been applied in various projects.
 
-Technical Skills
-A summary of my technical proficiencies across various domains
+Core Programming Languages
+Java: Used for foundational computer science coursework at WPI, covering Object-Oriented Programming (OOP) principles and data structures. It was also a key language for the initial development of a hospital service management application.
 
-Programming Languages 
-Java
-Python
-JavaScript
-TypeScript
-C
-HTML
-CSS
-SQL
+Python: Applied in various academic projects for scripting and data manipulation.
 
-Frameworks and Tools
-React
-Node.js
-Express
-MongoDB
-Git
-Microsoft Office
-Oracle
-SolidWorks
+JavaScript & TypeScript: These are Parker's primary languages for web development. He used JavaScript extensively and led an effort to refactor parts of the Z³-Wellness app's codebase into TypeScript to improve type safety, code uniformity, and long-term maintainability. This entire portfolio website is built with TypeScript.
 
-Concepts and Methodologies
-Object-Oriented Programming (OOP)
-Full-Stack Development
-Agile/Scrum Methodologies
-Web Development
-Database Systems & Management
+HTML & CSS: Foundational skills used across all web development projects, including building user interfaces and styling with modern frameworks like Tailwind CSS.
+
+SQL: Used for database querying and management, particularly with PostgreSQL in the Z³-Wellness project, to create views and historical queries for performance optimization.
+
+C: Utilized in systems-level programming coursework at WPI.
+
+AI/ML & Data
+Langchain.js: The core orchestration framework used to build the Retrieval Augmented Generation (RAG) pipeline for this portfolio's AI chatbot. Parker used it to create chains, manage prompts, and sequence the flow of data.
+
+Google Gemini: The primary Large Language Model (LLM) used for both generating text embeddings (text-embedding-004) and providing conversational responses (gemini-1.5-flash-latest) in the portfolio chatbot.
+
+Vector Databases & RAG: Parker engineered a complete RAG system that connects a user's query to a knowledge base stored in a vector database. This demonstrates a strong, practical understanding of modern AI application architecture.
+
+Data Analysis: A core skill demonstrated in the El Parque Redevelopment Project, where Parker analyzed survey data to identify community needs and provide data-driven recommendations to stakeholders.
+
+Frameworks, Libraries & Runtimes
+React & Next.js: Parker's primary framework for building modern, performant web applications. He has experience with the Next.js App Router, Server Actions, API Routes, and creating responsive UIs with React components. This entire portfolio is a testament to his Next.js skills.
+
+Node.js & Express: Used for backend development, specifically in creating the original backend architecture for the Z³-Wellness app. This included setting up servers, defining API endpoints, and handling database connections.
+
+Vercel AI SDK: Integrated into this portfolio to handle the frontend state management and UI streaming for the AI chatbot, enabling real-time, typewriter-style responses.
+
+Tailwind CSS: The primary CSS framework used for styling this portfolio. Parker has experience creating custom themes, implementing dark mode, and building responsive layouts with utility-first classes.
+
+Databases
+AstraDB (Vector Store): Used as the vector database for the portfolio chatbot. Parker set up and populated the database with embeddings of his portfolio content to enable efficient semantic search.
+
+MongoDB: Utilized as the primary database in some of his full-stack project work for storing application data.
+
+PostgreSQL: Applied in the Z³-Wellness project. Parker's team used it for data storage and created database views to speed up api calls.
+
+Oracle: Gained familiarity through database management coursework.
+
+Developer Tools & Methodologies
+Git: Used for version control in all major software projects, demonstrating experience with branching, merging, and collaborating with a team on a shared codebase.
+
+Agile/Scrum: Parker has practical experience working in Agile/Scrum environments from his WPI team projects, which involved iterative development, sprint planning, and collaborative problem-solving.
+
+Object-Oriented Programming (OOP): A foundational concept applied throughout his coursework, especially in Java and C.
+
+Full-Stack Development: Demonstrated through the Z³-Wellness project and this portfolio, where he worked on everything from the frontend UI to the backend logic, database, and AI pipeline.
+
+Website Features & Navigation
+This website has main navigation links for: Home, Projects, Skills, Resume, and Contact. The navbar also includes a button to toggle the website's theme between light and dark mode, as well as a button to open the AI assistant.

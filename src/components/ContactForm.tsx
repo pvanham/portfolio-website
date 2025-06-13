@@ -64,7 +64,7 @@ export default function ContactForm() {
           id="name"
           required
           defaultValue={state.fields?.name}
-          className="border-input bg-background text-foreground focus:border-primary focus:ring-primary mt-1 block w-full rounded-md px-3 py-2 shadow-sm sm:text-sm"
+          className="border-input bg-background text-foreground focus:border-primary focus:ring-primary mt-1 block w-full rounded-md border-2 px-3 py-2 shadow-sm sm:text-sm"
         />
       </div>
       <div>
@@ -80,7 +80,7 @@ export default function ContactForm() {
           id="email"
           required
           defaultValue={state.fields?.email}
-          className="border-input bg-background text-foreground focus:border-primary focus:ring-primary mt-1 block w-full rounded-md px-3 py-2 shadow-sm sm:text-sm"
+          className="border-input bg-background text-foreground focus:border-primary focus:ring-primary mt-1 block w-full rounded-md border-2 px-3 py-2 shadow-sm sm:text-sm"
         />
       </div>
       <div>
@@ -96,7 +96,7 @@ export default function ContactForm() {
           id="subject"
           required
           defaultValue={state.fields?.subject}
-          className="border-input bg-background text-foreground focus:border-primary focus:ring-primary mt-1 block w-full rounded-md px-3 py-2 shadow-sm sm:text-sm"
+          className="border-input bg-background text-foreground focus:border-primary focus:ring-primary mt-1 block w-full rounded-md border-2 px-3 py-2 shadow-sm sm:text-sm"
         />
       </div>
       <div>
@@ -112,7 +112,7 @@ export default function ContactForm() {
           rows={4}
           required
           defaultValue={state.fields?.message}
-          className="border-input bg-background text-foreground focus:border-primary focus:ring-primary mt-1 block w-full rounded-md px-3 py-2 shadow-sm sm:text-sm"
+          className="bg-background text-foreground focus:border-primary focus:ring-primary border-input mt-1 block w-full rounded-md border-2 px-3 py-2 shadow-sm sm:text-sm"
         />
       </div>
       <div>

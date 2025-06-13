@@ -27,13 +27,11 @@ export default function Home() {
               Hi, I&apos;m Parker 👋
             </H1>
             <p className="text-muted-foreground text-lg md:text-xl">
-              Driven by a passion for developing innovative software solutions,
-              I am a Computer Science student at WPI (graduating Aug 2025) with
-              a strong foundation in full-stack development and a variety of
-              programming languages. Actively working to learn more about AI,
-              machine learning, and their applications; I am eager to apply my
-              skills to real-world challenges and contribute to impactful
-              projects.
+              I am a Senior Computer Science student at WPI with a strong
+              foundation in full-stack development and a variety of programming
+              languages. Actively working to learn more about AI, machine
+              learning, and their applications; I am eager to apply my skills to
+              real-world challenges and contribute to impactful projects.
             </p>
             {/* Call-to-action buttons moved here for better flow */}
             <div className="flex flex-col justify-center space-y-3 pt-4 sm:flex-row sm:space-y-0 sm:space-x-4 md:justify-start">
