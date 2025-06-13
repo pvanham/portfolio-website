@@ -1,5 +1,6 @@
 import { H1 } from "@/components/ui/H1";
 import { H2 } from "@/components/ui/H2";
+import { Metadata } from "next";
 
 interface SkillItem {
   name: string;
@@ -11,6 +12,12 @@ interface SkillCategory {
   title: string;
   skills: SkillItem[];
 }
+
+export const metadata: Metadata = {
+  title: "Skills",
+  description:
+    "A detailed overview of the technical skills of Parker Van Ham, including Java, Python, TypeScript, React, Next.js, Langchain, and AI/ML concepts.",
+};
 
 const skillsData: SkillCategory[] = [
   {

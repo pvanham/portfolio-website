@@ -10,9 +10,9 @@ import pic2 from "../../../public/sleep_app_pic.png";
 import pic3 from "../../../public/el_parque_pic.png";
 
 export const metadata: Metadata = {
-  title: "Projects - Parker Van Ham",
+  title: "Projects",
   description:
-    "A showcase of key projects by Parker Van Ham, demonstrating skills in software development, data analysis, and user-centered design.",
+    "Explore the project portfolio of Parker Van Ham, including work on the Z³ Wellness Sleep App, the El Parque Redevelopment Project, and more.",
 };
 
 // Data for Z3 Wellness App (remains the same)

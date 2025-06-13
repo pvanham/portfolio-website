@@ -20,9 +20,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: {
     template: "%s | Parker Van Ham",
-    default: "Parker Van Ham",
+    default: "Parker Van Ham - Computer Scientist & Full-Stack Developer",
   },
-  description: "Check out my smart portfolio website with an ai chatbot",
+  description:
+    "The professional portfolio of Parker Van Ham, a Computer Science student at WPI specializing in full-stack development and AI. Explore projects, skills, and get in touch.",
 };
 
 export default function RootLayout({
