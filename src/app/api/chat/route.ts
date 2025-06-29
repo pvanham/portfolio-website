@@ -135,7 +135,8 @@ async function getAstraRetriever() {
 
   await vectorStore.initialize();
 
-  return vectorStore.asRetriever(3);
+  //number of retrieved documents
+  return vectorStore.asRetriever(5);
 }
 
 export async function POST(req: NextRequest) {
@@ -170,7 +171,7 @@ export async function POST(req: NextRequest) {
 
       model: "gemini-1.5-flash-latest",
 
-      temperature: 0.2,
+      temperature: 0.3,
 
       streaming: true,
     });

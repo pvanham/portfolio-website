@@ -19,6 +19,12 @@ Languages: Java, Python, JavaScript, TypeScript, C, HTML, CSS, SQL
 Frameworks/Tools: React, Node.js, Express, MongoDB, Git, Microsoft Office, Oracle, SolidWorks
 Concepts: Object-Oriented Programming, Full-Stack Development, Agile/Scrum, Web Development, Database Systems
 PROJECTS
+Personal Portfolio & AI Assistant – Full-Stack Developer / Sole Developer
+parkervanham.com 2025
+- Designed and developed a modern, full-stack porcolio website from scratch using Next.js, React, Typescript, and Tailwindcss
+- Engineered a Retrieval Augmented Generaaon (RAG) pipeline for an integrated AI chatbot, enabling it to answer quesaonsbased on website content.
+- Ualized Google Gemini for embeddings and conversaaonal responses, Langchain.js for orchestraaon, and AstraDB as thevector store for eﬃcient semanac search.
+- Deployed the applicaaon on Vercel, configuring producaon environment variables and SEO best pracaces.
 Z3 Wellness Sleep App – Full-Stack Developer
 WPI Major Qualifying Project, August 2023 – May 2024
 - Collaborated on improving a sleep and wellness tracking web app, continuing work from previous MQP teams.

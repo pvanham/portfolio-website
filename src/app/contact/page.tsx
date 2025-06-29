@@ -93,18 +93,6 @@ export default function Page() {
                 prvanham@wpi.edu
               </a>
             </li>
-            <li>
-              <strong>Address:</strong> 6 Hemlock Rd, Bow, NH, USA
-            </li>
-            <li>
-              <strong>Phone:</strong>{" "}
-              <a
-                href="tel:603-738-1695"
-                className="text-primary hover:underline"
-              >
-                (603) 738-1695
-              </a>
-            </li>
           </ul>
         </section>
         <section className="space-y-4">
