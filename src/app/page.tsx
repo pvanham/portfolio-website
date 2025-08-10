@@ -58,8 +58,8 @@ export default function Home() {
               <Image
                 src={me}
                 alt="A photo of me"
-                height={320}
-                width={320}
+                height={280}
+                width={280}
                 className="border-primary/50 aspect-square justify-baseline rounded-full border-b-4 bg-white/5 object-cover shadow-xl" // Enhanced border
                 priority // Load image faster as it's LCP
               />

@@ -9,6 +9,8 @@ import pic1 from "@/assets/site_screenshot.png";
 import pic2 from "../../../public/sleep_app_pic.png";
 import pic3 from "../../../public/el_parque_pic.png";
 
+import pic4 from "../../../public/bwh_pic.jpg";
+
 export const metadata: Metadata = {
   title: "Projects",
   description:
@@ -51,9 +53,7 @@ const elParqueData = {
   overview:
     "This Global Projects Program initiative, in partnership with Fundación Ciudad del Saber (City of Knowledge) in Panama City, aimed to evaluate and recommend improvements for 'El Parque,' a significant public green space. The project focused on understanding visitor demographics, usage patterns, and community needs to inform the park's ongoing development plan.",
   contributions: [
-    "Co-authored sections of the final report, including 'The Importance of Green Spaces' and methodology for 'Surveys'.",
-    "Authored the 'Suggested Improvements' section based on survey findings and the specific recommendation for 'Water Access'.",
-    "As part of the team, designed and distributed community surveys using various methods (fliers with QR codes, in-person intercepts, email lists via Typeform) to gather visitor feedback and demographic data.",
+    "Designed and distributed community surveys using various methods (fliers with QR codes, in-person intercepts, email lists via Typeform) to gather visitor feedback and demographic data.",
     "Analyzed quantitative and qualitative data from 173 survey responses to identify key trends, popular services, and areas for improvement within the park.",
     "Contributed to the development of four main prioritized recommendations for Ciudad del Saber: improving lighting, upgrading and adding bathrooms, increasing drinking water access, and enhancing communication with the park community.",
     "Delivered a final proposal to local stakeholders outlining data-driven insights and actionable recommendations.",
@@ -95,6 +95,29 @@ const portfolioWebsiteData = {
     "Deployment: Vercel",
   ],
   repoLink: "https://github.com/pvanham/portfolio-website",
+};
+
+// NEW: Data for the Brigham and Women's Hospital Application
+const bwhData = {
+  title: "Hospital System Application",
+  role: "Frontend Developer",
+  imageAlt: "Photo of Brigham and Women's Hospital",
+  overview:
+    "As part of a 10-person team for my Software Engineering course, I contributed to the design and development of a comprehensive hospital service management application for Brigham and Women’s Hospital.",
+  contributions: [
+    "Implemented a user-friendly meal delivery request system from the ground up.",
+    "Developed a dynamic search function to quickly locate hospital services and personnel.",
+    "Contributed to the creation of an interactive map feature for easy navigation within the hospital.",
+    "Oversaw the main dashboard's development, ensuring a consistent and intuitive UI design across all features.",
+  ],
+  technologies: [
+    "Java",
+    "JavaFX",
+    "JFoenix",
+    "Scenebuilder",
+    "CSS",
+    "Apache Derby",
+  ],
 };
 
 export default function ProjectsPage() {
@@ -250,6 +273,41 @@ export default function ProjectsPage() {
                 <FileText size={18} className="mr-2" />
                 View Full Report
               </a>
+            </div>
+          </div>
+        </section>
+
+        {/* NEW: BWH Hospital App Section */}
+        <section className="grid items-start gap-8 md:grid-cols-2 md:gap-12">
+          <div className="md:order-1">
+            <div className="bg-muted flex aspect-video items-center justify-center overflow-hidden rounded-lg shadow-lg">
+              <Image src={pic4} alt={bwhData.imageAlt} />
+            </div>
+          </div>
+          <div className="space-y-4 md:order-1">
+            <H2>{bwhData.title}</H2>
+            <H3 className="text-primary">{bwhData.role}</H3>
+            <p className="text-muted-foreground">{bwhData.overview}</p>
+            <details className="group">
+              <summary className="text-primary flex cursor-pointer list-none items-center font-medium hover:underline">
+                Key Contributions
+                <span className="ml-1 transition-transform duration-200 group-open:rotate-90">
+                  &#9656;
+                </span>
+              </summary>
+              <ul className="text-foreground mt-2 list-inside list-disc space-y-1 pl-4">
+                {bwhData.contributions.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
+              </ul>
+            </details>
+            <div>
+              <h4 className="text-foreground mt-3 mb-1 font-semibold">
+                Technologies Used:
+              </h4>
+              <p className="text-muted-foreground text-sm">
+                {bwhData.technologies.join(", ")}
+              </p>
             </div>
           </div>
         </section>

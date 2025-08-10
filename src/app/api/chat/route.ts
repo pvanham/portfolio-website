@@ -254,13 +254,36 @@ export async function POST(req: NextRequest) {
     });
   } catch (e: unknown) {
     console.error("Error in chat API:", e);
+    // Check for specific database connection errors.
+    if (
+      e instanceof Error &&
+      (e.message.toLowerCase().includes("timed out") ||
+        e.message.includes("503") ||
+        e.message.toLowerCase().includes("service unavailable"))
+    ) {
+      // If it's a known DB connection error, stream a user-friendly message
+      // back to the client, which will be displayed as a chatbot response.
+      const friendlyError =
+        "I'm having a bit of trouble connecting to my knowledge base right now. This can happen if it's waking up from a nap. Please try your question again in a few moments.";
 
-    let errorMessage = "An unexpected error occurred.";
+      const encoder = new TextEncoder();
+      const stream = new ReadableStream({
+        start(controller) {
+          controller.enqueue(encoder.encode(friendlyError));
+          controller.close();
+        },
+      });
 
-    if (e instanceof Error) {
-      errorMessage = e.message;
+      return new Response(stream, {
+        headers: { "Content-Type": "text/plain; charset=utf-8" },
+      });
+    } else {
+      // For all other errors, return a standard JSON error response.
+      const errorMessage =
+        e instanceof Error
+          ? e.message
+          : "An unexpected error occurred. Please try again.";
+      return Response.json({ error: errorMessage }, { status: 500 });
     }
-
-    return Response.json({ error: errorMessage }, { status: 500 });
   }
 }

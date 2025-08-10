@@ -76,3 +76,24 @@ Frontend: Next.js, React, TypeScript, Tailwind CSS, Vercel AI SDK
 Backend: Next.js API Routes (Edge Runtime)
 AI/ML: Langchain.js, Google Gemini (Embeddings & LLM)
 Database: AstraDB (Vector Store)
+
+Project: Hospital System Application
+Role: Frontend Developer
+Timeline: March 2022 (WPI Software Engineering Course Project)
+
+Project Overview:
+As part of a 10-person team for a WPI Software Engineering course, I contributed to the design and development of a comprehensive hospital service management application for Brigham and Women’s Hospital. The goal was to create a centralized desktop platform to streamline various internal services.
+
+My Contributions & Responsibilities:
+My primary focus was on developing intuitive and functional user-facing features.
+
+Meal Delivery System: I implemented a user-friendly meal delivery request system from the ground up, allowing staff to manage patient dietary needs efficiently.
+
+Search Functionality: I developed a dynamic search function to enable users to quickly locate hospital services, departments, and personnel.
+
+Interactive Map: I contributed to the creation of an interactive map feature to help with navigation within the large hospital complex.
+
+Dashboard & UI Consistency: I helped oversee the development of the main dashboard and worked to ensure a consistent and intuitive UI design was applied across all features of the application.
+
+Key Technologies Applied:
+This project was a deep dive into desktop application development using the Java ecosystem. The tech stack included Java, JavaFX for the user interface, JFoenix for enhanced UI components, Scenebuilder for visual layout design, CSS for styling, and Apache Derby for the local database.
