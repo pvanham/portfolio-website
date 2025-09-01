@@ -1,7 +1,7 @@
 // src/scripts/ingest-data.ts
 import { Document } from "@langchain/core/documents";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
-import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
+import { OpenAIEmbeddings } from "@langchain/openai";
 import {
   AstraDBVectorStore,
   AstraLibArgs,
@@ -40,12 +40,12 @@ async function loadAndProcessDocuments() {
 }
 
 async function main() {
-  const googleApiKey = process.env.GOOGLE_API_KEY;
+  const openaiApiKey = process.env.OPENAI_API_KEY;
   const astraToken = process.env.ASTRA_DB_APPLICATION_TOKEN;
   const astraEndpoint = process.env.ASTRA_DB_API_ENDPOINT;
   const astraKeyspace = process.env.ASTRA_DB_KEYSPACE;
 
-  if (!googleApiKey || !astraToken || !astraEndpoint || !astraKeyspace) {
+  if (!openaiApiKey || !astraToken || !astraEndpoint || !astraKeyspace) {
     console.error(
       "Missing required environment variables. Check your .env.local file.",
     );
@@ -69,11 +69,11 @@ async function main() {
     `Split ${rawDocs.length} documents into ${splitDocs.length} chunks.`,
   );
 
-  const embeddings = new GoogleGenerativeAIEmbeddings({
-    apiKey: googleApiKey,
-    modelName: "text-embedding-004",
+  const embeddings = new OpenAIEmbeddings({
+    apiKey: openaiApiKey,
+    modelName: "text-embedding-3-small", // Updated embedding model
   });
-  console.log("Initialized Google Gemini Embeddings.");
+  console.log("Initialized OpenAI Embeddings.");
 
   const astraConfig: AstraLibArgs = {
     token: astraToken,
@@ -82,7 +82,7 @@ async function main() {
     namespace: astraKeyspace,
     collectionOptions: {
       vector: {
-        dimension: 768,
+        dimension: 1536, // Updated dimension for text-embedding-3-small
         metric: "cosine",
       },
     },

@@ -59,11 +59,11 @@ Full-Stack Development: I designed, developed, and deployed the entire applicati
 
 UI/UX Design: I created a custom, fully responsive UI with Tailwind CSS, including a unique color theme with both light and dark modes. I iteratively designed key elements like the "emerging portal" effect on the homepage to create a memorable user experience.
 
-AI Chatbot Engineering: The site's main feature is a custom AI chatbot. I engineered the entire Retrieval Augmented Generation (RAG) pipeline to allow the chatbot to answer questions based on the content of this website.
+AI Chatbot Engineering: The site's main feature is a custom AI chatbot. I engineered the entire Retrieval Augmented Generation (RAG) pipeline to allow the chatbot to answer questions based on the content of this website. The pipeline uses a hybrid retrieval system combining BM25 (keyword-based) and vector semantic search (via EnsembleRetriever with weights 0.4/0.6 for balanced accuracy). Langchain.js orchestrates the flow, including HyDE (Hypothetical Document Embeddings) for query augmentation to improve relevance. Dynamic top-k retrieval (3-10 based on query length) optimizes for short vs. long questions. Sanitization handles special characters to prevent errors, with retries for robustness.
 
 Orchestration: Used Langchain.js to structure the flow of data from the user query to the final answer.
 
-AI & Embeddings: Integrated Google Gemini for both generating high-quality text embeddings and for providing conversational, context-aware responses.
+AI & Embeddings: Integrated OpenAI's GPT-4o-mini for conversational responses and text-embedding-3-small for embeddings.
 
 Vector Database: Set up and populated a vector store using AstraDB to allow for efficient, semantic searching of my portfolio's content.
 

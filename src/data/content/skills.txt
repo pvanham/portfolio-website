@@ -17,7 +17,9 @@ C: Utilized in systems-level programming coursework at WPI.
 AI/ML & Data
 Langchain.js: The core orchestration framework used to build the Retrieval Augmented Generation (RAG) pipeline for this portfolio's AI chatbot. Parker used it to create chains, manage prompts, and sequence the flow of data.
 
-Google Gemini: The primary Large Language Model (LLM) used for both generating text embeddings (text-embedding-004) and providing conversational responses (gemini-1.5-flash-latest) in the portfolio chatbot.
+OpenAI GPT-4o-mini: The primary Large Language Model (LLM) used for providing conversational responses in the portfolio chatbot.
+
+OpenAI Embeddings: Used text-embedding-3-small for generating high-quality text embeddings in the portfolio chatbot's RAG pipeline.
 
 Vector Databases & RAG: Parker engineered a complete RAG system that connects a user's query to a knowledge base stored in a vector database. This demonstrates a strong, practical understanding of modern AI application architecture.
 

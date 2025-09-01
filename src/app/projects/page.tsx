@@ -77,20 +77,20 @@ const portfolioWebsiteData = {
   imageUrl: "/placeholders/portfolio-website-mockup.png",
   imageAlt: "A mockup showing the portfolio website on different devices",
   overview:
-    "A personal portfolio website built from scratch to serve as a central hub for my projects, skills, and professional resume. The primary goal was to create a modern, performant, and visually appealing site while also integrating an advanced AI chatbot capable of answering questions about my professional background.",
+    "A personal portfolio website built from scratch to serve as a dynamic, interactive hub for my professional work. The primary goal was to create a modern, performant, and visually unique site that actively demonstrates my skills through an integrated AI chatbot powered by advanced RAG technology.",
   contributions: [
-    "Designed and implemented the entire application using a modern tech stack centered around Next.js and React with TypeScript.",
+    "Designed and implemented the entire application using a modern tech stack centered on Next.js and React with TypeScript.",
     "Developed a fully responsive UI with Tailwind CSS, including a custom theme with light and dark modes.",
     "Engineered and integrated an AI chatbot from the ground up, leveraging the Vercel AI SDK for streaming UI updates.",
     "Built a Retrieval Augmented Generation (RAG) pipeline using Langchain.js to enable the chatbot to answer questions based on website content.",
     "Set up a vector database using AstraDB to store and retrieve contextual information for the chatbot.",
-    "Utilized Google Gemini for both high-quality text embeddings and for generating conversational responses.",
-    "Managed project dependencies, resolved version conflicts (e.g., between Langchain community packages and the Vercel AI SDK), and debugged complex type errors.",
+    "Utilized OpenAI's GPT-4o-mini for conversational responses and text-embedding-3-small for generating high-quality embeddings.",
+    "Managed project dependencies, resolved version conflicts (e.g., between Langchain community packages and the Vercel AI SDK), and debugged complex type errors (e.g., enforcing strict types to avoid 'any' usage).",
   ],
   technologies: [
     "Frontend: Next.js, React, TypeScript, Tailwind CSS, Vercel AI SDK",
     "Backend: Next.js API Routes (Edge Runtime)",
-    "AI/ML: Langchain.js, Google Gemini (Embeddings & LLM)",
+    "AI/ML: Langchain.js, OpenAI GPT-4o-mini (LLM), OpenAI text-embedding-3-small (Embeddings)",
     "Database: AstraDB (Vector Store)",
     "Deployment: Vercel",
   ],
@@ -105,10 +105,10 @@ const bwhData = {
   overview:
     "As part of a 10-person team for my Software Engineering course, I contributed to the design and development of a comprehensive hospital service management application for Brigham and Women’s Hospital.",
   contributions: [
-    "Implemented a user-friendly meal delivery request system from the ground up.",
-    "Developed a dynamic search function to quickly locate hospital services and personnel.",
-    "Contributed to the creation of an interactive map feature for easy navigation within the hospital.",
-    "Oversaw the main dashboard's development, ensuring a consistent and intuitive UI design across all features.",
+    "Implemented a user-friendly meal delivery request system from the ground up, allowing staff to manage patient dietary needs efficiently.",
+    "Developed a dynamic search function to enable users to quickly locate hospital services, departments, and personnel.",
+    "Contributed to the creation of an interactive map feature to help with navigation within the large hospital complex.",
+    "Helped oversee the main dashboard development and ensure consistent UI design.",
   ],
   technologies: [
     "Java",

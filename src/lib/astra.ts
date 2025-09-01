@@ -1,7 +1,7 @@
 // src/lib/astra.ts
-"use server"; // This marks the file as server-only, resolving Node module imports
+"use server";
 
-import { OpenAIEmbeddings } from "@langchain/openai"; // New: For OpenAI embeddings
+import { OpenAIEmbeddings } from "@langchain/openai";
 import {
   AstraDBVectorStore,
   AstraLibArgs,
@@ -74,7 +74,7 @@ export async function getHybridRetriever(k: number = 5) {
         collection: "portfolio_embeddings",
         namespace: astraKeyspace,
         collectionOptions: {
-          vector: { dimension: 1536, metric: "cosine" }, // Updated dim for text-embedding-3-small
+          vector: { dimension: 1536, metric: "cosine" },
         },
       };
       vectorStoreInstance = new AstraDBVectorStore(

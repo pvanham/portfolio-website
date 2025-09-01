@@ -5,7 +5,7 @@ import { NextRequest } from "next/server";
 
 import { Message as VercelChatMessage, LangChainAdapter } from "ai";
 
-import { ChatOpenAI } from "@langchain/openai"; // Fixed: Use ChatOpenAI for chat models like GPT-5-mini
+import { ChatOpenAI } from "@langchain/openai";
 
 import { PromptTemplate } from "@langchain/core/prompts";
 
@@ -26,7 +26,7 @@ import {
 
 import retry from "promise-retry";
 
-// New: Import hybrid retriever
+// Import hybrid retriever
 import { getHybridRetriever } from "@/lib/astra";
 import { EnsembleRetriever } from "langchain/retrievers/ensemble";
 
@@ -79,11 +79,8 @@ const hydePrompt = PromptTemplate.fromTemplate(HYDE_PROMPT);
 
 // Sanitize query for BM25 (escape special chars)
 function sanitizeQuery(query: string): string {
-  // Escape regex special chars
   query = query.replace(/[\(\)\[\]\{\}\^\$\*\?\+\|]/g, "\\$&");
-  // Remove problematic flags or unterminated groups
   query = query.replace(/\/g/g, "");
-  // Trim and normalize
   return query.trim();
 }
 
@@ -148,7 +145,6 @@ export async function POST(req: NextRequest) {
       lc_serializable = true;
 
       constructor(private retriever: EnsembleRetriever) {
-        // Fixed: Specific type instead of any
         super();
       }
 

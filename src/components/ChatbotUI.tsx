@@ -65,7 +65,7 @@ export default function ChatbotUI() {
   return (
     <div className="fixed right-4 bottom-4 z-[60] w-[90vw] max-w-md transition-all duration-300 ease-in-out sm:w-auto sm:max-w-lg md:max-w-xl lg:max-w-2xl">
       <div className="bg-background border-border flex h-[80vh] max-h-[600px] flex-col overflow-hidden rounded-2xl border shadow-2xl sm:max-h-[700px]">
-        {/* Header - Cleaner with gradient and better spacing */}
+        {/* Header */}
         <div className="border-border from-primary/10 to-background flex items-center justify-between border-b bg-gradient-to-r p-3 sm:p-4">
           <div className="flex items-center space-x-3">
             <Bot className="text-primary h-6 w-6" />
@@ -91,7 +91,7 @@ export default function ChatbotUI() {
           </div>
         </div>
 
-        {/* Messages Area - Improved scrolling, padding, and message styling */}
+        {/* Messages Area */}
         <div
           className="bg-background flex-grow space-y-4 overflow-y-auto p-4 sm:p-5"
           aria-live="polite"
@@ -149,7 +149,7 @@ export default function ChatbotUI() {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Error Display Area - Cleaner styling */}
+        {/* Error Display Area */}
         {error && (
           <div className="border-border bg-destructive/10 text-destructive border-t p-3 text-sm">
             <p className="font-medium">
@@ -159,7 +159,7 @@ export default function ChatbotUI() {
           </div>
         )}
 
-        {/* Input Form - Improved focus and button styles */}
+        {/* Input Form */}
         <form
           onSubmit={handleFormSubmit}
           className="border-border bg-background flex items-center space-x-2 border-t p-3 sm:p-4"
