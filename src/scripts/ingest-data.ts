@@ -10,6 +10,7 @@ import { TextLoader } from "langchain/document_loaders/fs/text";
 import * as dotenv from "dotenv";
 import fs from "fs/promises";
 import path from "path";
+import retry from "promise-retry";
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env.local") });
 
@@ -60,7 +61,7 @@ async function main() {
   }
 
   const textSplitter = new RecursiveCharacterTextSplitter({
-    chunkSize: 1000,
+    chunkSize: 800, // Tuned down for better relevance
     chunkOverlap: 200,
   });
   const splitDocs = await textSplitter.splitDocuments(rawDocs);
@@ -74,7 +75,6 @@ async function main() {
   });
   console.log("Initialized Google Gemini Embeddings.");
 
-  // Explicitly type astraConfig with AstraLibArgs
   const astraConfig: AstraLibArgs = {
     token: astraToken,
     endpoint: astraEndpoint,
@@ -82,21 +82,66 @@ async function main() {
     namespace: astraKeyspace,
     collectionOptions: {
       vector: {
-        dimension: 768, // text-embedding-004 produces 768-dimension vectors
-        metric: "cosine", // This will now be correctly checked against the literal types
+        dimension: 768,
+        metric: "cosine",
       },
     },
   };
 
-  try {
-    console.log("Connecting to AstraDB and adding documents...");
-    await AstraDBVectorStore.fromDocuments(splitDocs, embeddings, astraConfig);
-    console.log(
-      `Successfully added ${splitDocs.length} chunks to AstraDB collection "portfolio_embeddings".`,
-    );
-  } catch (error) {
-    console.error("Error interacting with AstraDB:", error);
-  }
+  await retry(
+    async (retryFn, attempt) => {
+      try {
+        const vectorStore = new AstraDBVectorStore(embeddings, astraConfig);
+        await vectorStore.initialize();
+
+        // Check for existing data (with try-catch to handle non-existent collection)
+        let hasData = false;
+        try {
+          const existingDocs = await vectorStore.similaritySearch(
+            "test dummy query",
+            1,
+          );
+          hasData = existingDocs.length > 0;
+        } catch (checkError) {
+          console.error("Error checking for existing data:", checkError);
+          console.log("Collection does not exist yet; treating as empty.");
+        }
+
+        // Handle --clear flag
+        const clearFlag = process.argv.includes("--clear");
+        if (clearFlag) {
+          // Fetch all docs (blank query, high k assuming small DB)
+          const allDocs = await vectorStore.similaritySearch(" ", 100); // Adjust 100 if more chunks
+          const ids = allDocs.map((doc) => doc.metadata._id as string);
+          if (ids.length > 0) {
+            await vectorStore.delete({ ids });
+            console.log(`Deleted ${ids.length} documents from collection.`);
+          } else {
+            console.log("No documents to delete.");
+          }
+        } else if (hasData) {
+          console.log(
+            "Collection already has data; skipping ingestion to avoid duplicates. Use --clear to overwrite.",
+          );
+          return;
+        }
+
+        console.log("Connecting to AstraDB and adding documents...");
+        await AstraDBVectorStore.fromDocuments(
+          splitDocs,
+          embeddings,
+          astraConfig,
+        );
+        console.log(
+          `Successfully added ${splitDocs.length} chunks to AstraDB collection "portfolio_embeddings".`,
+        );
+      } catch (error) {
+        console.error(`Attempt ${attempt} failed:`, error);
+        retryFn(error);
+      }
+    },
+    { retries: 3, minTimeout: 1000 },
+  );
 }
 
 main().catch(console.error);

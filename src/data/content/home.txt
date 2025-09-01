@@ -3,7 +3,7 @@ This page has navigation links to: Home, Projects, Skills, Resume, Contact.
 Key actions on this page include buttons for: Using The Chatbot(the little robot icon in the top right), View My Projects, View Resume, Get In Touch, and a Dark Mode Toggle(the moon/sun icon in the top right).
 
 Hi, I'm Parker
-Driven by a passion for developing innovative software solutions, I am a Computer Science student at WPI (graduating Aug 2025) with a strong foundation in full-stack development and a variety of programming languages. 
+Driven by a passion for developing innovative software solutions, I am a software engineer with a strong foundation in full-stack development and a variety of programming languages. 
 Actively working to learn more about AI, machine learning, and their applications; I am eager to apply my skills to real-world challenges and contribute to impactful projects.
 
 Ask My AI Chatbot Anything About Me

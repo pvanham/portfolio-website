@@ -2,7 +2,7 @@ About Parker Van Ham: Professional Summary & Narrative
 This document provides a high-level summary of Parker Van Ham's professional profile, connecting his experiences and clarifying his career goals. It is intended to be used as a primary knowledge source for the portfolio's AI assistant.
 
 Professional Summary & Career Goals
-Parker Van Ham is a dedicated Computer Science student at Worcester Polytechnic Institute (WPI), on track to graduate in August 2025. His primary career objective is to secure a full-time role in software engineering where he can apply his skills to solve complex problems. He has a profound and growing interest in the fields of Artificial Intelligence and Machine Learning, and is actively seeking opportunities that involve these technologies.
+Parker Van Ham is a dedicated Computer Science student at Worcester Polytechnic Institute (WPI), on track to graduate in 2025. He is available to start full-time work now. His primary career objective is to secure a full-time role in software engineering where he can apply his skills to solve complex problems. He has a profound and growing interest in the fields of Artificial Intelligence and Machine Learning, and is actively seeking opportunities that involve these technologies.
 
 His academic and project work showcases a strong foundation in full-stack development, with primary expertise in the JavaScript/TypeScript ecosystem (React, Next.js, Node.js) as well as proficiency in Java and Python.
 

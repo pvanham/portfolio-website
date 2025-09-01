@@ -1,13 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // src/app/api/chat/route.ts
 
 import { NextRequest } from "next/server";
 
 import { Message as VercelChatMessage, LangChainAdapter } from "ai";
 
-import {
-  ChatGoogleGenerativeAI,
-  GoogleGenerativeAIEmbeddings,
-} from "@langchain/google-genai";
+import { ChatOpenAI } from "@langchain/openai"; // Fixed: Use ChatOpenAI for chat models like GPT-5-mini
 
 import { PromptTemplate } from "@langchain/core/prompts";
 
@@ -16,9 +14,7 @@ import { Document } from "@langchain/core/documents";
 import {
   RunnableSequence,
   RunnablePassthrough,
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  RunnablePick,
+  Runnable,
 } from "@langchain/core/runnables";
 
 import { StringOutputParser } from "@langchain/core/output_parsers";
@@ -28,7 +24,11 @@ import {
   AstraLibArgs,
 } from "@langchain/community/vectorstores/astradb";
 
-export const runtime = "edge";
+import retry from "promise-retry";
+
+// New: Import hybrid retriever
+import { getHybridRetriever } from "@/lib/astra";
+import { EnsembleRetriever } from "langchain/retrievers/ensemble";
 
 interface ChatRequestBody {
   messages?: VercelChatMessage[];
@@ -36,115 +36,65 @@ interface ChatRequestBody {
 
 const formatChatHistory = (messages: VercelChatMessage[]): string => {
   return messages
-
     .map((message) => `${message.role}: ${message.content}`)
-
     .join("\n");
 };
 
-// --- PROMPT TEMPLATES ---
+// --- IMPROVED PROMPT TEMPLATES ---
 
-const CONDENSE_QUESTION_TEMPLATE = `Given the following conversation and a follow up question, rephrase the follow up question to be a standalone question, in its original language.
+const CONDENSE_QUESTION_TEMPLATE = `Given the following conversation history and a follow-up question, rephrase the follow-up to be a standalone question that captures all relevant context from the history. Preserve key details like names, topics, or specifics mentioned earlier.
 
+Examples:
+History: User: Tell me about Parker's projects. Assistant: Parker worked on the Z3 Wellness app and El Parque.
+Follow-up: What was his role in the first one?
+Standalone: What was Parker's role in the Z3 Wellness app?
 
-
-Chat History:
-
-{chat_history}
-
-Follow Up Input: {question}
-
+History: {chat_history}
+Follow-up: {question}
 Standalone question:`;
 
 const condenseQuestionPrompt = PromptTemplate.fromTemplate(
   CONDENSE_QUESTION_TEMPLATE,
 );
 
-const ANSWER_TEMPLATE = `You are a helpful AI assistant for Parker Van Ham's personal portfolio website.
+const ANSWER_TEMPLATE = `You are a helpful AI assistant for Parker Van Ham's personal portfolio website. Use the following pieces of retrieved context to answer the question. If you don't know the answer or the context doesn't contain it, just say that you don't have enough information. Be friendly, concise, and professional. Keep responses to 3-5 sentences max.
 
-Your goal is to answer questions about Parker based *only* on the provided context.
+Examples:
+Question: What is Parker's education?
+Context: Parker graduated from WPI in Computer Science.
+Answer: Parker is a recent Computer Science graduate from Worcester Polytechnic Institute (WPI).
 
-If the context doesn't contain the answer, state that you don't have enough information from the website.
-
-Be friendly, concise, and professional.
-
-
-
-CONTEXT:
-
-{context}
-
-
-
-QUESTION:
-
-{question}
-
-
-
-ANSWER:
-
-`;
+Question: {question}
+Context: {context}
+Answer:`;
 
 const answerPrompt = PromptTemplate.fromTemplate(ANSWER_TEMPLATE);
 
-// New template for HyDE
-
 const HYDE_PROMPT = `Please write a concise, hypothetical answer to the user's question. This answer should be a well-structured paragraph that you would expect to find in the document containing the real answer.
 
-
-
 Question: {question}
-
 Hypothetical Answer:`;
 
 const hydePrompt = PromptTemplate.fromTemplate(HYDE_PROMPT);
 
-// --- HELPER FUNCTIONS & MAIN LOGIC ---
-
-async function getAstraRetriever() {
-  const googleApiKey = process.env.GOOGLE_API_KEY!;
-
-  const astraToken = process.env.ASTRA_DB_APPLICATION_TOKEN!;
-
-  const astraEndpoint = process.env.ASTRA_DB_API_ENDPOINT!;
-
-  const astraKeyspace = process.env.ASTRA_DB_KEYSPACE!;
-
-  const embeddings = new GoogleGenerativeAIEmbeddings({
-    apiKey: googleApiKey,
-
-    modelName: "text-embedding-004",
-  });
-
-  const astraConfig: AstraLibArgs = {
-    token: astraToken,
-
-    endpoint: astraEndpoint,
-
-    collection: "portfolio_embeddings",
-
-    namespace: astraKeyspace,
-
-    collectionOptions: {
-      vector: { dimension: 768, metric: "cosine" },
-    },
-  };
-
-  const vectorStore = new AstraDBVectorStore(embeddings, astraConfig);
-
-  await vectorStore.initialize();
-
-  //number of retrieved documents
-  return vectorStore.asRetriever(5);
+// Sanitize query for BM25 (escape special chars)
+function sanitizeQuery(query: string): string {
+  // Escape regex special chars
+  query = query.replace(/[\(\)\[\]\{\}\^\$\*\?\+\|]/g, "\\$&");
+  // Remove problematic flags or unterminated groups
+  query = query.replace(/\/g/g, "");
+  // Trim and normalize
+  return query.trim();
 }
+
+// --- HELPER FUNCTIONS & MAIN LOGIC ---
 
 export async function POST(req: NextRequest) {
   try {
-    const googleApiKey = process.env.GOOGLE_API_KEY;
+    const openaiApiKey = process.env.OPENAI_API_KEY;
 
-    if (!googleApiKey) {
-      throw new Error("Missing GOOGLE_API_KEY environment variable.");
+    if (!openaiApiKey) {
+      throw new Error("Missing OPENAI_API_KEY environment variable.");
     }
 
     const body = (await req.json()) as ChatRequestBody;
@@ -161,108 +111,134 @@ export async function POST(req: NextRequest) {
     if (!currentMessageContent) {
       return Response.json(
         { error: "No message content provided." },
-
         { status: 400 },
       );
     }
 
-    const llm = new ChatGoogleGenerativeAI({
-      apiKey: googleApiKey,
-
-      model: "gemini-1.5-flash-latest",
-
-      temperature: 0.3,
-
+    const llm = new ChatOpenAI({
+      apiKey: openaiApiKey,
+      modelName: "gpt-4o-mini",
+      // Removed temperature to use default (1.0) - fixes unsupported value error
       streaming: true,
     });
 
-    const retriever = await getAstraRetriever();
+    // Dynamic k based on query length
+    const queryLength = currentMessageContent.length;
+    const dynamicK = Math.min(10, Math.max(3, Math.floor(queryLength / 50)));
+
+    const retriever = await retry(
+      async (retryFn, attempt) => {
+        try {
+          return await getHybridRetriever(dynamicK);
+        } catch (error) {
+          console.error(`Retriever attempt ${attempt} failed:`, error);
+          retryFn(error);
+        }
+      },
+      { retries: 5, minTimeout: 1000 },
+    );
+
+    if (!retriever) {
+      throw new Error("Failed to initialize retriever after retries.");
+    }
+
+    // Custom Runnable for sanitized retrieval
+    class SanitizedRetriever extends Runnable<string, Document[]> {
+      lc_namespace = ["custom", "retrievers", "sanitized"];
+      lc_serializable = true;
+
+      constructor(private retriever: EnsembleRetriever) {
+        // Fixed: Specific type instead of any
+        super();
+      }
+
+      async invoke(query: string): Promise<Document[]> {
+        const sanitized = sanitizeQuery(query);
+        return this.retriever.invoke(sanitized);
+      }
+    }
+
+    const sanitizedRetriever = new SanitizedRetriever(retriever);
 
     // The chain to generate a hypothetical document for retrieval
-
     const hydeRetrieverChain = RunnableSequence.from([
       hydePrompt,
-
       llm,
-
       new StringOutputParser(),
-
-      retriever,
+      sanitizedRetriever,
     ]);
 
     // The main chain for processing the request
-
     const conversationalChain = RunnableSequence.from([
-      // Pass through original inputs and add a 'standalone_question' key
-
       RunnablePassthrough.assign({
         standalone_question: (input: {
           question: string;
-
           chat_history: string;
         }) => {
           if (input.chat_history) {
-            // If history exists, condense the question
-
             const condenseQuestionChain = RunnableSequence.from([
               condenseQuestionPrompt,
-
               llm,
-
               new StringOutputParser(),
             ]);
-
             return condenseQuestionChain.invoke(input);
           }
-
-          // Otherwise, use the original question
-
           return input.question;
         },
       }),
-
-      // Use the 'standalone_question' to retrieve context via the HyDE chain
-
       RunnablePassthrough.assign({
-        context: (input) =>
-          hydeRetrieverChain
-
-            .invoke({ question: input.standalone_question })
-
-            .then((docs: Document[]) =>
-              docs.map((doc) => doc.pageContent).join("\n\n"),
-            ),
+        context: async (input) => {
+          let docs;
+          try {
+            docs = await hydeRetrieverChain.invoke({
+              question: input.standalone_question,
+            });
+          } catch (hydeError) {
+            console.error(
+              "HyDE chain failed; falling back to direct retrieval:",
+              hydeError,
+            );
+            docs = await retriever.invoke(input.standalone_question);
+          }
+          if (docs.length === 0) {
+            console.log("No docs retrieved; using standalone query fallback.");
+            docs = await retriever.invoke(input.standalone_question);
+          }
+          return docs.map((doc) => doc.pageContent).join("\n\n");
+        },
       }),
-
-      // Finally, generate the answer using the original question and retrieved context
-
       answerPrompt,
-
       llm,
     ]);
 
-    const langchainStream = await conversationalChain.stream({
-      question: currentMessageContent,
+    const langchainStream = await retry(
+      async (retryFn, attempt) => {
+        try {
+          return await conversationalChain.stream({
+            question: currentMessageContent,
+            chat_history: formattedPreviousChatHistory,
+          });
+        } catch (error) {
+          console.error(`Chain attempt ${attempt} failed:`, error);
+          retryFn(error);
+        }
+      },
+      { retries: 5, minTimeout: 1000 },
+    );
 
-      chat_history: formattedPreviousChatHistory,
-    });
-
-    const vercelAIStream = LangChainAdapter.toDataStream(langchainStream);
+    const vercelAIStream = LangChainAdapter.toDataStream(langchainStream!);
 
     return new Response(vercelAIStream, {
       headers: { "Content-Type": "text/plain; charset=utf-8" },
     });
   } catch (e: unknown) {
     console.error("Error in chat API:", e);
-    // Check for specific database connection errors.
     if (
       e instanceof Error &&
       (e.message.toLowerCase().includes("timed out") ||
         e.message.includes("503") ||
         e.message.toLowerCase().includes("service unavailable"))
     ) {
-      // If it's a known DB connection error, stream a user-friendly message
-      // back to the client, which will be displayed as a chatbot response.
       const friendlyError =
         "I'm having a bit of trouble connecting to my knowledge base right now. This can happen if it's waking up from a nap. Please try your question again in a few moments.";
 
@@ -278,7 +254,6 @@ export async function POST(req: NextRequest) {
         headers: { "Content-Type": "text/plain; charset=utf-8" },
       });
     } else {
-      // For all other errors, return a standard JSON error response.
       const errorMessage =
         e instanceof Error
           ? e.message
