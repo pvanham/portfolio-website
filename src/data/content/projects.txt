@@ -1,0 +1,103 @@
+Parker Van Ham's Project Details
+This document provides detailed information about the key projects developed by Parker Van Ham.
+
+
+Project: Z³-Wellness Sleep App
+Role: Full-Stack Developer & Researcher
+Timeline: August 2023 - May 2024 (WPI Major Qualifying Project)
+
+Project Overview:
+The Z³-Wellness application is a web-based platform designed to help college students monitor and improve their sleep and overall wellness patterns. As part of a large, multi-term team, my role was to continue the development from previous project groups, focusing on enhancing usability and core functionality based on the findings of a comprehensive user study we conducted.
+
+My Contributions & Responsibilities:
+I was deeply involved in both the research and development phases. My goal was not just to add features, but to improve the application's foundation for future teams.
+
+User-Centered Design: I played a key role in conducting a user study with over 75 initial participants to identify critical usability issues. The feedback gathered directly informed our redesign priorities, ensuring our development efforts were focused on the most impactful changes for users.
+
+Backend Overhaul: I contributed significantly to a full backend refactor. We transformed the original codebase from two large, unorganized files into a modern, scalable CRUD (Create, Read, Update, Delete) architecture. This was crucial for improving the maintainability and stability of the system.
+
+Frontend Development: I actively worked on the frontend redesign, which involved reformatting components using TypeScript for better type safety, implementing a new, more intuitive navigation bar, and developing customizable data visualization graphs for the main dashboard. A key focus was improving the mobile web experience based on user feedback.
+
+Codebase Modernization: I was responsible for identifying and updating numerous outdated dependencies and libraries that were causing bugs and instability. This was a critical first step that allowed our team to build new features on a solid foundation.
+
+Feature Implementation: I helped implement a key new feature: calendar integration with both Outlook and Google Calendar. This allowed users to track their stress levels in correlation with their scheduled events, adding significant value to the application's wellness tracking capabilities.
+
+Key Technologies Applied for The Z3 Wellness App:
+This project was a practical application of my skills in Full-Stack Development, user-centered design, and Agile methodologies. The tech stack included React, TypeScript, JavaScript, Node.js, PostgreSQL, and Firebase for authentication and analytics.
+
+
+Project: El Parque Redevelopment, Panama
+Role: Data Analyst & Community Researcher
+Timeline: Fall 2022 (WPI Global Projects Program)
+
+Project Overview:
+This international project was a partnership with the Ciudad del Saber (City of Knowledge) foundation in Panama City. Our team was tasked with providing data-driven recommendations for the redevelopment of "El Parque," a large and vital public green space. The objective was to understand who was using the park, how they were using it, and what improvements the community wanted to see to increase visitor satisfaction and foot traffic.
+
+My Contributions & Responsibilities:
+As a Data Analyst and Researcher, my focus was on bridging the gap between the community and the park's stakeholders.
+
+Authored Key Report Sections: I was a primary author for several critical sections of the final proposal delivered to our sponsors. I researched and wrote "The Importance of Green Spaces" and authored the "Suggested Improvements" section, which synthesized our findings into actionable advice.
+
+Survey Design & Data Collection: I was part of the team that designed and deployed community surveys using a multi-pronged approach (QR codes, in-person intercepts, and email lists with Typeform) to maximize our response rate in a limited timeframe.
+
+Data Analysis: I analyzed the quantitative and qualitative data from over 170 survey responses. This involved identifying demographic trends, usage patterns, and the most frequently requested improvements, such as better lighting, more bathrooms, and improved water access.
+
+Formulating Recommendations: I translated the raw data into the four main, prioritized recommendations that formed the core of our final deliverable, providing a clear roadmap for the park's management.
+
+Stakeholder Communication: My work directly contributed to the final proposal that was presented to the Ciudad del Saber foundation, demonstrating our ability to deliver professional, data-driven insights.
+
+Skills Demonstrated:
+This project showcased my abilities in Data Analysis, Community-Based Research, Survey Design (Typeform), Qualitative & Quantitative Analysis, Stakeholder Communication, and Technical Writing.
+
+
+Project: Personal Portfolio Website (This Website)
+Role: Sole Full-Stack Developer
+
+Project Overview:
+This website was built from the ground up to serve as a dynamic, interactive hub for my professional work. The primary goal was to create a modern, performant, and visually unique portfolio that not only lists my skills and projects but actively demonstrates them. The core feature is the integrated AI assistant, designed to provide visitors with an intuitive way to learn about me.
+
+My Contributions & Key Features:
+
+Full-Stack Development: I designed, developed, and deployed the entire application using a modern tech stack centered on Next.js and the App Router.
+
+UI/UX Design: I created a custom, fully responsive UI with Tailwind CSS, including a unique color theme with both light and dark modes. I iteratively designed key elements like the "emerging portal" effect on the homepage to create a memorable user experience.
+
+AI Chatbot Engineering(How it works): The site's main feature is a custom AI chatbot. I engineered the entire Retrieval Augmented Generation (RAG) pipeline to allow the chatbot to answer questions based on the content of this website. The pipeline uses a hybrid retrieval system combining BM25 (keyword-based) and vector semantic search (via EnsembleRetriever with weights 0.4/0.6 for balanced accuracy). Langchain.js orchestrates the flow, including HyDE (Hypothetical Document Embeddings) for query augmentation to improve relevance. Dynamic top-k retrieval (3-10 based on query length) optimizes for short vs. long questions. Sanitization handles special characters to prevent errors, with retries for robustness.
+
+Orchestration: Used Langchain.js to structure the flow of data from the user query to the final answer.
+
+AI & Embeddings: Integrated OpenAI's GPT-4o-mini for conversational responses and text-embedding-3-small for embeddings.
+
+Vector Database: Set up and populated a vector store using AstraDB to allow for efficient, semantic searching of my portfolio's content.
+
+Streaming UI: Leveraged the Vercel AI SDK to stream the chatbot's responses, creating a fluid and real-time user experience.
+
+Problem-Solving: A significant part of this project involved navigating the complexities of a rapidly evolving AI ecosystem. I successfully resolved numerous dependency conflicts, build tool errors, and advanced TypeScript type issues to ensure all services worked together harmoniously.
+
+Key Technologies Applied For This Website:
+Frontend: Next.js, React, TypeScript, Tailwind CSS, Vercel AI SDK
+Backend: Next.js API Routes (Edge Runtime)
+AI/ML: Langchain.js, OpenAI (Embeddings & LLM)
+Database: AstraDB (Vector Store)
+
+
+Project: Hospital System Application
+Role: Frontend Developer
+Timeline: March 2022 (WPI Software Engineering Course Project)
+
+Project Overview:
+As part of a 10-person team for a WPI Software Engineering course, I contributed to the design and development of a comprehensive hospital service management application for Brigham and Women’s Hospital. The goal was to create a centralized desktop platform to streamline various internal services.
+
+My Contributions & Responsibilities:
+My primary focus was on developing intuitive and functional user-facing features.
+
+Meal Delivery System: I implemented a user-friendly meal delivery request system from the ground up, allowing staff to manage patient dietary needs efficiently.
+
+Search Functionality: I developed a dynamic search function to enable users to quickly locate hospital services, departments, and personnel.
+
+Interactive Map: I contributed to the creation of an interactive map feature to help with navigation within the large hospital complex.
+
+Dashboard & UI Consistency: I helped oversee the development of the main dashboard and worked to ensure a consistent and intuitive UI design was applied across all features of the application.
+
+Key Technologies Used for The Hospital System Application:
+This project was a deep dive into desktop application development using the Java ecosystem. The tech stack included Java, JavaFX for the user interface, JFoenix for enhanced UI components, Scenebuilder for visual layout design, CSS for styling, and Apache Derby for the local database.

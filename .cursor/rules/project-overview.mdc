@@ -1,0 +1,30 @@
+---
+description: Core project context, stack, and folder conventions
+alwaysApply: true
+---
+
+# Portfolio Website — Project Overview
+
+## Stack
+- **Next.js 16** (App Router), **React 19**, **TypeScript 5** (strict mode)
+- **Tailwind CSS 4** for styling, **next-themes** for dark mode
+- **Vercel AI SDK** + **LangChain** + **AstraDB** for RAG-based chatbot
+- **Resend** + **react-email** for contact form, **Zod** for validation
+- **Upstash** for rate limiting
+
+## Folder Structure
+```
+src/
+  app/          # Next.js App Router pages + API routes + server actions
+  components/   # Reusable components (ui/ for primitives, email/ for templates)
+  lib/          # Shared utilities and external client setup (astra.ts, utils.ts)
+  data/content/ # Plain-text files used as RAG knowledge base
+  assets/       # Static images
+  scripts/      # One-off scripts (data ingestion)
+```
+
+## General Rules
+- Always use the `@/*` path alias for internal imports (never relative `../`)
+- Keep pages in `app/`, shared UI in `components/`, helpers in `lib/`
+- Never use `any` — use proper TypeScript types or generics
+- No narrating code comments; only explain non-obvious intent or trade-offs

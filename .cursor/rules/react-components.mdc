@@ -1,0 +1,40 @@
+---
+description: React component and TypeScript conventions
+globs: **/*.tsx
+alwaysApply: false
+---
+
+# React Component Conventions
+
+## Client vs. Server
+- Default to Server Components — only add `"use client"` when using hooks, browser APIs, or event handlers
+- Add `"use server"` to server actions files (`actions.tsx`)
+
+## Component Structure
+- Functional components only, PascalCase filenames and component names
+- Export `metadata` from page files, default-export the component
+- Type props explicitly; use `React.HTMLProps<HTMLElement>` for passthrough HTML props
+
+```tsx
+// ✅ GOOD — UI primitive with class merging
+export function H1({ className, children, ...props }: React.HTMLProps<HTMLHeadingElement>) {
+  return <h1 className={cn("text-4xl font-bold", className)} {...props}>{children}</h1>;
+}
+
+// ❌ BAD — untyped props, no class merging
+export function H1(props: any) {
+  return <h1 className="text-4xl font-bold">{props.children}</h1>;
+}
+```
+
+## Imports Order
+1. React / external libraries
+2. Next.js (`next/link`, `next/image`, etc.)
+3. Internal components (`@/components/...`)
+4. Internal utilities / lib (`@/lib/...`)
+5. Types (`import type { ... }`)
+
+## State & Context
+- Use React Context only for lightweight global UI state (e.g., chat open/close)
+- Prefer server actions + `useActionState` for form handling over client-side fetch
+- Persist chat messages in `localStorage`, not in global state

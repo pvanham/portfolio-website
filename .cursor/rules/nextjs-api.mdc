@@ -1,0 +1,46 @@
+---
+description: Next.js API routes, server actions, and data layer conventions
+globs: src/app/api/**,src/app/actions*,src/lib/**,src/scripts/**
+alwaysApply: false
+---
+
+# Next.js API & Data Layer Conventions
+
+## API Routes (`app/api/`)
+- Always validate input with Zod before processing
+- Apply rate limiting via Upstash on any public endpoint
+- Return structured JSON errors with appropriate HTTP status codes
+- Use streaming responses (`streamText`) for AI endpoints
+
+```ts
+// ✅ GOOD — handle errors explicitly
+try {
+  const result = await riskyOperation();
+  return result;
+} catch (error) {
+  console.error("Operation failed:", error);
+  return new Response(JSON.stringify({ error: "Something went wrong" }), { status: 500 });
+}
+
+// ❌ BAD — swallow errors silently
+try {
+  await riskyOperation();
+} catch {}
+```
+
+## Server Actions (`actions.tsx`)
+- Validate with Zod, return a typed `FormState` object (never throw to the client)
+- Mark file with `"use server"` directive
+
+## External Clients (`lib/`)
+- Use the singleton pattern for expensive resources (embeddings, vector store)
+- Use `promise-retry` for network calls that may be flaky (AstraDB, OpenAI)
+
+## RAG / AI
+- Content knowledge base lives in `src/data/content/*.txt` — edit those files to update what the chatbot knows
+- Retrieval uses hybrid BM25 + vector (40/60 weights); do not change weights without testing
+- HyDE is enabled by default; falls back to direct retrieval on error
+
+## TypeScript
+- Strict mode is on — no `any`, no `@ts-ignore` without a comment explaining why
+- Use `import type` for type-only imports

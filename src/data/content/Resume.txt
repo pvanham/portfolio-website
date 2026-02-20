@@ -1,0 +1,62 @@
+The resume page provides a button to download a pdf of Parker's resume. It also include an embedded pdf viewer so users can view the resume online.
+This page has navigation links to: Home, Projects, Skills, Resume, Contact.
+Key actions on this page include buttons for: Downloading a pdf of Parker's resume, Using The Chatbot(the little robot icon in the top right), and a Dark Mode Toggle(the moon/sun icon in the top right).
+
+My Resume
+Here you can view my Resume online or download a pdf copy
+
+Download Resume (PDF)
+
+View Online (below is my resume)
+PARKER VAN HAM | parkervanham@gmail.com | (603) 738-1695
+6 Hemlock rd, Bow NH | LinkedIn: www.linkedin.com/in/parker-van-ham-8545ab220
+EDUCATION
+Worcester Polytechnic Institute (WPI) – Worcester, MA
+Bachelor of Science in Computer Science, graduating August 2025
+GPA: 3.2 / 4.0
+TECHNICAL SKILLS
+Languages: Java, Python, JavaScript, TypeScript, C, HTML, CSS, SQL
+Frameworks/Tools: React, Node.js, Express, MongoDB, Git, Microsoft Office, Oracle, SolidWorks
+Concepts: Object-Oriented Programming, Full-Stack Development, Agile/Scrum, Web Development, Database Systems
+PROJECTS
+Personal Portfolio & AI Assistant – Full-Stack Developer / Sole Developer
+parkervanham.com 2025
+- Designed and developed a modern, full-stack portfolio website from scratch using Next.js, React, Typescript, and Tailwindcss
+- Engineered a Retrieval Augmented Generation (RAG) pipeline for an integrated AI chatbot, enabling it to answer questions based on website content.
+- Utilized OpenAI's GPT-4o-mini for conversational responses and text-embedding-3-small for embeddings, with Langchain.js for orchestration and AstraDB as the vector store for efficient semantic search.
+- Deployed the application on Vercel, configuring production environment variables and SEO best practices.
+Z3 Wellness Sleep App – Full-Stack Developer
+WPI Major Qualifying Project, August 2023 – May 2024
+- Collaborated on improving a sleep and wellness tracking web app, continuing work from previous MQP teams.
+- Conducted a user study to identify usability issues and inform redesign.
+- Developed a new frontend UI, strengthened backend functionality, and implemented improved error handling.
+- Reorganized codebase to enhance maintainability and support future development.
+- Final report: https://digital.wpi.edu/concern/student_works/2z10wv496?locale=zh
+El Parque Redevelopment Project – Panama City, Panama – Data Analyst / Community Researcher
+Global Projects Program, Fall 2022
+- Partnered with Fundación Ciudad del Saber to evaluate and recommend improvements to a public park.
+- Conducted and analyzed community surveys, and assessed geographical and financial data.
+- Delivered a final proposal to local stakeholders, including prioritized infrastructure improvements.
+- Final report: https://digital.wpi.edu/concern/student_works/br86b6951?locale=en
+Hospital System Application for Brigham and Women’s Hospital – Frontend Developer
+Software Engineering Course Project, March 2022
+- Worked in a team of 10 to design a hospital service management app.
+- Implemented a meal delivery system, a search function, and contributed to an interactive map feature.
+- Helped oversee main dashboard development and ensure consistent UI design.
+JOB EXPERIENCE
+Common Man Roadside – Cook, Hooksett, NH
+May 2023 – Present
+- Prepared and managed a variety of dishes in a fast-paced kitchen environment.
+Bow Parks and Recreation – Camp Counselor, Bow, NH
+May 2022– August 2022
+- Led daily activities for children ages 5–13, fostering teamwork and communication.
+Page’s Country Store – Cashier & Deli Worker, Dunbarton, NH
+May 2021 – August 2022
+- Handled point-of-sale transactions and food prep in a customer-facing role.
+LEADERSHIP & ACTIVITIES
+Sigma Alpha Epsilon Fraternity – Worcester, MA
+- Member Educator (Aug 2023 – May 2024): Delivered educational modules to members as part of national program.
+- Recorder (Aug – Dec 2021): Managed internal communications and event calendar.
+Clubs: Golf Club, Club Soccer, Spikeball Club
+
+Note: Embedded PDF viewer experience may vary by browser. For the best view, download the resume.

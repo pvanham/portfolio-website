@@ -1,0 +1,13 @@
+The homepage introduces Parker and provides navigation to other sections.
+This page has navigation links to: Home, Projects, Skills, Resume, Contact.
+Key actions on this page include buttons for: Using The Chatbot(the little robot icon in the top right), View My Projects, View Resume, Get In Touch, and a Dark Mode Toggle(the moon/sun icon in the top right).
+
+Hi, I'm Parker
+Driven by a passion for developing innovative software solutions, I am a software engineer with a strong foundation in full-stack development and a variety of programming languages. 
+Actively working to learn more about AI, machine learning, and their applications; I am eager to apply my skills to real-world challenges and contribute to impactful projects.
+
+Ask My AI Chatbot Anything About Me
+Curious about my skills, project details, or experience? Click the little robot icon in the navigation bar to interact with my AI assistant. It can quickly find relevant information from this website and even guide you to the right pages.
+
+Ready to Connect?
+I'm exited about new opportunities and collaborations. Let's discuss how my skills can contribute to your team or project

@@ -1,0 +1,39 @@
+---
+description: Tailwind CSS and theming conventions
+globs: **/*.{tsx,css}
+alwaysApply: false
+---
+
+# Styling Conventions
+
+## Tailwind & Class Merging
+- Use the `cn()` utility from `@/lib/utils` for all conditional or merged classNames
+- Never concatenate class strings with template literals; always use `cn()`
+
+```tsx
+// ✅ GOOD
+className={cn("rounded-md px-4 py-2", isActive && "bg-primary", className)}
+
+// ❌ BAD
+className={`rounded-md px-4 py-2 ${isActive ? "bg-primary" : ""}`}
+```
+
+## Design Tokens
+Use semantic CSS variable tokens — never hardcode raw colors:
+
+| Use case | Token |
+|---|---|
+| Page background | `bg-background` |
+| Default text | `text-foreground` |
+| Subtle text | `text-muted-foreground` |
+| Brand color | `text-primary` / `bg-primary` |
+| Borders | `border-border` |
+| Cards/surfaces | `bg-card` |
+
+## Dark Mode
+- Use `dark:` variants for overrides only when CSS variables aren't sufficient
+- Theme switching is handled by `next-themes` via the `class` strategy — never manipulate `document.documentElement` directly
+
+## Responsive Design
+- Mobile-first: write base styles for mobile, add `sm:` / `md:` / `lg:` overrides
+- Use `max-w-*` containers with `mx-auto px-4` for page-level layout

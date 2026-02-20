@@ -1,0 +1,59 @@
+{
+  "name": "portfolio-website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@ai-sdk/langchain": "^2.0.98",
+    "@ai-sdk/react": "^3.0.94",
+    "@datastax/astra-db-ts": "^2.1.2",
+    "@langchain/community": "^1.1.16",
+    "@langchain/core": "^1.1.26",
+    "@langchain/langgraph": "^1.1.5",
+    "@langchain/openai": "^1.2.8",
+    "@react-email/components": "^1.0.8",
+    "@upstash/ratelimit": "^2.0.6",
+    "ai": "^6.0.92",
+    "clsx": "^2.1.1",
+    "dotenv": "^16.5.0",
+    "langchain": "^0.3.29",
+    "lucide-react": "^0.511.0",
+    "motion": "^12.34.2",
+    "next": "^16.1.6",
+    "next-themes": "^0.4.6",
+    "openai": "^6.22.0",
+    "promise-retry": "^2.0.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-email": "^5.2.8",
+    "react-markdown": "^10.1.0",
+    "react-type-animation": "^3.2.0",
+    "resend": "^6.9.2",
+    "tailwind-merge": "^3.3.0",
+    "ts-node": "^10.9.2"
+  },
+  "overrides": {
+    "langsmith": "^0.5.4"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^25",
+    "@types/promise-retry": "^1.1.6",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.6",
+    "eslint-config-prettier": "^10.1.5",
+    "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.7.2",
+    "tailwindcss": "^4",
+    "tsx": "^4.19.4",
+    "typescript": "^5"
+  }
+}
