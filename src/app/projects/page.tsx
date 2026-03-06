@@ -17,11 +17,11 @@ const projects: ProjectData[] = [
   {
     slug: "portfolio-website",
     title: "This Portfolio Website",
-    role: "Full-Stack Developer (Sole Developer)",
+    role: "Full-Stack Developer",
     image: pic1,
     imageAlt: "A screenshot of this portfolio website",
     overview:
-      "A personal portfolio website built from scratch to serve as a dynamic, interactive hub for my professional work. The primary goal was to create a modern, performant, and visually unique site that actively demonstrates my skills through an integrated AI chatbot powered by advanced RAG technology.",
+      "A personal portfolio website built to serve as a dynamic, interactive hub for my professional work. The primary goal was to create a modern, performant, and visually unique site that demonstrates my skills through an integrated AI chatbot powered by RAG technology.",
     contributions: [
       "Designed and implemented the entire application using a modern tech stack centered on Next.js and React with TypeScript.",
       "Developed a fully responsive UI with Tailwind CSS, including a custom theme with light and dark modes.",
