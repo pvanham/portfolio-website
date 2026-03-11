@@ -38,11 +38,9 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class">
           <ChatStateProvider>
-            {" "}
-            {/* Wrap components that need chat state */}
-            <Navbar /> {/* Navbar will now use the context */}
+            <Navbar />
             <main>{children}</main>
-            <ChatbotUI /> {/* ChatbotUI will also use the context */}
+            <ChatbotUI />
             <Footer />
           </ChatStateProvider>
         </ThemeProvider>

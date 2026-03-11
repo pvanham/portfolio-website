@@ -1,4 +1,3 @@
-// src/app/resume/page.tsx
 import { H1 } from "@/components/ui/H1";
 import { Metadata } from "next";
 import { DownloadCloud } from "lucide-react";
@@ -24,7 +23,7 @@ export default function ResumePage() {
       <section className="mb-10 flex justify-center md:mb-12">
         <a
           href={resumePdfUrl}
-          download="Parker_Van_Ham_Resume.pdf" // This attribute triggers the download
+          download="Parker_Van_Ham_Resume.pdf"
           className="bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary inline-flex items-center justify-center rounded-md border border-transparent px-8 py-3 text-base font-medium shadow-sm transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none"
         >
           <DownloadCloud className="mr-2 h-5 w-5" />

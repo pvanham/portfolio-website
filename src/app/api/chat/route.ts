@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-// src/app/api/chat/route.ts
-
 import { NextRequest } from "next/server";
 
 import { UIMessage, createUIMessageStreamResponse } from "ai";
@@ -20,14 +17,8 @@ import {
 
 import { StringOutputParser } from "@langchain/core/output_parsers";
 
-import {
-  AstraDBVectorStore,
-  AstraLibArgs,
-} from "@langchain/community/vectorstores/astradb";
-
 import retry from "promise-retry";
 
-// Import hybrid retriever
 import { getHybridRetriever } from "@/lib/astra";
 import { EnsembleRetriever } from "langchain/retrievers/ensemble";
 
@@ -50,7 +41,7 @@ const formatChatHistory = (messages: UIMessage[]): string => {
     .join("\n");
 };
 
-// --- IMPROVED PROMPT TEMPLATES ---
+// --- Prompt Templates ---
 
 const CONDENSE_QUESTION_TEMPLATE = `Given the following conversation history and a follow-up question, rephrase the follow-up to be a standalone question that captures all relevant context from the history. Preserve key details like names, topics, or specifics mentioned earlier.
 
@@ -94,7 +85,7 @@ function sanitizeQuery(query: string): string {
   return query.trim();
 }
 
-// --- HELPER FUNCTIONS & MAIN LOGIC ---
+// --- API Handler ---
 
 export async function POST(req: NextRequest) {
   try {
@@ -127,7 +118,6 @@ export async function POST(req: NextRequest) {
     const llm = new ChatOpenAI({
       apiKey: openaiApiKey,
       modelName: "gpt-4o-mini",
-      // Removed temperature to use default (1.0) - fixes unsupported value error
       streaming: true,
     });
 

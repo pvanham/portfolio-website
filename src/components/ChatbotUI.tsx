@@ -1,4 +1,3 @@
-// src/components/ChatbotUI.tsx
 "use client";
 
 import { useChat, UIMessage } from "@ai-sdk/react";
@@ -31,6 +30,64 @@ export default function ChatbotUI() {
     }
   }, []);
 
+  useEffect(() => {
+    if (isChatOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isChatOpen]);
+
+  // Track the full visual viewport rectangle so the chatbot stays pinned
+  // to exactly what the user sees on iOS, even when the keyboard opens.
+  // On iOS Safari, `position: fixed` + `inset-0` pins to the *layout*
+  // viewport, but the keyboard only shrinks the *visual* viewport and iOS
+  // scrolls the page — pushing fixed elements out of sight.  By reading
+  // offsetTop/offsetLeft/width/height from visualViewport we can explicitly
+  // position the chatbot within the visible area.
+  interface ViewportRect {
+    top: number;
+    left: number;
+    width: number;
+    height: number;
+  }
+  const [viewportRect, setViewportRect] = useState<ViewportRect | null>(null);
+
+  useEffect(() => {
+    if (!isChatOpen) {
+      setViewportRect(null);
+      return;
+    }
+
+    const vv = window.visualViewport;
+    if (!vv) return;
+
+    const update = () => {
+      // Only apply on narrow (mobile) screens; desktop uses CSS sm: classes.
+      if (window.innerWidth < 640) {
+        setViewportRect({
+          top: vv.offsetTop,
+          left: vv.offsetLeft,
+          width: vv.width,
+          height: vv.height,
+        });
+      } else {
+        setViewportRect(null);
+      }
+    };
+
+    update();
+    vv.addEventListener("resize", update);
+    vv.addEventListener("scroll", update);
+    return () => {
+      vv.removeEventListener("resize", update);
+      vv.removeEventListener("scroll", update);
+    };
+  }, [isChatOpen]);
+
   const { messages, sendMessage, status, error, regenerate } = useChat({
     messages: initialMessages,
   });
@@ -51,6 +108,10 @@ export default function ChatbotUI() {
 
   useEffect(scrollToBottom, [messages]);
 
+  // Also scroll to bottom when the viewport resizes (keyboard open/close)
+  // so the latest messages stay visible.
+  useEffect(scrollToBottom, [viewportRect]);
+
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!input.trim()) return;
@@ -68,9 +129,26 @@ export default function ChatbotUI() {
 
   if (!isChatOpen) return null;
 
+  // On mobile, pin exactly to the visual viewport so the keyboard can't
+  // push the chatbot out of view.  On desktop this is null and CSS handles
+  // all sizing via the sm: breakpoint classes.
+  const mobileStyle: React.CSSProperties | undefined = viewportRect
+    ? {
+        position: "fixed",
+        top: `${viewportRect.top}px`,
+        left: `${viewportRect.left}px`,
+        width: `${viewportRect.width}px`,
+        height: `${viewportRect.height}px`,
+        transition: "top 0.2s ease, height 0.2s ease",
+      }
+    : undefined;
+
   return (
-    <div className="fixed right-4 bottom-4 z-[60] w-[90vw] max-w-md transition-all duration-300 ease-in-out sm:w-auto sm:max-w-lg md:max-w-xl lg:max-w-2xl">
-      <div className="bg-background border-border flex h-[80vh] max-h-[600px] flex-col overflow-hidden rounded-2xl border shadow-2xl sm:max-h-[700px]">
+    <div
+      className="fixed inset-0 z-[60] w-full sm:inset-auto sm:right-4 sm:bottom-4 sm:h-auto sm:w-auto sm:max-w-lg md:max-w-xl lg:max-w-2xl"
+      style={mobileStyle}
+    >
+      <div className="bg-background flex h-full flex-col overflow-hidden sm:max-h-[700px] sm:h-[80vh] sm:rounded-2xl sm:border sm:border-border sm:shadow-2xl">
         {/* Header */}
         <div className="border-border from-primary/10 to-background flex items-center justify-between border-b bg-gradient-to-r p-3 sm:p-4">
           <div className="flex items-center space-x-3">

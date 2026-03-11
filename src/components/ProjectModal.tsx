@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useEffect, useCallback } from "react";
+import { useRef, useEffect, useCallback, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import { X, ExternalLink } from "lucide-react";
@@ -24,47 +25,66 @@ interface ProjectModalProps {
 }
 
 export function ProjectModal({ project, onClose }: ProjectModalProps) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
+  const [mounted, setMounted] = useState(false);
+  const overlayRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
+    setMounted(true);
+  }, []);
 
+  // Lock body scroll when modal is open
+  useEffect(() => {
     if (project) {
-      dialog.showModal();
       document.body.style.overflow = "hidden";
     } else {
-      dialog.close();
       document.body.style.overflow = "";
     }
-
     return () => {
       document.body.style.overflow = "";
     };
   }, [project]);
 
+  // Escape key handler
+  useEffect(() => {
+    if (!project) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [project, onClose]);
+
+  // Click on backdrop to close
   const handleBackdropClick = useCallback(
-    (e: React.MouseEvent<HTMLDialogElement>) => {
-      if (e.target === dialogRef.current) onClose();
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (e.target === overlayRef.current) onClose();
     },
     [onClose],
   );
 
-  return (
-    <dialog
-      ref={dialogRef}
-      onClick={handleBackdropClick}
-      onClose={onClose}
-      className="bg-background fixed inset-0 m-auto flex max-h-[85vh] w-[90vw] max-w-3xl flex-col overflow-hidden rounded-2xl border-none p-0 shadow-2xl backdrop:bg-black/60"
-    >
-      <AnimatePresence>
-        {project && (
+  if (!mounted) return null;
+
+  return createPortal(
+    <AnimatePresence>
+      {project && (
+        <motion.div
+          ref={overlayRef}
+          onClick={handleBackdropClick}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label={project.title}
+        >
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="relative flex min-h-0 flex-1 flex-col"
+            className="bg-background relative flex max-h-[85dvh] w-[90vw] max-w-3xl flex-col overflow-hidden rounded-2xl shadow-2xl"
           >
             <button
               onClick={onClose}
@@ -138,8 +158,9 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
               </div>
             </div>
           </motion.div>
-        )}
-      </AnimatePresence>
-    </dialog>
+        </motion.div>
+      )}
+    </AnimatePresence>,
+    document.body,
   );
 }

@@ -1,4 +1,3 @@
-// src/scripts/ingest-data.ts
 import { Document } from "@langchain/core/documents";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 import { OpenAIEmbeddings } from "@langchain/openai";
@@ -61,7 +60,7 @@ async function main() {
   }
 
   const textSplitter = new RecursiveCharacterTextSplitter({
-    chunkSize: 800, // Tuned down for better relevance
+    chunkSize: 800,
     chunkOverlap: 200,
   });
   const splitDocs = await textSplitter.splitDocuments(rawDocs);
@@ -71,7 +70,7 @@ async function main() {
 
   const embeddings = new OpenAIEmbeddings({
     apiKey: openaiApiKey,
-    modelName: "text-embedding-3-small", // Updated embedding model
+    modelName: "text-embedding-3-small",
   });
   console.log("Initialized OpenAI Embeddings.");
 
@@ -82,7 +81,7 @@ async function main() {
     keyspace: astraKeyspace,
     collectionOptions: {
       vector: {
-        dimension: 1536, // Updated dimension for text-embedding-3-small
+        dimension: 1536,
         metric: "cosine",
       },
     },

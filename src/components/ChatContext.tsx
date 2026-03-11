@@ -1,4 +1,3 @@
-// src/contexts/ChatContext.tsx
 "use client";
 
 import React, { createContext, useState, useContext, ReactNode } from "react";
@@ -8,8 +7,6 @@ interface ChatContextType {
   toggleChat: () => void;
 }
 
-// Create a context with a default undefined value, but the provider will always supply a value.
-// The '!' asserts that the context will be provided.
 const ChatContext = createContext<ChatContextType | undefined>(undefined);
 
 export function ChatStateProvider({ children }: { children: ReactNode }) {

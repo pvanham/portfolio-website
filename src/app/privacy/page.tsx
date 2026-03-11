@@ -39,7 +39,7 @@ export default function Page() {
         </p>
         <H3>2. Contact Information</H3>
         <p>
-          If you taek advantage of the option to contact me via email or a
+          If you take advantage of the option to contact me via email or a
           contact form, any information you provide is voluntary and used solely
           to respond to your inquiries.
         </p>

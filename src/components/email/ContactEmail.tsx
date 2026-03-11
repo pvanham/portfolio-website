@@ -1,4 +1,3 @@
-// src/components/email/ContactEmail.tsx
 
 interface ContactEmailProps {
   name: string;

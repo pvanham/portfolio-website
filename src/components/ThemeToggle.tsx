@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -7,7 +6,7 @@ import { useTheme } from "next-themes";
 
 export default function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
@@ -30,7 +29,6 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(isCurrentlyDark ? "light" : "dark")}
-      // Removed focus:ring-2 and focus:ring-ring
       className="hover:bg-accent hover:text-accent-foreground relative inline-flex items-center justify-center rounded-md p-2 transition-colors focus:outline-none"
       aria-label="Toggle theme"
     >
