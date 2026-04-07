@@ -1,4 +1,7 @@
+/* Global styles — Tailwind v4 base, design-token CSS variables for light/dark themes. */
+
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 :root {
   --background: hsl(0 0% 100%);

@@ -1,3 +1,5 @@
+/** Styled h2 heading primitive with class merging. */
+
 import { cn } from "@/lib/utils";
 
 export function H2(props: React.HTMLProps<HTMLHeadingElement>) {

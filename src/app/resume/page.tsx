@@ -1,5 +1,7 @@
+/** /resume — PDF download button and embedded viewer with browser fallback. */
+
 import { H1 } from "@/components/ui/H1";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { DownloadCloud } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -8,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default function ResumePage() {
-  const resumePdfUrl = "/Parker_Van_Ham_Resume_Website.pdf";
+  const resumePdfUrl = "/Parker_Van_Ham_Resume.pdf";
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-12 sm:px-6 md:py-16 lg:px-8 lg:py-20">

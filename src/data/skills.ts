@@ -1,4 +1,4 @@
-import type { StaticImageData } from "next/image";
+/** Categorized skill data rendered on the homepage and /skills page. */
 
 export interface SkillItem {
   name: string;
@@ -48,6 +48,19 @@ export const skillsData: SkillCategory[] = [
       { name: "Node.js", icon: `${DEVICON}/nodejs/nodejs-original.svg` },
       { name: "Express", icon: `${DEVICON}/express/express-original.svg` },
       { name: "MongoDB", icon: `${DEVICON}/mongodb/mongodb-original.svg` },
+      {
+        name: "Mongoose",
+        icon: `${DEVICON}/mongoose/mongoose-original.svg`,
+      },
+      {
+        name: "FastAPI",
+        icon: `${DEVICON}/fastapi/fastapi-original.svg`,
+      },
+      { name: "Clerk" },
+      { name: "Stripe" },
+      { name: "TanStack React Query" },
+      { name: "shadcn/ui" },
+      { name: "Zod" },
       { name: "Git", icon: `${DEVICON}/git/git-original.svg` },
       { name: "Microsoft Office" },
       { name: "Oracle", icon: `${DEVICON}/oracle/oracle-original.svg` },
@@ -63,6 +76,8 @@ export const skillsData: SkillCategory[] = [
       { name: "Web Development" },
       { name: "Database Systems & Management" },
       { name: "Retrieval-Augmented Generation (RAG)" },
+      { name: "Constraint Optimization" },
+      { name: "Multi-Tenant SaaS Architecture" },
     ],
   },
 ];

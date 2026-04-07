@@ -1,9 +1,11 @@
 "use client";
-import { useActionState } from "react";
+
+/** Contact form with honeypot timing field, Zod validation via server action, and success/error feedback. */
+
+import { useActionState, useEffect, useRef } from "react";
 import { useFormStatus } from "react-dom";
 import { sendContactEmail, type FormState } from "@/app/actions";
 import { CONTACT_PURPOSES } from "@/lib/constants";
-import { useEffect, useRef } from "react";
 import { Loader2 } from "lucide-react";
 
 const initialState: FormState = {

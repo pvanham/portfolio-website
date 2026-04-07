@@ -1,3 +1,5 @@
+/** Styled h3 heading primitive with class merging. */
+
 import { cn } from "@/lib/utils";
 
 export function H3(props: React.HTMLProps<HTMLHeadingElement>) {

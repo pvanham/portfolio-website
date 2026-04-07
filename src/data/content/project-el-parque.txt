@@ -1,0 +1,22 @@
+Project: El Parque Redevelopment, Panama
+Role: Data Analyst & Community Researcher
+Timeline: Fall 2022 (WPI Global Projects Program)
+
+Project Overview:
+This international project was a partnership with the Ciudad del Saber (City of Knowledge) foundation in Panama City. Our team was tasked with providing data-driven recommendations for the redevelopment of "El Parque," a large and vital public green space. The objective was to understand who was using the park, how they were using it, and what improvements the community wanted to see to increase visitor satisfaction and foot traffic.
+
+My Contributions & Responsibilities:
+As a Data Analyst and Researcher, my focus was on bridging the gap between the community and the park's stakeholders.
+
+Authored Key Report Sections: I was a primary author for several critical sections of the final proposal delivered to our sponsors. I researched and wrote "The Importance of Green Spaces" and authored the "Suggested Improvements" section, which synthesized our findings into actionable advice.
+
+Survey Design & Data Collection: I was part of the team that designed and deployed community surveys using a multi-pronged approach (QR codes, in-person intercepts, and email lists with Typeform) to maximize our response rate in a limited timeframe.
+
+Data Analysis: I analyzed the quantitative and qualitative data from over 170 survey responses. This involved identifying demographic trends, usage patterns, and the most frequently requested improvements, such as better lighting, more bathrooms, and improved water access.
+
+Formulating Recommendations: I translated the raw data into the four main, prioritized recommendations that formed the core of our final deliverable, providing a clear roadmap for the park's management.
+
+Stakeholder Communication: My work directly contributed to the final proposal that was presented to the Ciudad del Saber foundation, demonstrating our ability to deliver professional, data-driven insights.
+
+Skills Demonstrated:
+This project showcased my abilities in Data Analysis, Community-Based Research, Survey Design (Typeform), Qualitative & Quantitative Analysis, Stakeholder Communication, and Technical Writing.

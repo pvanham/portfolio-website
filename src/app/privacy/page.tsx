@@ -1,18 +1,20 @@
+/** /privacy — static privacy policy page. */
+
 import { H1 } from "@/components/ui/H1";
 import { H2 } from "@/components/ui/H2";
 import { H3 } from "@/components/ui/H3";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
 };
 
-export default function Page() {
+export default function PrivacyPage() {
   return (
-    <section className="space-y-6">
+    <main className="mx-auto max-w-5xl px-4 py-12 sm:px-6 md:py-16 lg:px-8 lg:py-20">
       <div className="space-y-3">
         <H1>Privacy Policy</H1>
-        <p>Last Updated: June 2025</p>
+        <p>Last Updated: April 2026</p>
       </div>
       <div className="space-y-3">
         <H2>Introduction</H2>
@@ -73,7 +75,7 @@ export default function Page() {
         </p>
         <H2>Changes to This Privacy Policy</H2>
         <p>
-          This Privacy Policy is effective as of June 2025 and will remain in
+          This Privacy Policy is effective as of April 2026 and will remain in
           effect except with respect to any changes in its provisions in the
           future, which will be in effect immediately after being posted on this
           page. I reserve the right to update or change our Privacy Policy at
@@ -85,6 +87,6 @@ export default function Page() {
           at parkervanham@gmail.com.
         </p>
       </div>
-    </section>
+    </main>
   );
 }

@@ -33,13 +33,12 @@ try {
 - Mark file with `"use server"` directive
 
 ## External Clients (`lib/`)
-- Use the singleton pattern for expensive resources (embeddings, vector store)
-- Use `promise-retry` for network calls that may be flaky (AstraDB, OpenAI)
+- Use the singleton pattern for expensive resources (e.g. Upstash Vector index)
 
 ## RAG / AI
 - Content knowledge base lives in `src/data/content/*.txt` — edit those files to update what the chatbot knows
-- Retrieval uses hybrid BM25 + vector (40/60 weights); do not change weights without testing
-- HyDE is enabled by default; falls back to direct retrieval on error
+- Retrieval queries Upstash Vector's hybrid index (dense embeddings + BM25) via `getIndex().query()`
+- The chat route uses an agentic tool-calling pattern — the LLM decides when to retrieve via a `retrieve` tool
 
 ## TypeScript
 - Strict mode is on — no `any`, no `@ts-ignore` without a comment explaining why

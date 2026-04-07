@@ -1,5 +1,7 @@
 "use client";
 
+/** Responsive grid of project cards with a detail modal. */
+
 import { useState } from "react";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ProjectModal } from "@/components/ProjectModal";
@@ -25,6 +27,7 @@ export function ProjectGrid({ projects }: ProjectGridProps) {
               imageAlt={project.imageAlt}
               overview={project.overview}
               technologies={project.technologies}
+              status={project.status}
               onClick={() => setSelected(project)}
             />
           </AnimateIn>

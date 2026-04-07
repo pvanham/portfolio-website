@@ -1,3 +1,5 @@
+/** Homepage — hero section, chatbot preview, project grid, skills overview, resume embed, and contact form. */
+
 import Image from "next/image";
 import Link from "next/link";
 import { H1 } from "@/components/ui/H1";
@@ -27,7 +29,7 @@ export const metadata: Metadata = {
 
 const resumePdfUrl = "/Parker_Van_Ham_Resume.pdf";
 
-export default function Home() {
+export default function HomePage() {
   return (
     <>
       <section

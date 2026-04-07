@@ -1,5 +1,7 @@
 "use client";
 
+/** Looping typewriter animation cycling through professional role titles. */
+
 import { TypeAnimation } from "react-type-animation";
 import { cn } from "@/lib/utils";
 

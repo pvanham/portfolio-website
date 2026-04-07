@@ -1,7 +1,3 @@
-The contact page provided information about how to get in touch with Parker.
-This page has navigation links to: Home, Projects, Skills, Resume, Contact.
-Key actions on this page include buttons for: Sending messages to Parker using the contact form , Using The Chatbot(the little robot icon in the top right), and a Dark Mode Toggle(the moon/sun icon in the top right).
-
 Get In Touch
 I'm always open to discussing new opportunities, projects, or ideas. Feel free to reach out through any of the channels below or use the contact form.
 

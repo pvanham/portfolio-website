@@ -1,3 +1,5 @@
+/** Dynamic sitemap generation for all static pages. */
+
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -5,7 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://parkervanham.com";
 
   // List all your static pages here
-  const staticPages = ["/", "/projects", "/skills", "/resume", "/contact"];
+  const staticPages = ["/", "/projects", "/skills", "/resume", "/contact", "/privacy"];
 
   const staticPageUrls = staticPages.map((path) => ({
     url: `${baseUrl}${path}`,

@@ -1,3 +1,5 @@
+/** Root layout — sets fonts, metadata, theme provider, and global shell (Navbar, ChatbotUI, Footer). */
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";

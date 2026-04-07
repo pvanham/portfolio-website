@@ -1,0 +1,28 @@
+Project: Tabixell Studio Manager (Actively In Development)
+Role: Full-Stack Developer
+Status: This project is currently in active development.
+
+Project Overview:
+Tabixell Studio Manager is a multi-tenant SaaS platform for education and activity studios — such as dance schools, music academies, and martial arts dojos — to manage classes, enrollments, scheduling, billing, and accounting. The app serves three distinct user roles (owner, teacher, and client/parent) with dedicated dashboards, role-gated routing, and a double-entry accounting engine. This project is actively in development.
+
+My Contributions & Responsibilities:
+
+Multi-Tenant Data Model: I architected a multi-tenant data model in MongoDB with studio-scoped isolation, a hybrid ID strategy (Mongoose ObjectIds for domain entities, Clerk string IDs for users), and partial unique indexes to enforce business invariants like one active enrollment per student per class.
+
+Role-Based Access: I built a role-based access system with three distinct dashboards (owner, teacher, client) enforced at the middleware layer via Clerk session claims, with automatic redirects and 401/403 API responses for unauthorized access.
+
+Invitation-Based Onboarding: I engineered an invitation-based onboarding flow where studio owners invite teachers and parents via tokenized links, with a Svix-verified Clerk webhook automatically creating user profiles, assigning roles, and linking users to the correct studio on sign-up.
+
+Double-Entry Accounting: I designed and implemented a double-entry accounting kernel supporting atomic journal entry posting via MongoDB transactions, Zod-validated balanced ledger lines, idempotency keys to prevent duplicate postings, and full reversal support with audit-trail linking.
+
+Class Scheduling: I developed a class scheduling system with recurring time-slot definitions and a conflict-detection engine that validates date-range and time-slot overlaps before allowing new enrollments.
+
+Data-Fetching Architecture: I implemented a 3-layer client data-fetching architecture (API routes to typed fetch wrappers to TanStack React Query hooks) with Zod validation, optimistic UI patterns, and skeleton loading states across all dashboards.
+
+Responsive UI: I created a responsive UI with shadcn/ui components, dark mode support via next-themes, and polished dashboard views including teacher payroll with YTD earnings, client class browsing with search/filter, and owner-level user management with pending invitation tracking.
+
+Future Plans:
+Planned work includes integrating a payment processor (e.g., Stripe) for real-time tuition collection and automatic ledger posting, building out the owner accounting dashboard with P&L and balance-sheet reporting views on top of the existing journal/ledger infrastructure, adding attendance tracking per class session, expanding the client billing portal with invoice generation and payment history, and implementing notifications (email/in-app) for enrollment confirmations, payment receipts, and schedule changes.
+
+Key Technologies Used for Tabixell Studio Manager:
+The tech stack includes Next.js 15 (App Router), React 19, TypeScript, MongoDB & Mongoose, Clerk Authentication, TanStack React Query, Tailwind CSS v4 & shadcn/ui, and Zod.

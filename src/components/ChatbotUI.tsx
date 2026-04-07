@@ -1,20 +1,51 @@
 "use client";
 
+/** Floating AI chatbot panel with streaming responses, localStorage persistence, and iOS keyboard handling. */
+
 import { useChat, UIMessage } from "@ai-sdk/react";
 import { Bot, Send, Loader2, X, RotateCcw } from "lucide-react";
 import { FormEvent, useRef, useEffect, useState } from "react";
+import ReactMarkdown from "react-markdown";
 import { useChatState } from "@/components/ChatContext";
+
+const GREETING_MESSAGE: UIMessage = {
+  id: "greeting",
+  role: "assistant",
+  parts: [
+    {
+      type: "text",
+      text: "Hi! I'm Parker's portfolio assistant. Ask me anything about his projects, skills, or experience.",
+    },
+  ],
+};
 
 const getMessageText = (m: UIMessage): string =>
   m.parts
-    .filter((p) => p.type === "text")
+    ?.filter((p) => p.type === "text")
     .map((p) => (p as { type: "text"; text: string }).text)
-    .join("");
+    .join("") ?? "";
+
+function isValidMessageArray(data: unknown): data is UIMessage[] {
+  return (
+    Array.isArray(data) &&
+    data.length > 0 &&
+    data.every(
+      (m) =>
+        m &&
+        typeof m === "object" &&
+        "role" in m &&
+        "parts" in m &&
+        Array.isArray(m.parts),
+    )
+  );
+}
 
 export default function ChatbotUI() {
   const { isChatOpen, toggleChat: onClose } = useChatState();
 
-  const [initialMessages, setInitialMessages] = useState<UIMessage[]>([]);
+  const [initialMessages, setInitialMessages] = useState<UIMessage[]>([
+    GREETING_MESSAGE,
+  ]);
   const [input, setInput] = useState("");
 
   useEffect(() => {
@@ -22,7 +53,12 @@ export default function ChatbotUI() {
       const saved = localStorage.getItem("chat_messages");
       if (saved) {
         try {
-          setInitialMessages(JSON.parse(saved));
+          const parsed = JSON.parse(saved);
+          if (isValidMessageArray(parsed)) {
+            setInitialMessages(parsed);
+          } else {
+            localStorage.removeItem("chat_messages");
+          }
         } catch {
           localStorage.removeItem("chat_messages");
         }
@@ -180,15 +216,6 @@ export default function ChatbotUI() {
           className="bg-background flex-grow space-y-4 overflow-y-auto p-4 sm:p-5"
           aria-live="polite"
         >
-          {messages.length === 0 && !isLoading && (
-            <div className="text-muted-foreground py-8 text-center text-sm sm:py-10 sm:text-base">
-              <p className="mb-2 font-medium">Ask me anything about Parker!</p>
-              <p>
-                For example: &quot;What was Parker&apos;s role in the Z3
-                Wellness app?&quot;
-              </p>
-            </div>
-          )}
           {messages.map((m: UIMessage, index: number) => (
             <div
               key={m.id || index}
@@ -204,14 +231,20 @@ export default function ChatbotUI() {
                     : "bg-muted text-foreground rounded-bl-none"
                 }`}
               >
-                <span className="block whitespace-pre-wrap">
-                  {getMessageText(m)}
-                </span>
+                {m.role === "assistant" ? (
+                  <div className="prose prose-sm max-w-none text-foreground [&>*:first-child]:mt-0 [&>*:last-child]:mb-0 [&_a]:text-primary [&_a:hover]:text-primary/80 [&_strong]:text-inherit [&_li]:text-foreground [&_p]:text-foreground">
+                    <ReactMarkdown>{getMessageText(m)}</ReactMarkdown>
+                  </div>
+                ) : (
+                  <span className="block whitespace-pre-wrap">
+                    {getMessageText(m)}
+                  </span>
+                )}
               </div>
               {m.role === "user" && (
                 <div className="h-5 w-5" /> // Placeholder for symmetry
               )}
-              {m.role === "assistant" && (
+              {m.role === "assistant" && m.id !== "greeting" && (
                 <button
                   onClick={() => regenerate()}
                   className="text-muted-foreground hover:text-primary mt-auto mb-1 p-1 transition-colors"

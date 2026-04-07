@@ -1,5 +1,7 @@
 "use client";
 
+/** Call-to-action button that opens the AI chatbot panel. */
+
 import { Bot } from "lucide-react";
 import { useChatState } from "@/components/ChatContext";
 

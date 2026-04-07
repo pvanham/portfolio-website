@@ -4,7 +4,7 @@ This document provides a detailed overview of Parker Van Ham's technical skills.
 Core Programming Languages
 Java: Used for foundational computer science coursework at WPI, covering Object-Oriented Programming (OOP) principles and data structures. It was also a key language for the initial development of a hospital service management application.
 
-Python: Applied in various academic projects for scripting and data manipulation.
+Python: Applied in various academic projects for scripting and data manipulation. Also used to build a FastAPI constraint-solver microservice (OR-Tools CP-SAT) for the Sous scheduling platform.
 
 JavaScript & TypeScript: These are Parker's primary languages for web development. He used JavaScript extensively and led an effort to refactor parts of the Z³-Wellness app's codebase into TypeScript to improve type safety, code uniformity, and long-term maintainability. This entire portfolio website is built with TypeScript.
 
@@ -15,13 +15,15 @@ SQL: Used for database querying and management, particularly with PostgreSQL in 
 C: Utilized in systems-level programming coursework at WPI.
 
 AI/ML & Data (Demonstrated by the Chatbot)
-Langchain.js: The core orchestration framework used to build the Retrieval Augmented Generation (RAG) pipeline for this portfolio's AI chatbot. Parker used it to create chains, manage prompts, and sequence the flow of data.
+Vercel AI SDK (streamText & Tool Calling): The core framework used to build the Retrieval Augmented Generation (RAG) pipeline for this portfolio's AI chatbot. Parker used the AI SDK's streamText function with tool-based agentic retrieval, where the LLM decides when and what to retrieve from the knowledge base.
 
-OpenAI GPT-4o-mini: The primary Large Language Model (LLM) used for providing conversational responses in the portfolio chatbot.
+OpenAI GPT-4o-mini: The primary Large Language Model (LLM) used for providing conversational responses in the portfolio chatbot via the @ai-sdk/openai provider.
 
-OpenAI Embeddings: Used text-embedding-3-small for generating high-quality text embeddings in the portfolio chatbot's RAG pipeline.
+Upstash Vector: Used as the hybrid vector database with built-in embedding generation (bge-small-en-v1.5 for dense search and BM25 for keyword search), eliminating the need for a separate embedding API.
 
 Vector Databases & RAG: Parker engineered a complete RAG system that connects a user's query to a knowledge base stored in a vector database. This demonstrates a strong, practical understanding of modern AI application architecture.
+
+OR-Tools CP-SAT: Parker engineered a constraint-optimization solver microservice using Google's OR-Tools CP-SAT library in Python for the Sous project. The solver optimally assigns staff to station-time slots under hard and soft constraints including hour limits, clopening prevention, manager coverage, and fairness balancing.
 
 Data Analysis: A core skill demonstrated in the El Parque Redevelopment Project, where Parker analyzed survey data to identify community needs and provide data-driven recommendations to stakeholders.
 
@@ -30,14 +32,28 @@ React & Next.js: Parker's primary framework for building modern, performant web 
 
 Node.js & Express: Used for backend development, specifically in creating the original backend architecture for the Z³-Wellness app. This included setting up servers, defining API endpoints, and handling database connections.
 
-Vercel AI SDK: Integrated into this portfolio to handle the frontend state management and UI streaming for the AI chatbot, enabling real-time, typewriter-style responses.
+Vercel AI SDK: Integrated into this portfolio for both the frontend (useChat hook for state management and streaming) and the backend (streamText with tool calling for agentic RAG retrieval), enabling real-time, streaming responses.
 
 Tailwind CSS: The primary CSS framework used for styling this portfolio. Parker has experience creating custom themes, implementing dark mode, and building responsive layouts with utility-first classes.
 
-Databases
-AstraDB (Vector Store): Used as the vector database for the portfolio chatbot. Parker set up and populated the database with embeddings of his portfolio content to enable efficient semantic search.
+shadcn/ui: A component library built on Radix UI primitives, used extensively in both the Sous and Tabixell Studio Manager projects for building polished, accessible dashboard interfaces.
 
-MongoDB: Utilized as the primary database in some of his full-stack project work for storing application data.
+Clerk Authentication: Used in both Sous and Tabixell for user authentication with role-based access control, session claims-based middleware gating, webhook-driven user provisioning, and invitation-based onboarding flows.
+
+Stripe: Integrated into Sous for billing with checkout and customer portal flows, and Clerk/Stripe webhook handlers for event-driven state synchronization.
+
+TanStack React Query: Used in both Sous and Tabixell for client-side data fetching with typed fetch wrappers, optimistic UI patterns, and skeleton loading states.
+
+FastAPI: A Python web framework used to build the OR-Tools constraint-solver microservice for Sous, providing a REST API bridge between the Next.js app and the Python solver.
+
+Mongoose: An ODM library for MongoDB used in both Sous and Tabixell to define schemas, enforce validation, and manage multi-tenant data models with studio-scoped isolation.
+
+Zod: A TypeScript schema validation library used across Sous and Tabixell for API request validation, form validation, and ensuring type-safe data flow between client and server.
+
+Databases
+Upstash Vector (Hybrid Index): Used as the vector database for the portfolio chatbot. Parker set up and populated a hybrid index with built-in dense and BM25 sparse embeddings to enable efficient semantic and keyword search of his portfolio content.
+
+MongoDB & Mongoose: The primary database for both the Sous and Tabixell Studio Manager projects. Parker designed multi-tenant data models with studio-scoped isolation, hybrid ID strategies, partial unique indexes, and atomic transactions for the double-entry accounting engine in Tabixell.
 
 PostgreSQL: Applied in the Z³-Wellness project. Parker's team used it for data storage and created database views to speed up api calls.
 
@@ -50,7 +66,8 @@ Agile/Scrum: Parker has practical experience working in Agile/Scrum environments
 
 Object-Oriented Programming (OOP): A foundational concept applied throughout his coursework, especially in Java and C.
 
-Full-Stack Development: Demonstrated through the Z³-Wellness project and this portfolio, where he worked on everything from the frontend UI to the backend logic, database, and AI pipeline.
+Full-Stack Development: Demonstrated through the Z³-Wellness project, this portfolio, and both Sous and Tabixell, where he worked on everything from the frontend UI to the backend logic, database, and AI pipeline.
 
-Website Features & Navigation
-This website has main navigation links for: Home, Projects, Skills, Resume, and Contact. The navbar also includes a button to toggle the website's theme between light and dark mode, as well as a button to open the AI assistant.
+Constraint Optimization: Applied in the Sous project using Google OR-Tools CP-SAT to solve complex staff scheduling problems with hard and soft constraints.
+
+Multi-Tenant SaaS Architecture: Demonstrated in Tabixell Studio Manager, where Parker designed a multi-tenant data model with studio-scoped isolation, role-based dashboards, and invitation-based onboarding.

@@ -1,259 +1,145 @@
+/** POST /api/chat — streaming AI chat endpoint with Upstash rate limiting and RAG tool-call retrieval. */
+
 import { NextRequest } from "next/server";
-
-import { UIMessage, createUIMessageStreamResponse } from "ai";
-import { toUIMessageStream } from "@ai-sdk/langchain";
-
-import { ChatOpenAI } from "@langchain/openai";
-
-import { PromptTemplate } from "@langchain/core/prompts";
-
-import { Document } from "@langchain/core/documents";
-
 import {
-  RunnableSequence,
-  RunnablePassthrough,
-  Runnable,
-} from "@langchain/core/runnables";
+  streamText,
+  tool,
+  convertToModelMessages,
+  stepCountIs,
+  smoothStream,
+  type UIMessage,
+} from "ai";
+import { openai } from "@ai-sdk/openai";
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
+import { z } from "zod";
+import { getIndex } from "@/lib/vector";
 
-import { StringOutputParser } from "@langchain/core/output_parsers";
+let _ratelimit: Ratelimit | null = null;
 
-import retry from "promise-retry";
-
-import { getHybridRetriever } from "@/lib/astra";
-import { EnsembleRetriever } from "langchain/retrievers/ensemble";
-
-interface ChatRequestBody {
-  id?: string;
-  messages?: UIMessage[];
-  trigger?: string;
-  messageId?: string;
+function getRatelimit(): Ratelimit {
+  if (!_ratelimit) {
+    _ratelimit = new Ratelimit({
+      redis: Redis.fromEnv(),
+      limiter: Ratelimit.slidingWindow(10, "1 m"),
+      prefix: "chat",
+    });
+  }
+  return _ratelimit;
 }
 
-const getMessageText = (message: UIMessage): string =>
-  message.parts
-    .filter((p) => p.type === "text")
-    .map((p) => (p as { type: "text"; text: string }).text)
-    .join("");
+const SYSTEM_PROMPT = `You are a helpful AI assistant for Parker Van Ham's personal portfolio website. Your ONLY job is to answer questions about Parker — his experience, projects, skills, education, and background.
 
-const formatChatHistory = (messages: UIMessage[]): string => {
-  return messages
-    .map((message) => `${message.role}: ${getMessageText(message)}`)
-    .join("\n");
-};
+Rules:
+- ALWAYS use the retrieve tool to search Parker's knowledge base before answering a question.
+- When a question asks about multiple projects or topics, make SEPARATE retrieve calls for each one to ensure complete coverage. For example, if asked about "Sous and Tabixell", retrieve for each project individually.
+- Each retrieved chunk is labeled with a [Source: ...] tag. These tags are internal metadata for YOUR use only — use them to attribute information to the correct project, but NEVER include [Source: ...] tags or any internal metadata in your response to the user.
+- ONLY answer questions that are relevant to Parker Van Ham, his work, his skills, or this portfolio website. If a question is off-topic or unrelated to Parker, politely decline and suggest the user ask something about Parker instead. Do NOT answer off-topic questions using your own knowledge.
+- ONLY use information from the retrieved context to answer. Never supplement with your own knowledge, even if you know the answer. If the context doesn't contain the answer, say you don't have that information about Parker.
+- Be friendly, concise, and professional. Keep responses to 3-5 sentences max.
+- You may use markdown formatting (bold, lists, links) when it helps readability.`;
 
-// --- Prompt Templates ---
+const requestSchema = z.object({
+  messages: z.array(z.object({}).passthrough()).min(1),
+});
 
-const CONDENSE_QUESTION_TEMPLATE = `Given the following conversation history and a follow-up question, rephrase the follow-up to be a standalone question that captures all relevant context from the history. Preserve key details like names, topics, or specifics mentioned earlier.
+const MAX_HISTORY_MESSAGES = 20;
 
-Examples:
-History: User: Tell me about Parker's projects. Assistant: Parker worked on the Z3 Wellness app and El Parque.
-Follow-up: What was his role in the first one?
-Standalone: What was Parker's role in the Z3 Wellness app?
-
-History: {chat_history}
-Follow-up: {question}
-Standalone question:`;
-
-const condenseQuestionPrompt = PromptTemplate.fromTemplate(
-  CONDENSE_QUESTION_TEMPLATE,
-);
-
-const ANSWER_TEMPLATE = `You are a helpful AI assistant for Parker Van Ham's personal portfolio website. Use the following pieces of retrieved context to answer the question. If you don't know the answer or the context doesn't contain it, just say that you don't have enough information. Be friendly, concise, and professional. Keep responses to 3-5 sentences max.
-
-Examples:
-Question: What is Parker's education?
-Context: Parker graduated from WPI in Computer Science.
-Answer: Parker is a recent Computer Science graduate from Worcester Polytechnic Institute (WPI).
-
-Question: {question}
-Context: {context}
-Answer:`;
-
-const answerPrompt = PromptTemplate.fromTemplate(ANSWER_TEMPLATE);
-
-const HYDE_PROMPT = `Please write a concise, hypothetical answer to the user's question. This answer should be a well-structured paragraph that you would expect to find in the document containing the real answer.
-
-Question: {question}
-Hypothetical Answer:`;
-
-const hydePrompt = PromptTemplate.fromTemplate(HYDE_PROMPT);
-
-// Sanitize query for BM25 (escape special chars)
-function sanitizeQuery(query: string): string {
-  query = query.replace(/[\(\)\[\]\{\}\^\$\*\?\+\|]/g, "\\$&");
-  query = query.replace(/\/g/g, "");
-  return query.trim();
-}
-
-// --- API Handler ---
+const REQUIRED_ENV_VARS = [
+  "OPENAI_API_KEY",
+  "UPSTASH_VECTOR_REST_URL",
+  "UPSTASH_VECTOR_REST_TOKEN",
+  "UPSTASH_REDIS_REST_URL",
+  "UPSTASH_REDIS_REST_TOKEN",
+] as const;
 
 export async function POST(req: NextRequest) {
   try {
-    const openaiApiKey = process.env.OPENAI_API_KEY;
-
-    if (!openaiApiKey) {
-      throw new Error("Missing OPENAI_API_KEY environment variable.");
+    const missing = REQUIRED_ENV_VARS.filter((v) => !process.env[v]);
+    if (missing.length > 0) {
+      console.error("Missing required env vars:", missing.join(", "));
+      return Response.json(
+        { error: "The chat service is not configured correctly." },
+        { status: 500 },
+      );
     }
 
-    const body = (await req.json()) as ChatRequestBody;
+    const ip =
+      req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "anonymous";
+    const { success } = await getRatelimit().limit(ip);
 
-    const incomingMessages = body.messages ?? [];
-
-    const lastMessage = incomingMessages[incomingMessages.length - 1];
-    const currentMessageContent = lastMessage
-      ? getMessageText(lastMessage)
-      : "";
-
-    const formattedPreviousChatHistory = formatChatHistory(
-      incomingMessages.slice(0, -1),
-    );
-
-    if (!currentMessageContent) {
+    if (!success) {
       return Response.json(
-        { error: "No message content provided." },
+        { error: "Too many requests. Please wait a moment and try again." },
+        { status: 429 },
+      );
+    }
+
+    const body = await req.json();
+    const parsed = requestSchema.safeParse(body);
+
+    if (!parsed.success) {
+      return Response.json(
+        { error: "Invalid request body." },
         { status: 400 },
       );
     }
 
-    const llm = new ChatOpenAI({
-      apiKey: openaiApiKey,
-      modelName: "gpt-4o-mini",
-      streaming: true,
+    const uiMessages = (parsed.data.messages as unknown as UIMessage[]).slice(
+      -MAX_HISTORY_MESSAGES,
+    );
+    const modelMessages = await convertToModelMessages(uiMessages);
+
+    const result = streamText({
+      model: openai("gpt-4o-mini"),
+      system: SYSTEM_PROMPT,
+      messages: modelMessages,
+      tools: {
+        retrieve: tool({
+          description:
+            "Search Parker Van Ham's portfolio knowledge base for relevant information. Use this before answering any question about Parker.",
+          inputSchema: z.object({
+            query: z
+              .string()
+              .describe("The search query to find relevant information"),
+          }),
+          execute: async ({ query }) => {
+            const results = await getIndex().query({
+              data: query,
+              topK: 8,
+              includeMetadata: true,
+            });
+
+            const context = results
+              .filter(
+                (r): r is typeof r & {
+                  metadata: { text: string; source: string };
+                } =>
+                  !!r.metadata &&
+                  typeof (r.metadata as Record<string, unknown>).text ===
+                    "string",
+              )
+              .map(
+                (r) =>
+                  `[Source: ${r.metadata.source}]\n${r.metadata.text}`,
+              )
+              .join("\n\n---\n\n");
+
+            return context || "No relevant information found.";
+          },
+        }),
+      },
+      stopWhen: stepCountIs(3),
+      experimental_transform: smoothStream(),
     });
 
-    // Dynamic k based on query length
-    const queryLength = currentMessageContent.length;
-    const dynamicK = Math.min(10, Math.max(3, Math.floor(queryLength / 50)));
-
-    const retriever = await retry(
-      async (retryFn, attempt) => {
-        try {
-          return await getHybridRetriever(dynamicK);
-        } catch (error) {
-          console.error(`Retriever attempt ${attempt} failed:`, error);
-          retryFn(error);
-        }
-      },
-      { retries: 5, minTimeout: 1000 },
-    );
-
-    if (!retriever) {
-      throw new Error("Failed to initialize retriever after retries.");
-    }
-
-    // Custom Runnable for sanitized retrieval
-    class SanitizedRetriever extends Runnable<string, Document[]> {
-      lc_namespace = ["custom", "retrievers", "sanitized"];
-      lc_serializable = true;
-
-      constructor(private retriever: EnsembleRetriever) {
-        super();
-      }
-
-      async invoke(query: string): Promise<Document[]> {
-        const sanitized = sanitizeQuery(query);
-        return this.retriever.invoke(sanitized);
-      }
-    }
-
-    const sanitizedRetriever = new SanitizedRetriever(retriever);
-
-    // The chain to generate a hypothetical document for retrieval
-    const hydeRetrieverChain = RunnableSequence.from([
-      hydePrompt,
-      llm,
-      new StringOutputParser(),
-      sanitizedRetriever,
-    ]);
-
-    // The main chain for processing the request
-    const conversationalChain = RunnableSequence.from([
-      RunnablePassthrough.assign({
-        standalone_question: (input: {
-          question: string;
-          chat_history: string;
-        }) => {
-          if (input.chat_history) {
-            const condenseQuestionChain = RunnableSequence.from([
-              condenseQuestionPrompt,
-              llm,
-              new StringOutputParser(),
-            ]);
-            return condenseQuestionChain.invoke(input);
-          }
-          return input.question;
-        },
-      }),
-      RunnablePassthrough.assign({
-        context: async (input) => {
-          let docs;
-          try {
-            docs = await hydeRetrieverChain.invoke({
-              question: input.standalone_question,
-            });
-          } catch (hydeError) {
-            console.error(
-              "HyDE chain failed; falling back to direct retrieval:",
-              hydeError,
-            );
-            docs = await retriever.invoke(input.standalone_question);
-          }
-          if (docs.length === 0) {
-            console.log("No docs retrieved; using standalone query fallback.");
-            docs = await retriever.invoke(input.standalone_question);
-          }
-          return docs.map((doc) => doc.pageContent).join("\n\n");
-        },
-      }),
-      answerPrompt,
-      llm,
-    ]);
-
-    const langchainStream = await retry(
-      async (retryFn, attempt) => {
-        try {
-          return await conversationalChain.stream({
-            question: currentMessageContent,
-            chat_history: formattedPreviousChatHistory,
-          });
-        } catch (error) {
-          console.error(`Chain attempt ${attempt} failed:`, error);
-          retryFn(error);
-        }
-      },
-      { retries: 5, minTimeout: 1000 },
-    );
-
-    const stream = toUIMessageStream(langchainStream!);
-    return createUIMessageStreamResponse({ stream });
+    return result.toUIMessageStreamResponse();
   } catch (e: unknown) {
     console.error("Error in chat API:", e);
-    if (
-      e instanceof Error &&
-      (e.message.toLowerCase().includes("timed out") ||
-        e.message.includes("503") ||
-        e.message.toLowerCase().includes("service unavailable"))
-    ) {
-      const friendlyError =
-        "I'm having a bit of trouble connecting to my knowledge base right now. This can happen if it's waking up from a nap. Please try your question again in a few moments.";
-
-      const encoder = new TextEncoder();
-      const streamResponse = new ReadableStream({
-        start(controller) {
-          controller.enqueue(encoder.encode(friendlyError));
-          controller.close();
-        },
-      });
-
-      return new Response(streamResponse, {
-        headers: { "Content-Type": "text/plain; charset=utf-8" },
-      });
-    } else {
-      const errorMessage =
-        e instanceof Error
-          ? e.message
-          : "An unexpected error occurred. Please try again.";
-      return Response.json({ error: errorMessage }, { status: 500 });
-    }
+    const message =
+      e instanceof Error
+        ? e.message
+        : "An unexpected error occurred. Please try again.";
+    return Response.json({ error: message }, { status: 500 });
   }
 }

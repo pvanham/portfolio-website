@@ -1,3 +1,5 @@
+/** /skills — categorized technical skills with devicon badges. */
+
 import Image from "next/image";
 import { H1 } from "@/components/ui/H1";
 import { H2 } from "@/components/ui/H2";
@@ -8,7 +10,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Skills",
   description:
-    "A detailed overview of the technical skills of Parker Van Ham, including Java, Python, TypeScript, React, Next.js, Langchain, and AI/ML concepts.",
+    "A detailed overview of the technical skills of Parker Van Ham, including Java, Python, TypeScript, React, Next.js, and AI/ML concepts.",
 };
 
 export default function SkillsPage() {

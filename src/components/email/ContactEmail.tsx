@@ -1,3 +1,4 @@
+/** Email template rendered by Resend when a visitor submits the contact form. */
 
 interface ContactEmailProps {
   name: string;

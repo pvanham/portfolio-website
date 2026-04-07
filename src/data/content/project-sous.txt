@@ -1,0 +1,26 @@
+Project: Sous (Actively In Development)
+Role: Full-Stack Developer
+Status: This project is currently in active development.
+
+Project Overview:
+Sous is an AI-powered staff scheduling platform built for high-volume kitchens. It combines a constraint-optimization solver with a conversational AI assistant to automate and streamline shift planning. Managers interact with a natural-language chat interface to generate, review, and refine schedules while the system enforces labor rules, availability, and coverage requirements behind the scenes. This project is actively in development — next steps include further refining the AI assistant and building an accompanying mobile app for on-the-go staff management.
+
+My Contributions & Responsibilities:
+
+Full-Stack Architecture: I architected a full-stack Next.js 16 (App Router) application with a strict three-layer architecture — React UI, Server Actions, and Mongoose services — supporting multi-organization and multi-location data scoping.
+
+AI Chat Assistant: I built an agentic AI chat assistant using the Vercel AI SDK and GPT-4o with a custom tool registry, enabling managers to query schedule health, propose shift swaps, and trigger schedule generation through natural-language conversation.
+
+Constraint Solver: I engineered an OR-Tools CP-SAT constraint solver microservice in Python (FastAPI) that optimally assigns staff to station-time slots under hard and soft constraints including hour limits, clopening prevention, manager coverage, and fairness balancing.
+
+Async Task Pipeline: I designed an async task pipeline that bridges the Next.js app and the Python solver, with background job polling, real-time status updates in the chat UI, and a proposal-based approval workflow for generated schedules.
+
+Visual Schedule Builder: I implemented a visual schedule builder with weekly grid views, drag-friendly shift editing, labor requirement configuration, and a dashboard featuring live metrics on coverage, labor hours, and staffing ratios.
+
+Auth & Billing: I integrated Clerk authentication with role-based access control, Stripe billing with checkout and customer portal flows, and Clerk/Stripe webhook handlers for event-driven state synchronization.
+
+Future Plans:
+The next phases of development include continuing to improve the AI assistant's capabilities and building an accompanying mobile app for staff to view their schedules, swap shifts, and manage availability on the go.
+
+Key Technologies Used for Sous:
+The tech stack includes Next.js 16 & React 19, TypeScript, Tailwind CSS & shadcn/ui, MongoDB & Mongoose, OpenAI GPT-4o (Vercel AI SDK), OR-Tools CP-SAT (Python / FastAPI), Clerk Authentication, Stripe Billing, and TanStack Query.

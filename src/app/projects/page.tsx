@@ -1,3 +1,5 @@
+/** /projects — full project grid with modal detail views. */
+
 import { H1 } from "@/components/ui/H1";
 import { ProjectGrid } from "@/components/ProjectGrid";
 import { projectsPageList } from "@/data/projects";

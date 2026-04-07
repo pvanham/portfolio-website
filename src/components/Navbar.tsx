@@ -1,5 +1,7 @@
 "use client";
 
+/** Sticky navigation bar with mobile hamburger menu, section-aware active highlighting, and chat/theme toggles. */
+
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

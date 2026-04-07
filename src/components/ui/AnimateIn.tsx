@@ -1,5 +1,7 @@
 "use client";
 
+/** Fade-and-slide entrance animation wrapper using Motion. */
+
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 

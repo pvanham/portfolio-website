@@ -1,0 +1,22 @@
+Project: Z³-Wellness Sleep App
+Role: Full-Stack Developer & Researcher
+Timeline: August 2023 - May 2024 (WPI Major Qualifying Project)
+
+Project Overview:
+The Z³-Wellness application is a web-based platform designed to help college students monitor and improve their sleep and overall wellness patterns. As part of a large, multi-term team, my role was to continue the development from previous project groups, focusing on enhancing usability and core functionality based on the findings of a comprehensive user study we conducted.
+
+My Contributions & Responsibilities:
+I was deeply involved in both the research and development phases. My goal was not just to add features, but to improve the application's foundation for future teams.
+
+User-Centered Design: I played a key role in conducting a user study with over 75 initial participants to identify critical usability issues. The feedback gathered directly informed our redesign priorities, ensuring our development efforts were focused on the most impactful changes for users.
+
+Backend Overhaul: I contributed significantly to a full backend refactor. We transformed the original codebase from two large, unorganized files into a modern, scalable CRUD (Create, Read, Update, Delete) architecture. This was crucial for improving the maintainability and stability of the system.
+
+Frontend Development: I actively worked on the frontend redesign, which involved reformatting components using TypeScript for better type safety, implementing a new, more intuitive navigation bar, and developing customizable data visualization graphs for the main dashboard. A key focus was improving the mobile web experience based on user feedback.
+
+Codebase Modernization: I was responsible for identifying and updating numerous outdated dependencies and libraries that were causing bugs and instability. This was a critical first step that allowed our team to build new features on a solid foundation.
+
+Feature Implementation: I helped implement a key new feature: calendar integration with both Outlook and Google Calendar. This allowed users to track their stress levels in correlation with their scheduled events, adding significant value to the application's wellness tracking capabilities.
+
+Key Technologies Applied for The Z3 Wellness App:
+This project was a practical application of my skills in Full-Stack Development, user-centered design, and Agile methodologies. The tech stack included React, TypeScript, JavaScript, Node.js, PostgreSQL, and Firebase for authentication and analytics.

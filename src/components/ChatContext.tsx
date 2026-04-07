@@ -1,5 +1,7 @@
 "use client";
 
+/** Lightweight context for toggling the AI chatbot panel open/closed. */
+
 import React, { createContext, useState, useContext, ReactNode } from "react";
 
 interface ChatContextType {

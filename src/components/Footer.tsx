@@ -1,3 +1,5 @@
+/** Site-wide footer with page links, social icons, and copyright. */
+
 import Link from "next/link";
 import { Github, Linkedin } from "lucide-react";
 

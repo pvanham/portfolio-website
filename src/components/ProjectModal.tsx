@@ -1,5 +1,7 @@
 "use client";
 
+/** Full-screen modal portal showing project details, contributions, and tech stack. */
+
 import { useRef, useEffect, useCallback, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
@@ -16,6 +18,7 @@ export interface ProjectData {
   overview: string;
   contributions: string[];
   technologies: string[];
+  status?: "in-progress";
   link?: { label: string; href: string };
 }
 
@@ -107,9 +110,16 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
 
               <div className="space-y-5 p-6 md:p-8">
               <div>
-                <h2 className="text-foreground text-2xl font-bold">
-                  {project.title}
-                </h2>
+                <div className="flex items-center gap-3">
+                  <h2 className="text-foreground text-2xl font-bold">
+                    {project.title}
+                  </h2>
+                  {project.status === "in-progress" && (
+                    <span className="bg-amber-500/15 text-amber-600 dark:text-amber-400 inline-flex shrink-0 items-center rounded-full px-2.5 py-0.5 text-xs font-semibold">
+                      In Development
+                    </span>
+                  )}
+                </div>
                 <span className="text-primary text-sm font-semibold">
                   {project.role}
                 </span>

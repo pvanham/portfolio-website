@@ -6,7 +6,8 @@ A modern, full-stack portfolio website with an AI-powered chatbot, contact form,
 
 - **Framework:** Next.js 16 (App Router), React 19, TypeScript 5 (strict mode)
 - **Styling:** Tailwind CSS 4, next-themes (dark mode)
-- **AI / RAG:** Vercel AI SDK, LangChain, AstraDB (vector store), OpenAI (GPT-4o-mini, text-embedding-3-small)
+- **AI / RAG:** Vercel AI SDK, Upstash Vector (hybrid embeddings + BM25), OpenAI (GPT-4o-mini)
+- **Rate Limiting:** Upstash Redis
 - **Contact:** Resend + react-email for transactional emails
 - **Validation:** Zod
 - **Animation:** Motion (Framer Motion)
@@ -14,8 +15,8 @@ A modern, full-stack portfolio website with an AI-powered chatbot, contact form,
 ## Features
 
 - **Homepage** — Hero section, typewriter roles, project highlights, skills overview
-- **Projects** — Detailed project grid with modals (Z³ Wellness, El Parque, BWH, etc.)
-- **AI Chatbot** — RAG-based assistant that answers questions about the portfolio using hybrid retrieval (BM25 + vector, 40/60 weights) and HyDE
+- **Projects** — Detailed project grid with modals (Sous, Tabixell, Z³ Wellness, El Parque, BWH, etc.)
+- **AI Chatbot** — RAG-based assistant that answers questions about the portfolio using Upstash Vector hybrid retrieval and an agentic tool-calling pattern via the Vercel AI SDK
 - **Contact Form** — Server action with Zod validation, honeypot, timing check, spam filtering, and rate limiting
 - **Resume & Skills** — Dedicated pages with structured content
 - **Dark Mode** — System-aware theme toggle
@@ -26,10 +27,10 @@ A modern, full-stack portfolio website with an AI-powered chatbot, contact form,
 src/
 ├── app/              # Next.js App Router (pages, API routes, server actions)
 ├── components/       # Reusable UI (ui/, email/)
-├── lib/              # Utilities, AstraDB setup, constants
+├── lib/              # Utilities, Upstash Vector client, constants
 ├── data/content/     # Plain-text RAG knowledge base (*.txt)
 ├── assets/           # Static images
-└── scripts/          # Data ingestion for AstraDB
+└── scripts/          # Data ingestion for Upstash Vector
 ```
 
 ## Getting Started
@@ -44,53 +45,56 @@ src/
 ```bash
 git clone https://github.com/pvanham/portfolio-website.git
 cd portfolio-website
-yarn install   # or npm install / pnpm install
+npm install   # or yarn / pnpm install
 ```
 
 ### 2. Environment variables
 
-Create `.env.local` in the project root:
-
-```env
-# Required for AI chatbot
-OPENAI_API_KEY=sk-...
-
-# Required for AstraDB (RAG vector store)
-ASTRA_DB_APPLICATION_TOKEN=AstraCS:...
-ASTRA_DB_API_ENDPOINT=https://...-us-east1.apps.astra.datastax.com
-ASTRA_DB_KEYSPACE=default_keyspace
-
-# Required for contact form
-RESEND_API_KEY=re_...
-
-# Optional: use in-memory vector store instead of AstraDB (dev only)
-# USE_IN_MEMORY_STORE=true
-```
-
-### 3. RAG setup (AstraDB)
-
-If using AstraDB:
-
-1. Create a [DataStax Astra DB](https://astra.datastax.com/) database.
-2. Create a keyspace and note the API endpoint and application token.
-3. Run the ingestion script to embed content from `src/data/content/*.txt`:
+Copy the example file and fill in your keys:
 
 ```bash
-yarn tsx src/scripts/ingest-data.ts
+cp .env.example .env.local
+```
+
+Required variables:
+
+```env
+# AI chatbot (OpenAI)
+OPENAI_API_KEY=sk-...
+
+# Upstash Vector (RAG retrieval)
+UPSTASH_VECTOR_REST_URL=https://...
+UPSTASH_VECTOR_REST_TOKEN=...
+
+# Upstash Redis (chat rate limiting)
+UPSTASH_REDIS_REST_URL=https://...
+UPSTASH_REDIS_REST_TOKEN=...
+
+# Contact form (Resend)
+RESEND_API_KEY=re_...
+```
+
+### 3. RAG setup (Upstash Vector)
+
+1. Create an [Upstash Vector](https://console.upstash.com/) index with built-in embedding support (e.g. `bge-small-en-v1.5`).
+2. Create an [Upstash Redis](https://console.upstash.com/) database for rate limiting.
+3. Add the credentials to `.env.local`.
+4. Run the ingestion script to embed content from `src/data/content/*.txt`:
+
+```bash
+npx tsx src/scripts/ingest-data.ts
 ```
 
 To clear and re-ingest:
 
 ```bash
-yarn tsx src/scripts/ingest-data.ts --clear
+npx tsx src/scripts/ingest-data.ts --clear
 ```
-
-For local development without AstraDB, set `USE_IN_MEMORY_STORE=true` in `.env.local`. The app will load and embed content from disk at runtime (no ingestion needed).
 
 ### 4. Run the dev server
 
 ```bash
-yarn dev
+npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
@@ -99,11 +103,11 @@ Open [http://localhost:3000](http://localhost:3000).
 
 | Command | Description |
 |---------|-------------|
-| `yarn dev` | Start development server |
-| `yarn build` | Production build |
-| `yarn start` | Start production server |
-| `yarn lint` | Run ESLint |
-| `yarn tsx src/scripts/ingest-data.ts` | Ingest RAG content into AstraDB |
+| `npm run dev` | Start development server |
+| `npm run build` | Production build |
+| `npm run start` | Start production server |
+| `npm run lint` | Run ESLint |
+| `npx tsx src/scripts/ingest-data.ts` | Ingest RAG content into Upstash Vector |
 
 ## Updating the Chatbot Knowledge Base
 
@@ -111,16 +115,21 @@ Edit or add `.txt` files in `src/data/content/`. Current sources:
 
 - `about_parker.txt`
 - `skills.txt`
-- `projects.txt`
-- `Resume.txt`
 - `home.txt`
 - `contact.txt`
+- `Resume.txt`
+- `project-sous.txt`
+- `project-tabixell.txt`
+- `project-portfolio-website.txt`
+- `project-z3-wellness.txt`
+- `project-el-parque.txt`
+- `project-hospital-system.txt`
 
-After changing content, re-run the ingestion script (or restart the dev server if using `USE_IN_MEMORY_STORE`).
+After changing content, re-run the ingestion script.
 
 ## Deployment
 
-The project is configured for [Vercel](https://vercel.com). Add the same environment variables in your Vercel project settings. Ensure AstraDB ingestion has been run before deploying, or use `USE_IN_MEMORY_STORE` only for ephemeral preview deployments.
+The project is configured for [Vercel](https://vercel.com). Add the same environment variables in your Vercel project settings and ensure Upstash Vector ingestion has been run before deploying.
 
 ## License
 

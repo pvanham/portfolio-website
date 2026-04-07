@@ -1,5 +1,7 @@
 "use server";
 
+/** Server action for the contact form — validates input, applies spam/rate-limit checks, and sends via Resend. */
+
 import { z } from "zod";
 import { headers } from "next/headers";
 import { Resend } from "resend";

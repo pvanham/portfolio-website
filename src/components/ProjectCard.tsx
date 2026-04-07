@@ -1,5 +1,7 @@
 "use client";
 
+/** Clickable project card showing thumbnail, title, role, and tech badges. */
+
 import Image from "next/image";
 import type { StaticImageData } from "next/image";
 
@@ -10,6 +12,7 @@ interface ProjectCardProps {
   imageAlt: string;
   overview: string;
   technologies: string[];
+  status?: "in-progress";
   onClick: () => void;
 }
 
@@ -20,6 +23,7 @@ export function ProjectCard({
   imageAlt,
   overview,
   technologies,
+  status,
   onClick,
 }: ProjectCardProps) {
   return (
@@ -28,12 +32,17 @@ export function ProjectCard({
       onClick={onClick}
       className="bg-card border-border hover:border-primary/50 group flex h-full w-full cursor-pointer flex-col rounded-xl border text-left shadow-md transition-all hover:shadow-xl"
     >
-      <div className="bg-muted flex aspect-video flex-shrink-0 items-center justify-center overflow-hidden rounded-t-xl">
+      <div className="bg-muted relative flex aspect-video flex-shrink-0 items-center justify-center overflow-hidden rounded-t-xl">
         <Image
           src={image}
           alt={imageAlt}
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
+        {status === "in-progress" && (
+          <span className="absolute top-3 left-3 inline-flex items-center rounded-full bg-amber-500/90 px-2.5 py-1 text-xs font-semibold text-white shadow-sm backdrop-blur-sm">
+            In Development
+          </span>
+        )}
       </div>
       <div className="flex flex-1 flex-col space-y-3 p-5">
         <div>
