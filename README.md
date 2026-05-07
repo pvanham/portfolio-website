@@ -15,10 +15,10 @@ A modern, full-stack portfolio website with an AI-powered chatbot, contact form,
 ## Features
 
 - **Homepage** — Hero section, typewriter roles, project highlights, skills overview
-- **Projects** — Detailed project grid with modals (Sous, Tabixell, Z³ Wellness, El Parque, BWH, etc.)
+- **Projects** — Detailed project grid with modals (Sous, Z³ Wellness, El Parque, BWH, etc.)
 - **AI Chatbot** — RAG-based assistant that answers questions about the portfolio using Upstash Vector hybrid retrieval and an agentic tool-calling pattern via the Vercel AI SDK
 - **Contact Form** — Server action with Zod validation, honeypot, timing check, spam filtering, and rate limiting
-- **Resume & Skills** — Dedicated pages with structured content
+- **Skills** — Dedicated page with structured content
 - **Dark Mode** — System-aware theme toggle
 
 ## Project Structure
@@ -119,7 +119,6 @@ Edit or add `.txt` files in `src/data/content/`. Current sources:
 - `contact.txt`
 - `Resume.txt`
 - `project-sous.txt`
-- `project-tabixell.txt`
 - `project-portfolio-website.txt`
 - `project-z3-wellness.txt`
 - `project-el-parque.txt`

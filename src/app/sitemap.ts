@@ -7,7 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://parkervanham.com";
 
   // List all your static pages here
-  const staticPages = ["/", "/projects", "/skills", "/resume", "/contact", "/privacy"];
+  const staticPages = ["/", "/projects", "/skills", "/contact", "/privacy"];
 
   const staticPageUrls = staticPages.map((path) => ({
     url: `${baseUrl}${path}`,

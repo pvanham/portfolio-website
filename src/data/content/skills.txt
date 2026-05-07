@@ -36,24 +36,24 @@ Vercel AI SDK: Integrated into this portfolio for both the frontend (useChat hoo
 
 Tailwind CSS: The primary CSS framework used for styling this portfolio. Parker has experience creating custom themes, implementing dark mode, and building responsive layouts with utility-first classes.
 
-shadcn/ui: A component library built on Radix UI primitives, used extensively in both the Sous and Tabixell Studio Manager projects for building polished, accessible dashboard interfaces.
+shadcn/ui: A component library built on Radix UI primitives, used extensively in the Sous project for building polished, accessible dashboard interfaces.
 
-Clerk Authentication: Used in both Sous and Tabixell for user authentication with role-based access control, session claims-based middleware gating, webhook-driven user provisioning, and invitation-based onboarding flows.
+Clerk Authentication: Used in Sous for user authentication with role-based access control, session claims-based middleware gating, and webhook-driven user provisioning.
 
 Stripe: Integrated into Sous for billing with checkout and customer portal flows, and Clerk/Stripe webhook handlers for event-driven state synchronization.
 
-TanStack React Query: Used in both Sous and Tabixell for client-side data fetching with typed fetch wrappers, optimistic UI patterns, and skeleton loading states.
+TanStack React Query: Used in Sous for client-side data fetching with typed fetch wrappers, optimistic UI patterns, and skeleton loading states.
 
 FastAPI: A Python web framework used to build the OR-Tools constraint-solver microservice for Sous, providing a REST API bridge between the Next.js app and the Python solver.
 
-Mongoose: An ODM library for MongoDB used in both Sous and Tabixell to define schemas, enforce validation, and manage multi-tenant data models with studio-scoped isolation.
+Mongoose: An ODM library for MongoDB used in Sous to define schemas, enforce validation, and manage organization-scoped data models.
 
-Zod: A TypeScript schema validation library used across Sous and Tabixell for API request validation, form validation, and ensuring type-safe data flow between client and server.
+Zod: A TypeScript schema validation library used in Sous for API request validation, form validation, and ensuring type-safe data flow between client and server.
 
 Databases
 Upstash Vector (Hybrid Index): Used as the vector database for the portfolio chatbot. Parker set up and populated a hybrid index with built-in dense and BM25 sparse embeddings to enable efficient semantic and keyword search of his portfolio content.
 
-MongoDB & Mongoose: The primary database for both the Sous and Tabixell Studio Manager projects. Parker designed multi-tenant data models with studio-scoped isolation, hybrid ID strategies, partial unique indexes, and atomic transactions for the double-entry accounting engine in Tabixell.
+MongoDB & Mongoose: The primary database for the Sous project. Parker designed multi-organization, multi-location data models with hybrid ID strategies and partial unique indexes to enforce business invariants.
 
 PostgreSQL: Applied in the Z³-Wellness project. Parker's team used it for data storage and created database views to speed up api calls.
 
@@ -66,8 +66,6 @@ Agile/Scrum: Parker has practical experience working in Agile/Scrum environments
 
 Object-Oriented Programming (OOP): A foundational concept applied throughout his coursework, especially in Java and C.
 
-Full-Stack Development: Demonstrated through the Z³-Wellness project, this portfolio, and both Sous and Tabixell, where he worked on everything from the frontend UI to the backend logic, database, and AI pipeline.
+Full-Stack Development: Demonstrated through the Z³-Wellness project, this portfolio, and Sous, where he worked on everything from the frontend UI to the backend logic, database, and AI pipeline.
 
 Constraint Optimization: Applied in the Sous project using Google OR-Tools CP-SAT to solve complex staff scheduling problems with hard and soft constraints.
-
-Multi-Tenant SaaS Architecture: Demonstrated in Tabixell Studio Manager, where Parker designed a multi-tenant data model with studio-scoped isolation, role-based dashboards, and invitation-based onboarding.

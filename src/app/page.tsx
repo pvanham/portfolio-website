@@ -1,4 +1,4 @@
-/** Homepage — hero section, chatbot preview, project grid, skills overview, resume embed, and contact form. */
+/** Homepage — hero section, chatbot preview, project grid, skills overview, and contact form. */
 
 import Image from "next/image";
 import Link from "next/link";
@@ -13,21 +13,13 @@ import { projects } from "@/data/projects";
 import { skillsData } from "@/data/skills";
 import me from "@/assets/me.png";
 import type { Metadata } from "next";
-import {
-  Bot,
-  ArrowRight,
-  Download,
-  ChevronDown,
-  DownloadCloud,
-} from "lucide-react";
+import { Bot, ArrowRight, ChevronDown } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Parker Van Ham - Computer Scientist & Full-Stack Developer",
   description:
     "Welcome to Parker Van Ham's portfolio. Explore projects, skills, and get in touch.",
 };
-
-const resumePdfUrl = "/Parker_Van_Ham_Resume.pdf";
 
 export default function HomePage() {
   return (
@@ -74,13 +66,6 @@ export default function HomePage() {
             >
               View My Projects
               <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-            <Link
-              href="#resume"
-              className="border-input bg-background text-foreground hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring inline-flex items-center justify-center rounded-lg border px-6 py-3 text-base font-semibold shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
-            >
-              My Resume
-              <Download className="ml-2 h-5 w-5" />
             </Link>
           </div>
 
@@ -201,74 +186,6 @@ export default function HomePage() {
               </AnimateIn>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Resume */}
-      <section
-        id="resume"
-        className="border-border relative z-10 border-t py-20 md:py-28"
-      >
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <header className="mb-10 text-center md:mb-12">
-            <H1>My Resume</H1>
-            <p className="text-muted-foreground mt-3 text-lg sm:mt-4 sm:text-xl">
-              Click the button below to view online, or download a PDF copy.
-            </p>
-          </header>
-          <div className="mb-10 flex justify-center md:mb-12">
-            <a
-              href={resumePdfUrl}
-              download="Parker_Van_Ham_Resume.pdf"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary inline-flex items-center justify-center rounded-md border border-transparent px-8 py-3 text-base font-medium shadow-sm transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none"
-            >
-              <DownloadCloud className="mr-2 h-5 w-5" />
-              Download Resume (PDF)
-            </a>
-          </div>
-          <details className="group">
-            <summary className="border-input bg-background hover:bg-accent hover:text-accent-foreground text-foreground mx-auto flex max-w-md cursor-pointer list-none flex-col items-center gap-1 rounded-lg border px-6 py-4 text-center shadow-sm transition-colors [&::-webkit-details-marker]:hidden">
-              <span className="flex items-center gap-2 text-xl font-semibold sm:text-2xl">
-                View Online
-                <ChevronDown className="text-muted-foreground h-5 w-5 transition-transform group-open:rotate-180" />
-              </span>
-              <span className="text-muted-foreground text-sm font-normal">
-                Click to view — no download required
-              </span>
-            </summary>
-            <div className="mt-6">
-              <div className="border-border mx-auto aspect-[8.5/11] w-full max-w-4xl overflow-hidden rounded-lg border shadow-lg">
-                <object
-                  data={resumePdfUrl}
-                  type="application/pdf"
-                  width="100%"
-                  height="100%"
-                  aria-label="Parker Van Ham's Resume PDF"
-                >
-                  <div className="p-8 text-center">
-                    <p className="text-muted-foreground mb-4">
-                      It appears your browser does not support embedding PDFs
-                      directly.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                      No worries! You can still download it using the button
-                      above.
-                    </p>
-                    <a
-                      href={resumePdfUrl}
-                      className="text-primary hover:underline"
-                    >
-                      Click here to download the PDF.
-                    </a>
-                  </div>
-                </object>
-              </div>
-              <p className="text-muted-foreground mt-4 text-center text-sm">
-                Note: Embedded PDF viewer experience may vary by browser. For
-                the best view, please download the resume.
-              </p>
-            </div>
-          </details>
         </div>
       </section>
 

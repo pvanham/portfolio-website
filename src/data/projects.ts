@@ -5,7 +5,6 @@ import pic2 from "@/assets/sleep_app_pic.png";
 import pic3 from "@/assets/el_parque_pic.png";
 import pic4 from "@/assets/bwh_pic.jpg";
 import pic5 from "@/assets/sous_pic.png";
-import pic6 from "@/assets/tabixell_pic.png";
 
 /**
  * Canonical project list used by both the homepage and the
@@ -45,40 +44,6 @@ export const projects: ProjectData[] = [
     link: {
       label: "View Source Code on GitHub",
       href: "https://github.com/pvanham/Sous",
-    },
-  },
-  {
-    slug: "tabixell-studio-manager",
-    title: "Tabixell Studio Manager",
-    role: "Full-Stack Developer",
-    status: "in-progress",
-    image: pic6,
-    imageAlt:
-      "Studio Manager dashboard showing class overview, student counts, and upcoming schedule for a studio owner",
-    overview:
-      "A multi-tenant SaaS platform for education and activity studios — such as dance schools, music academies, and martial arts dojos — to manage classes, enrollments, scheduling, billing, and accounting. The app serves three distinct user roles (owner, teacher, and client/parent) with dedicated dashboards, role-gated routing, and a double-entry accounting engine. This project is actively in development — planned work includes Stripe payment integration with automatic ledger posting, an owner accounting dashboard with P&L and balance-sheet views, attendance tracking, a client billing portal, and email/in-app notifications.",
-    contributions: [
-      "Architected a multi-tenant data model in MongoDB with studio-scoped isolation, a hybrid ID strategy (Mongoose ObjectIds for domain entities, Clerk string IDs for users), and partial unique indexes to enforce business invariants like one active enrollment per student per class.",
-      "Built a role-based access system with three distinct dashboards (owner, teacher, client) enforced at the middleware layer via Clerk session claims, with automatic redirects and 401/403 API responses for unauthorized access.",
-      "Engineered an invitation-based onboarding flow where studio owners invite teachers and parents via tokenized links, with a Svix-verified Clerk webhook automatically creating user profiles, assigning roles, and linking users to the correct studio on sign-up.",
-      "Designed and implemented a double-entry accounting kernel supporting atomic journal entry posting via MongoDB transactions, Zod-validated balanced ledger lines, idempotency keys to prevent duplicate postings, and full reversal support with audit-trail linking.",
-      "Developed a class scheduling system with recurring time-slot definitions and a conflict-detection engine that validates date-range and time-slot overlaps before allowing new enrollments.",
-      "Implemented a 3-layer client data-fetching architecture (API routes → typed fetch wrappers → TanStack React Query hooks) with Zod validation, optimistic UI patterns, and skeleton loading states across all dashboards.",
-      "Created a responsive UI with shadcn/ui components, dark mode support via next-themes, and polished dashboard views including teacher payroll with YTD earnings, client class browsing with search/filter, and owner-level user management with pending invitation tracking.",
-    ],
-    technologies: [
-      "Next.js 15 (App Router)",
-      "React 19",
-      "TypeScript",
-      "MongoDB & Mongoose",
-      "Clerk Authentication",
-      "TanStack React Query",
-      "Tailwind CSS v4 & shadcn/ui",
-      "Zod",
-    ],
-    link: {
-      label: "View Source Code on GitHub",
-      href: "https://github.com/pvanham/studio-manager",
     },
   },
   {

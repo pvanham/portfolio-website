@@ -22,7 +22,6 @@ export default function Navbar() {
     { href: "/", label: "Home" },
     { href: "/#projects", label: "Projects" },
     { href: "/#skills", label: "Skills" },
-    { href: "/#resume", label: "Resume" },
     { href: "/#contact", label: "Contact" },
   ];
 
