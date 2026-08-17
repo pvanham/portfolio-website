@@ -199,8 +199,8 @@ export default function HomePage() {
             <H1>Get In Touch</H1>
             <p className="text-muted-foreground mt-3 text-lg sm:mt-4 sm:text-xl">
               I&apos;m always open to discussing new opportunities, projects, or
-              ideas. Feel free to reach out through any of the channels below or
-              use the contact form.
+              ideas. Connect through a profile below or send a message with the
+              contact form.
             </p>
           </header>
           <div className="grid gap-8 md:grid-cols-2">
@@ -249,29 +249,6 @@ export default function HomePage() {
                       className="text-primary hover:underline"
                     >
                       Indeed
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div className="bg-card border-border rounded-xl border p-6 shadow-sm">
-                <H2>Direct Contact Information</H2>
-                <ul className="mt-4 space-y-2">
-                  <li>
-                    <strong>Personal Email:</strong>{" "}
-                    <a
-                      href="mailto:parkervanham@gmail.com"
-                      className="text-primary hover:underline"
-                    >
-                      parkervanham@gmail.com
-                    </a>
-                  </li>
-                  <li>
-                    <strong>School Email:</strong>{" "}
-                    <a
-                      href="mailto:prvanham@wpi.edu"
-                      className="text-primary hover:underline"
-                    >
-                      prvanham@wpi.edu
                     </a>
                   </li>
                 </ul>

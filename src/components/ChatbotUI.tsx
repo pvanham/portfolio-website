@@ -19,6 +19,10 @@ const GREETING_MESSAGE: UIMessage = {
   ],
 };
 
+const STORAGE_KEY = "chat_messages_v2";
+const LEGACY_STORAGE_KEY = "chat_messages";
+const MAX_HISTORY_MESSAGES = 20;
+
 const getMessageText = (m: UIMessage): string =>
   m.parts
     ?.filter((p) => p.type === "text")
@@ -42,29 +46,8 @@ function isValidMessageArray(data: unknown): data is UIMessage[] {
 
 export default function ChatbotUI() {
   const { isChatOpen, toggleChat: onClose } = useChatState();
-
-  const [initialMessages, setInitialMessages] = useState<UIMessage[]>([
-    GREETING_MESSAGE,
-  ]);
   const [input, setInput] = useState("");
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("chat_messages");
-      if (saved) {
-        try {
-          const parsed = JSON.parse(saved);
-          if (isValidMessageArray(parsed)) {
-            setInitialMessages(parsed);
-          } else {
-            localStorage.removeItem("chat_messages");
-          }
-        } catch {
-          localStorage.removeItem("chat_messages");
-        }
-      }
-    }
-  }, []);
+  const [hasRestored, setHasRestored] = useState(false);
 
   useEffect(() => {
     if (isChatOpen) {
@@ -124,19 +107,47 @@ export default function ChatbotUI() {
     };
   }, [isChatOpen]);
 
-  const { messages, sendMessage, status, error, regenerate } = useChat({
-    messages: initialMessages,
-  });
+  const { messages, setMessages, sendMessage, status, error, regenerate } =
+    useChat({
+      messages: [GREETING_MESSAGE],
+    });
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (isValidMessageArray(parsed)) {
+          setMessages(parsed.slice(-MAX_HISTORY_MESSAGES));
+        } else {
+          localStorage.removeItem(STORAGE_KEY);
+        }
+      }
+      localStorage.removeItem(LEGACY_STORAGE_KEY);
+    } catch {
+      localStorage.removeItem(STORAGE_KEY);
+    } finally {
+      // State (not a ref) so the persist effect in this same flush still
+      // sees false and cannot overwrite saved history with the greeting.
+      setHasRestored(true);
+    }
+  }, [setMessages]);
 
   const isLoading = status === "streaming" || status === "submitted";
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && messages.length > 0) {
-      localStorage.setItem("chat_messages", JSON.stringify(messages));
+    if (!hasRestored || messages.length === 0) return;
+    try {
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(messages.slice(-MAX_HISTORY_MESSAGES)),
+      );
+    } catch {
+      // Ignore quota errors — chat still works without persistence.
     }
-  }, [messages]);
+  }, [messages, hasRestored]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -157,10 +168,9 @@ export default function ChatbotUI() {
   };
 
   const clearChat = () => {
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("chat_messages");
-    }
-    window.location.reload();
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(LEGACY_STORAGE_KEY);
+    setMessages([GREETING_MESSAGE]);
   };
 
   if (!isChatOpen) return null;
@@ -246,7 +256,7 @@ export default function ChatbotUI() {
               )}
               {m.role === "assistant" && m.id !== "greeting" && (
                 <button
-                  onClick={() => regenerate()}
+                  onClick={() => regenerate({ messageId: m.id })}
                   className="text-muted-foreground hover:text-primary mt-auto mb-1 p-1 transition-colors"
                   aria-label="Regenerate response"
                 >

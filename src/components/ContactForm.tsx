@@ -1,6 +1,6 @@
 "use client";
 
-/** Contact form with honeypot timing field, Zod validation via server action, and success/error feedback. */
+/** Contact form with BotID, honeypot, timing check, Zod validation via server action, and success/error feedback. */
 
 import { useActionState, useEffect, useRef } from "react";
 import { useFormStatus } from "react-dom";

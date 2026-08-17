@@ -12,7 +12,7 @@ UI/UX Design: I created a custom, fully responsive UI with Tailwind CSS and a un
 
 AI Chatbot Engineering(How it works): The site's main feature is a custom AI chatbot. I engineered the entire Retrieval Augmented Generation (RAG) pipeline to allow the chatbot to answer questions based on the content of this website. The pipeline uses an agentic tool-based retrieval pattern built on the Vercel AI SDK's streamText function. The LLM decides when and what to retrieve using a defined tool, which queries an Upstash Vector hybrid index that combines dense semantic search (via built-in bge-small-en-v1.5 embeddings) and BM25 keyword search in a single query. Rate limiting via Upstash Redis protects against abuse, and Zod validates all incoming requests.
 
-AI & Streaming: Integrated OpenAI's GPT-4o-mini for conversational responses via the Vercel AI SDK's @ai-sdk/openai provider, with streamText for real-time streaming and automatic multi-step tool execution.
+AI & Streaming: Integrated OpenAI's GPT-5.6 Luna for conversational responses via the Vercel AI SDK's @ai-sdk/openai provider, with streamText for real-time streaming and automatic multi-step tool execution.
 
 Vector Database: Set up and populated a hybrid vector index using Upstash Vector with built-in embedding generation, eliminating the need for a separate embedding API.
 
@@ -23,5 +23,5 @@ Problem-Solving: A significant part of this project involved navigating the comp
 Key Technologies Applied For This Website:
 Frontend: Next.js, React, TypeScript, Tailwind CSS, Vercel AI SDK (useChat)
 Backend: Next.js API Routes, Vercel AI SDK (streamText, tool calling)
-AI/ML: OpenAI GPT-4o-mini (LLM), Upstash Vector (hybrid embeddings + BM25)
+AI/ML: OpenAI GPT-5.6 Luna (LLM), Upstash Vector (hybrid embeddings + BM25)
 Infrastructure: Upstash Redis (rate limiting), Vercel (deployment)

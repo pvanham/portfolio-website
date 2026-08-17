@@ -17,7 +17,7 @@ A modern, full-stack portfolio website with an AI-powered chatbot, contact form,
 - **Homepage** — Hero section, typewriter roles, project highlights, skills overview
 - **Projects** — Detailed project grid with modals (Sous, Z³ Wellness, El Parque, BWH, etc.)
 - **AI Chatbot** — RAG-based assistant that answers questions about the portfolio using Upstash Vector hybrid retrieval and an agentic tool-calling pattern via the Vercel AI SDK
-- **Contact Form** — Server action with Zod validation, honeypot, timing check, spam filtering, and rate limiting
+- **Contact Form** — Server action with Zod validation, Vercel BotID, honeypot, timing check, spam filtering, and Upstash rate limiting
 - **Skills** — Dedicated page with structured content
 
 ## Project Structure
@@ -81,13 +81,13 @@ RESEND_API_KEY=re_...
 4. Run the ingestion script to embed content from `src/data/content/*.txt`:
 
 ```bash
-npx tsx src/scripts/ingest-data.ts
+npm run ingest
 ```
 
 To clear and re-ingest:
 
 ```bash
-npx tsx src/scripts/ingest-data.ts --clear
+npm run ingest -- --clear
 ```
 
 ### 4. Run the dev server
@@ -106,7 +106,7 @@ Open [http://localhost:3000](http://localhost:3000).
 | `npm run build` | Production build |
 | `npm run start` | Start production server |
 | `npm run lint` | Run ESLint |
-| `npx tsx src/scripts/ingest-data.ts` | Ingest RAG content into Upstash Vector |
+| `npm run ingest` | Ingest RAG content into Upstash Vector |
 
 ## Updating the Chatbot Knowledge Base
 

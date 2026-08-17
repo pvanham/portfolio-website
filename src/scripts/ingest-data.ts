@@ -1,6 +1,6 @@
 /**
  * CLI script — chunks .txt files from data/content/ and upserts them into Upstash Vector.
- * Usage: npx tsx src/scripts/ingest-data.ts [--clear]
+ * Usage: npm run ingest [-- --clear]
  */
 
 import { Index } from "@upstash/vector";
@@ -99,6 +99,7 @@ async function main() {
     const chunks = splitText(content, 800, 200);
 
     console.log(`  ${file}: ${chunks.length} chunks`);
+    await index.delete({ prefix: `${source}-` });
 
     const vectors = chunks.map((chunk, i) => ({
       id: `${source}-${i}`,
@@ -113,6 +114,11 @@ async function main() {
     }
 
     totalChunks += chunks.length;
+  }
+
+  // Drop vectors for the retired aggregate file if it is no longer ingested.
+  if (!txtFiles.includes("projects.txt")) {
+    await index.delete({ prefix: "projects-" });
   }
 
   console.log(

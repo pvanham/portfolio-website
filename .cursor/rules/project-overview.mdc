@@ -8,7 +8,7 @@ alwaysApply: true
 ## Stack
 - **Next.js 16** (App Router), **React 19**, **TypeScript 5** (strict mode)
 - **Tailwind CSS 4** for styling
-- **Vercel AI SDK** + **LangChain** + **AstraDB** for RAG-based chatbot
+- **Vercel AI SDK** + **Upstash Vector** for RAG-based chatbot
 - **Resend** + **react-email** for contact form, **Zod** for validation
 - **Upstash** for rate limiting
 
@@ -17,7 +17,7 @@ alwaysApply: true
 src/
   app/          # Next.js App Router pages + API routes + server actions
   components/   # Reusable components (ui/ for primitives, email/ for templates)
-  lib/          # Shared utilities and external client setup (astra.ts, utils.ts)
+  lib/          # Shared utilities and external client setup (vector.ts, utils.ts)
   data/content/ # Plain-text files used as RAG knowledge base
   assets/       # Static images
   scripts/      # One-off scripts (data ingestion)

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "ingest": "tsx src/scripts/ingest-data.ts"
   },
   "dependencies": {
     "@ai-sdk/openai": "^3.0.51",
@@ -16,6 +17,7 @@
     "@upstash/redis": "^1.37.0",
     "@upstash/vector": "^1.2.3",
     "ai": "^6.0.92",
+    "botid": "^1.5.11",
     "clsx": "^2.1.1",
     "dotenv": "^16.5.0",
     "lucide-react": "^0.511.0",
