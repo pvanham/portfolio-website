@@ -161,7 +161,7 @@ export default function ContactForm() {
       </div>
       {state.message && (
         <p
-          className={`mt-3 text-center text-sm ${state.issues ? "text-destructive" : "text-green-600 dark:text-green-500"}`}
+          className={`mt-3 text-center text-sm ${state.issues ? "text-destructive" : "text-green-500"}`}
         >
           {state.message}
         </p>

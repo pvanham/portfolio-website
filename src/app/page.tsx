@@ -26,7 +26,7 @@ export default function HomePage() {
     <>
       <section
         id="home"
-        className="relative bg-[image:var(--hero-bg)] bg-cover bg-center bg-no-repeat px-4 sm:px-6 lg:px-8"
+        className="relative bg-[url('/background.png')] bg-cover bg-center bg-no-repeat px-4 sm:px-6 lg:px-8"
       >
         <div className="absolute inset-0 bg-background/50" />
         <AnimateIn className="relative z-10 flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center text-center">
@@ -62,7 +62,7 @@ export default function HomePage() {
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
             <Link
               href="#projects"
-              className="focus-visible:ring-ring from-primary hover:from-primary/90 inline-flex items-center justify-center rounded-lg bg-gradient-to-r to-cyan-600 px-6 py-3 text-base font-semibold text-white shadow-md transition-all hover:to-cyan-700 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none dark:to-teal-400 dark:hover:to-teal-500"
+              className="focus-visible:ring-ring from-primary hover:from-primary/90 inline-flex items-center justify-center rounded-lg bg-gradient-to-r to-teal-400 px-6 py-3 text-base font-semibold text-white shadow-md transition-all hover:to-teal-500 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
             >
               View My Projects
               <ArrowRight className="ml-2 h-5 w-5" />

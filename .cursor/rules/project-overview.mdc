@@ -7,7 +7,7 @@ alwaysApply: true
 
 ## Stack
 - **Next.js 16** (App Router), **React 19**, **TypeScript 5** (strict mode)
-- **Tailwind CSS 4** for styling, **next-themes** for dark mode
+- **Tailwind CSS 4** for styling
 - **Vercel AI SDK** + **LangChain** + **AstraDB** for RAG-based chatbot
 - **Resend** + **react-email** for contact form, **Zod** for validation
 - **Upstash** for rate limiting

@@ -1,11 +1,10 @@
-/** Root layout — sets fonts, metadata, theme provider, and global shell (Navbar, ChatbotUI, Footer). */
+/** Root layout — sets fonts, metadata, and global shell (Navbar, ChatbotUI, Footer). */
 
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { ThemeProvider } from "@/components/ThemeProvider";
 import { ChatStateProvider } from "@/components/ChatContext";
 import ChatbotUI from "@/components/ChatbotUI";
 
@@ -34,18 +33,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider attribute="class">
-          <ChatStateProvider>
-            <Navbar />
-            <main>{children}</main>
-            <ChatbotUI />
-            <Footer />
-          </ChatStateProvider>
-        </ThemeProvider>
+        <ChatStateProvider>
+          <Navbar />
+          <main>{children}</main>
+          <ChatbotUI />
+          <Footer />
+        </ChatStateProvider>
       </body>
     </html>
   );

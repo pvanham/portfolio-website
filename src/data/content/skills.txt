@@ -34,7 +34,7 @@ Node.js & Express: Used for backend development, specifically in creating the or
 
 Vercel AI SDK: Integrated into this portfolio for both the frontend (useChat hook for state management and streaming) and the backend (streamText with tool calling for agentic RAG retrieval), enabling real-time, streaming responses.
 
-Tailwind CSS: The primary CSS framework used for styling this portfolio. Parker has experience creating custom themes, implementing dark mode, and building responsive layouts with utility-first classes.
+Tailwind CSS: The primary CSS framework used for styling this portfolio. Parker has experience creating custom color themes and building responsive layouts with utility-first classes.
 
 shadcn/ui: A component library built on Radix UI primitives, used extensively in the Sous project for building polished, accessible dashboard interfaces.
 

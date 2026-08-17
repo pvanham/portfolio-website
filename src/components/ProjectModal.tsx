@@ -115,7 +115,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                     {project.title}
                   </h2>
                   {project.status === "in-progress" && (
-                    <span className="bg-amber-500/15 text-amber-600 dark:text-amber-400 inline-flex shrink-0 items-center rounded-full px-2.5 py-0.5 text-xs font-semibold">
+                    <span className="bg-amber-500/15 text-amber-400 inline-flex shrink-0 items-center rounded-full px-2.5 py-0.5 text-xs font-semibold">
                       In Development
                     </span>
                   )}

@@ -56,7 +56,7 @@ export const projects: ProjectData[] = [
       "A personal portfolio website built from scratch to serve as a dynamic, interactive hub for my professional work. The primary goal was to create a modern, performant, and visually unique site that actively demonstrates my skills through an integrated AI chatbot powered by RAG technology.",
     contributions: [
       "Designed and implemented the entire application using a modern tech stack centered on Next.js and React with TypeScript.",
-      "Developed a fully responsive UI with Tailwind CSS, including a custom theme with light and dark modes.",
+      "Developed a fully responsive UI with Tailwind CSS, including a custom dark theme.",
       "Engineered and integrated an AI chatbot from the ground up, leveraging the Vercel AI SDK for streaming UI updates.",
       "Built a Retrieval Augmented Generation (RAG) pipeline using an agentic tool-calling pattern via the Vercel AI SDK, enabling the chatbot to answer questions based on website content.",
       "Set up a hybrid vector index using Upstash Vector with built-in embedding generation and BM25 keyword search for accurate retrieval.",
