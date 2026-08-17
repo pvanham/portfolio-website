@@ -38,14 +38,14 @@ src/
 ### Prerequisites
 
 - Node.js 18+
-- npm, yarn, or pnpm
+- npm
 
 ### 1. Clone and install
 
 ```bash
 git clone https://github.com/pvanham/portfolio-website.git
 cd portfolio-website
-npm install   # or yarn / pnpm install
+npm install
 ```
 
 ### 2. Environment variables
