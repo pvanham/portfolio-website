@@ -1,5 +1,6 @@
 Project: Personal Portfolio Website (This Website)
 Role: Sole Full-Stack Developer
+Portfolio Page: https://parkervanham.com/projects/portfolio-website
 
 Project Overview:
 This website was built from the ground up to serve as a dynamic, interactive hub for my professional work. The primary goal was to create a modern, performant, and visually unique portfolio that not only lists my skills and projects but actively demonstrates them. The core feature is the integrated AI assistant, designed to provide visitors with an intuitive way to learn about me.

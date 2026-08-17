@@ -5,15 +5,23 @@ import { H2 } from "@/components/ui/H2";
 import ContactForm from "@/components/ContactForm";
 import type { Metadata } from "next";
 
+const description =
+  "Get in touch with Parker Van Ham. Discuss opportunities, projects, or ideas.";
+
 export const metadata: Metadata = {
   title: "Contact Parker Van Ham",
-  description:
-    "Get in touch with Parker Van Ham. Discuss opportunities, projects, or ideas.",
+  description,
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    title: "Contact Parker Van Ham",
+    description,
+    url: "/contact",
+  },
 };
 
 export default function ContactPage() {
   return (
-    <main className="mx-auto max-w-5xl px-4 py-12 sm:px-6 md:py-16 lg:px-8 lg:py-20">
+    <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 md:py-16 lg:px-8 lg:py-20">
       <header className="mb-10 text-center md:mb-12">
         <H1>Get In Touch</H1>
         <p className="text-muted-foreground mt-3 text-lg sm:mt-4 sm:text-xl">
@@ -81,6 +89,6 @@ export default function ContactPage() {
           </div>
         </section>
       </div>
-    </main>
+    </div>
   );
 }

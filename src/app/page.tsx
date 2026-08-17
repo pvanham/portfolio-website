@@ -1,49 +1,63 @@
 /** Homepage — hero section, chatbot preview, project grid, skills overview, and contact form. */
 
+import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
+import { Bot, ArrowRight, ChevronDown } from "lucide-react";
 import { H1 } from "@/components/ui/H1";
 import { H2 } from "@/components/ui/H2";
+import { H3 } from "@/components/ui/H3";
 import { AnimateIn } from "@/components/ui/AnimateIn";
 import { TypewriterRoles } from "@/components/TypewriterRoles";
 import { ChatCTAButton } from "@/components/ChatCTAButton";
 import { ProjectGrid } from "@/components/ProjectGrid";
 import ContactForm from "@/components/ContactForm";
+import { JsonLd } from "@/components/JsonLd";
 import { projects } from "@/data/projects";
 import { skillsData } from "@/data/skills";
+import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from "@/lib/site";
 import me from "@/assets/me.png";
-import type { Metadata } from "next";
-import { Bot, ArrowRight, ChevronDown } from "lucide-react";
+
+const HeroCanvas = dynamic(() => import("@/components/HeroCanvas"));
 
 export const metadata: Metadata = {
-  title: "Parker Van Ham - Computer Scientist & Full-Stack Developer",
+  title: SITE_TITLE,
   description:
     "Welcome to Parker Van Ham's portfolio. Explore projects, skills, and get in touch.",
+  openGraph: {
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+  },
 };
 
 export default function HomePage() {
   return (
     <>
+      <JsonLd />
       <section
         id="home"
-        className="relative bg-[url('/background.png')] bg-cover bg-center bg-no-repeat px-4 sm:px-6 lg:px-8"
+        className="bg-background relative overflow-hidden px-4 sm:px-6 lg:px-8"
       >
-        <div className="absolute inset-0 bg-background/50" />
-        <AnimateIn className="relative z-10 flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center text-center">
+        <HeroCanvas />
+        <div className="bg-background/45 absolute inset-0" />
+        <div className="relative z-10 flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center text-center">
           <div className="relative">
             <Image
               src={me}
-              alt="A photo of me"
+              alt="A photo of Parker Van Ham"
               height={160}
               width={160}
               className="border-primary/40 mx-auto mb-8 aspect-square rounded-full border-4 object-cover shadow-2xl"
+              placeholder="blur"
               priority
             />
             <div className="bg-primary/15 absolute -right-6 -bottom-2 -z-10 h-28 w-28 rounded-full blur-2xl" />
             <div className="bg-accent/20 absolute -top-6 -left-6 -z-10 h-24 w-24 rotate-12 rounded-lg blur-xl" />
           </div>
 
-          <H1 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-5xl md:text-6xl">
+          <H1 className="text-foreground text-3xl font-extrabold tracking-tight sm:text-5xl md:text-6xl">
             Hi, I&apos;m Parker
           </H1>
 
@@ -51,7 +65,7 @@ export default function HomePage() {
             <TypewriterRoles className="text-primary" />
           </div>
 
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground md:text-xl">
+          <p className="text-muted-foreground mx-auto mt-6 max-w-2xl text-lg md:text-xl">
             I&apos;m a software engineer with a strong foundation in full-stack
             development and a broad range of programming languages. I&apos;m
             actively expanding my knowledge in AI and its real-world
@@ -69,8 +83,11 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <ChevronDown className="mt-12 h-6 w-6 animate-bounce text-muted-foreground" />
-        </AnimateIn>
+          <ChevronDown
+            className="text-muted-foreground mt-12 h-6 w-6 animate-bounce"
+            aria-hidden="true"
+          />
+        </div>
       </section>
 
       {/* Chatbot mock preview */}
@@ -97,10 +114,10 @@ export default function HomePage() {
                 <div className="flex items-end gap-2">
                   <Bot className="text-primary h-5 w-5 flex-shrink-0 opacity-50" />
                   <div className="bg-muted text-foreground max-w-[80%] rounded-2xl rounded-bl-none px-4 py-2.5 shadow-sm">
-                    Parker has built several projects including the
-                    Z&#179;-Wellness Sleep App, this portfolio website with a
-                    RAG-powered chatbot, and more. Would you like details on any
-                    of them?
+                    Parker has built several projects including the Buy a CNC
+                    Router storefront, Sous (an AI-powered kitchen scheduling
+                    platform), and this portfolio website with a RAG-powered
+                    chatbot. Would you like details on any of them?
                   </div>
                 </div>
 
@@ -124,7 +141,9 @@ export default function HomePage() {
       >
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <header className="mb-12 text-center md:mb-16">
-            <H1>My Projects</H1>
+            <H2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              My Projects
+            </H2>
             <p className="text-muted-foreground mx-auto mt-3 max-w-3xl text-lg sm:mt-4 sm:text-xl">
               Here are some of the key projects I&apos;ve worked on, showcasing
               my skills in full-stack development, user research, data analysis,
@@ -142,7 +161,9 @@ export default function HomePage() {
       >
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <header className="mb-10 text-center md:mb-12">
-            <H1 className="text-foreground">Technical Skills</H1>
+            <H2 className="text-foreground text-3xl font-bold tracking-tight sm:text-4xl">
+              Technical Skills
+            </H2>
             <p className="text-muted-foreground mt-3 text-lg sm:mt-4 sm:text-xl">
               A summary of my technical proficiencies across various domains.
             </p>
@@ -150,18 +171,18 @@ export default function HomePage() {
           <div className="space-y-6 md:space-y-8">
             {skillsData.map((category, i) => (
               <AnimateIn key={category.title} delay={i * 0.1}>
-                <div
+                <section
                   aria-labelledby={category.title
                     .replace(/\s+/g, "-")
                     .toLowerCase()}
                   className="bg-card border-border rounded-xl border p-6 shadow-sm"
                 >
-                  <H2
+                  <H3
                     id={category.title.replace(/\s+/g, "-").toLowerCase()}
-                    className="text-primary border-border mb-6 border-b pb-2"
+                    className="text-primary border-border mb-6 border-b pb-2 text-2xl"
                   >
                     {category.title}
-                  </H2>
+                  </H3>
                   <ul className="flex flex-wrap gap-3">
                     {category.skills.map((skill) => (
                       <li
@@ -182,7 +203,7 @@ export default function HomePage() {
                       </li>
                     ))}
                   </ul>
-                </div>
+                </section>
               </AnimateIn>
             ))}
           </div>
@@ -196,7 +217,9 @@ export default function HomePage() {
       >
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <header className="mb-10 text-center md:mb-12">
-            <H1>Get In Touch</H1>
+            <H2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              Get In Touch
+            </H2>
             <p className="text-muted-foreground mt-3 text-lg sm:mt-4 sm:text-xl">
               I&apos;m always open to discussing new opportunities, projects, or
               ideas. Connect through a profile below or send a message with the
@@ -206,7 +229,7 @@ export default function HomePage() {
           <div className="grid gap-8 md:grid-cols-2">
             <div className="space-y-6">
               <div className="bg-card border-border rounded-xl border p-6 shadow-sm">
-                <H2>My Profiles</H2>
+                <H3 className="text-2xl">My Profiles</H3>
                 <p className="text-muted-foreground mt-2">
                   Connect with me on various platforms:
                 </p>
@@ -255,7 +278,7 @@ export default function HomePage() {
               </div>
             </div>
             <div className="bg-card border-border rounded-xl border p-6 shadow-sm">
-              <H2 className="text-center">Send Me a Message</H2>
+              <H3 className="text-center text-2xl">Send Me a Message</H3>
               <div className="mt-6">
                 <ContactForm />
               </div>

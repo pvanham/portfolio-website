@@ -1,0 +1,27 @@
+Project: Industrial CNC Router Promotions
+Role: Full-Stack Developer (Sole Developer)
+Timeline: July 2026 (Freelance/Contract work for Industrial CNC)
+Live Site: https://cncrouterpromotions.industrialcnc.com/
+Portfolio Page: https://parkervanham.com/projects/industrial-cnc-router-leads
+
+Project Overview:
+This is a conversion-focused marketing landing page for an Industrial CNC promotional ad campaign, designed to turn visitors into qualified sales leads. The site presents tiered product promotions (the Pro Series 408T and 408V router tables), a feature breakdown, customer testimonials, and financing information, all funneling into a validated lead-capture form that emails inquiries directly to the client's sales inbox. It was built with the Next.js App Router and styled to match the client's existing brand identity from industrialcnc.com.
+
+My Contributions & Responsibilities:
+
+Page Architecture: I structured the entire landing page as a single route composed of eight self-contained section components — Header, Hero, TSlotPromotion, AutomateShop, FeaturedPromotion, Testimonials, LeadForm, and Footer — each rendered in sequence from a single app/page.tsx, which kept the layout easy to reorder and reason about as the client's promotional priorities shifted.
+
+Lead Capture Form: I built the core conversion mechanism using React 19's useActionState hook bound to a Next.js Server Action (submitLead). The action performs server-side validation of name, email format, and phone number, returning field-level error state back to the client component so the form can display inline error messages without a full page reload.
+
+Email Delivery Pipeline: I integrated the Resend API so that every valid lead submission triggers an HTML email to the client's contact address, with the visitor's own email set as the replyTo header so the sales team can respond directly from their inbox. I also documented the full Resend domain-verification and environment-variable setup in the README so the client could configure production sending without needing my involvement.
+
+Spam Mitigation: I added a hidden honeypot input to the lead form — invisible to real users but attractive to naive bots — so that bot submissions are silently accepted without ever triggering an email, keeping the sales inbox clean without adding friction for real visitors.
+
+Security & Metadata Hardening: I configured custom response headers (X-Content-Type-Options, Referrer-Policy, Permissions-Policy) in next.config.ts, and set up dynamic Open Graph and SEO metadata that resolves the canonical production URL automatically from Vercel's environment variables, so the same code works correctly across preview and production deployments without manual configuration.
+
+Visual Design System: I implemented the brand's visual identity using Tailwind CSS v4's @theme inline custom-property system, defining the brand red/blue palette and a repeating background texture as reusable design tokens, and loaded the Anton and Lato Google Fonts through next/font for display headings and body text respectively. I layered in a subtle fade-up entrance animation for the hero section that respects the prefers-reduced-motion media query.
+
+Iterative Experimentation: On separate short-lived branches, I prototyped an alternate two-tier hero layout with side-by-side product pricing cards and experimented with Vercel's BotID service to add bot protection to the lead-submission API route, evaluating both before deciding what to bring into the main branch.
+
+Key Technologies Used for Industrial CNC Router Promotions:
+The tech stack includes Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4, Next.js Server Actions, the Resend transactional email API, lucide-react, next/font with Google Fonts, and Vercel for deployment.

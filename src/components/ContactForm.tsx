@@ -35,7 +35,11 @@ function SubmitButton() {
 export default function ContactForm() {
   const [state, formAction] = useActionState(sendContactEmail, initialState);
   const formRef = useRef<HTMLFormElement>(null);
-  const loadedAtRef = useRef<number>(Date.now());
+  const loadedAtRef = useRef<number>(0);
+
+  useEffect(() => {
+    loadedAtRef.current = Date.now();
+  }, []);
 
   useEffect(() => {
     if (state.message.includes("successfully")) {
@@ -81,8 +85,15 @@ export default function ContactForm() {
           id="name"
           required
           defaultValue={state.fields?.name}
+          aria-invalid={Boolean(state.fieldErrors?.name)}
+          aria-describedby={state.fieldErrors?.name ? "name-error" : undefined}
           className="border-input bg-background text-foreground focus:border-primary focus:ring-primary mt-1 block w-full rounded-md border-2 px-3 py-2 shadow-sm sm:text-sm"
         />
+        {state.fieldErrors?.name && (
+          <p id="name-error" className="text-destructive mt-1 text-sm">
+            {state.fieldErrors.name}
+          </p>
+        )}
       </div>
       <div>
         <label
@@ -97,8 +108,15 @@ export default function ContactForm() {
           id="email"
           required
           defaultValue={state.fields?.email}
+          aria-invalid={Boolean(state.fieldErrors?.email)}
+          aria-describedby={state.fieldErrors?.email ? "email-error" : undefined}
           className="border-input bg-background text-foreground focus:border-primary focus:ring-primary mt-1 block w-full rounded-md border-2 px-3 py-2 shadow-sm sm:text-sm"
         />
+        {state.fieldErrors?.email && (
+          <p id="email-error" className="text-destructive mt-1 text-sm">
+            {state.fieldErrors.email}
+          </p>
+        )}
       </div>
       <div>
         <label
@@ -112,6 +130,10 @@ export default function ContactForm() {
           id="purpose"
           required
           defaultValue={state.fields?.purpose ?? ""}
+          aria-invalid={Boolean(state.fieldErrors?.purpose)}
+          aria-describedby={
+            state.fieldErrors?.purpose ? "purpose-error" : undefined
+          }
           className="border-input bg-background text-foreground focus:border-primary focus:ring-primary mt-1 block w-full rounded-md border-2 px-3 py-2 shadow-sm sm:text-sm"
         >
           <option value="" disabled>
@@ -123,6 +145,11 @@ export default function ContactForm() {
             </option>
           ))}
         </select>
+        {state.fieldErrors?.purpose && (
+          <p id="purpose-error" className="text-destructive mt-1 text-sm">
+            {state.fieldErrors.purpose}
+          </p>
+        )}
       </div>
       <div>
         <label
@@ -137,8 +164,17 @@ export default function ContactForm() {
           id="subject"
           required
           defaultValue={state.fields?.subject}
+          aria-invalid={Boolean(state.fieldErrors?.subject)}
+          aria-describedby={
+            state.fieldErrors?.subject ? "subject-error" : undefined
+          }
           className="border-input bg-background text-foreground focus:border-primary focus:ring-primary mt-1 block w-full rounded-md border-2 px-3 py-2 shadow-sm sm:text-sm"
         />
+        {state.fieldErrors?.subject && (
+          <p id="subject-error" className="text-destructive mt-1 text-sm">
+            {state.fieldErrors.subject}
+          </p>
+        )}
       </div>
       <div>
         <label
@@ -153,26 +189,37 @@ export default function ContactForm() {
           rows={4}
           required
           defaultValue={state.fields?.message}
+          aria-invalid={Boolean(state.fieldErrors?.message)}
+          aria-describedby={
+            state.fieldErrors?.message ? "message-error" : undefined
+          }
           className="bg-background text-foreground focus:border-primary focus:ring-primary border-input mt-1 block w-full rounded-md border-2 px-3 py-2 shadow-sm sm:text-sm"
         />
+        {state.fieldErrors?.message && (
+          <p id="message-error" className="text-destructive mt-1 text-sm">
+            {state.fieldErrors.message}
+          </p>
+        )}
       </div>
       <div>
         <SubmitButton />
       </div>
-      {state.message && (
-        <p
-          className={`mt-3 text-center text-sm ${state.issues ? "text-destructive" : "text-green-500"}`}
-        >
-          {state.message}
-        </p>
-      )}
-      {state.issues && (
-        <ul className="text-destructive list-inside list-disc space-y-1 text-sm">
-          {state.issues.map((issue, index) => (
-            <li key={index}>{issue}</li>
-          ))}
-        </ul>
-      )}
+      <div role="alert" aria-live="polite">
+        {state.message && (
+          <p
+            className={`mt-3 text-center text-sm ${state.issues ? "text-destructive" : "text-green-500"}`}
+          >
+            {state.message}
+          </p>
+        )}
+        {state.issues && (
+          <ul className="text-destructive list-inside list-disc space-y-1 text-sm">
+            {state.issues.map((issue) => (
+              <li key={issue}>{issue}</li>
+            ))}
+          </ul>
+        )}
+      </div>
     </form>
   );
 }

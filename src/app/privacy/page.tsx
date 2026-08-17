@@ -8,11 +8,12 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
+  alternates: { canonical: "/privacy" },
 };
 
 export default function PrivacyPage() {
   return (
-    <main className="mx-auto max-w-5xl px-4 py-12 sm:px-6 md:py-16 lg:px-8 lg:py-20">
+    <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 md:py-16 lg:px-8 lg:py-20">
       <div className="space-y-3">
         <H1>Privacy Policy</H1>
         <p>Last Updated: August 2026</p>
@@ -92,6 +93,6 @@ export default function PrivacyPage() {
           .
         </p>
       </div>
-    </main>
+    </div>
   );
 }

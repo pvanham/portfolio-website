@@ -7,15 +7,23 @@ import { AnimateIn } from "@/components/ui/AnimateIn";
 import { skillsData } from "@/data/skills";
 import type { Metadata } from "next";
 
+const description =
+  "A detailed overview of the technical skills of Parker Van Ham, including Java, Python, TypeScript, React, Next.js, and AI/ML concepts.";
+
 export const metadata: Metadata = {
   title: "Skills",
-  description:
-    "A detailed overview of the technical skills of Parker Van Ham, including Java, Python, TypeScript, React, Next.js, and AI/ML concepts.",
+  description,
+  alternates: { canonical: "/skills" },
+  openGraph: {
+    title: "Skills",
+    description,
+    url: "/skills",
+  },
 };
 
 export default function SkillsPage() {
   return (
-    <main className="mx-auto max-w-5xl px-4 py-12 sm:px-6 md:py-16 lg:px-8 lg:py-20">
+    <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 md:py-16 lg:px-8 lg:py-20">
       <header className="mb-10 text-center md:mb-12">
         <H1 className="text-foreground">Technical Skills</H1>
         <p className="text-muted-foreground mt-3 text-lg sm:mt-4 sm:text-xl">
@@ -62,6 +70,6 @@ export default function SkillsPage() {
           </AnimateIn>
         ))}
       </div>
-    </main>
+    </div>
   );
 }

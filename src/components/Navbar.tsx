@@ -89,6 +89,8 @@ export default function Navbar() {
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-foreground focus:ring-ring rounded-md p-2 focus:ring-2 focus:outline-none"
               aria-label="Toggle menu"
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-nav"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -96,7 +98,10 @@ export default function Navbar() {
         </div>
 
         {isMenuOpen && (
-          <nav className="mt-2 flex w-full flex-col items-start space-y-2 sm:hidden">
+          <nav
+            id="mobile-nav"
+            className="mt-2 flex w-full flex-col items-start space-y-2 sm:hidden"
+          >
             {navLinks.map((link) => (
               <Link
                 key={link.href}

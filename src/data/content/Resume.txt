@@ -1,19 +1,51 @@
 PARKER VAN HAM
-LinkedIn: www.linkedin.com/in/parker-van-ham-8545ab220
+Portfolio: parkervanham.com | LinkedIn: www.linkedin.com/in/parker-van-ham-8545ab220
 EDUCATION
 Worcester Polytechnic Institute (WPI) – Worcester, MA
-Bachelor of Science in Computer Science, graduating August 2025
-GPA: 3.2 / 4.0
+Bachelor of Science in Computer Science, August 2026
 TECHNICAL SKILLS
-Languages: Java, Python, JavaScript, TypeScript, C, HTML, CSS, SQL
-Frameworks/Tools: React, Node.js, Express, MongoDB, Git, Microsoft Office, Oracle, SolidWorks
-Concepts: Object-Oriented Programming, Full-Stack Development, Agile/Scrum, Web Development, Database Systems
+Languages: Java, Python, JavaScript, TypeScript, C, C++, HTML, CSS, SQL
+Frameworks/Tools: React, React Native, Next.js, LangChain.js, Vercel AI SDK, Node.js, Express, Expo, FastAPI, MongoDB, Mongoose, PostgreSQL, AstraDB (Vector), Tailwind CSS, shadcn/ui, TanStack React Query, Zod, Clerk, Stripe, Google OR-Tools CP-SAT, Turborepo, Vercel, Git, Microsoft Office, Oracle, SolidWorks
+Concepts: Full-Stack Development, Retrieval-Augmented Generation, Agile/Scrum, AI-Assisted Coding, Database Systems, Object-Oriented Programming, Constraint Optimization, Multi-Tenant SaaS Architecture
+PROFESSIONAL EXPERIENCE
+Freelance Software Developer – Contract / Industrial CNC
+June 2026 – Present
+- Developed a Next.js commercial landing page (cncrouterpromotions.industrialcnc.com) for Industrial CNC to support lead generation and customer conversions.
+- Engineered and deployed an online storefront (cncrouters.industrialcnc.com) with the goal to get the client's products on Google Merchant Center.
+- Configured a custom checkout session to automate payments for the client's industrial products and services using Square.
+- Provided advice and insight into current SEO best practices for both online search results and answer engine optimization.
+- Currently developing a CNC router Wikipedia-style directory with informational pages to inform clients and boost SEO.
+Common Man Roadside – Cook, Hooksett, NH
+May 2023 – Present
+- Prepared and managed a variety of dishes in a fast-paced, high-pressure kitchen environment while concurrently managing academic coursework and freelance software development.
 PROJECTS
+Buy a CNC Router – Industrial CNC Storefront – Sole Developer
+June 2026 – July 2026 | cncrouters.industrialcnc.com
+- Built a Next.js 16 e-commerce storefront for a CNC router manufacturer with a dual "Place Order" / "Get a Quote" checkout system powered by Server Actions and Resend email notifications.
+- Implemented JSON-LD Product/Offer and Organization structured data to meet Google Merchant Center's approval requirements.
+- Configured e-commerce security headers and legal pages (privacy, terms, shipping, returns), and implemented Square payment integration.
+TeeTimeBot – Automated Tee-Time Booking Assistant – Sole Developer
+July 2026 – Present (In Development)
+- Building a scheduled booking and notification system that reserves a private golf club member's tee times on his behalf, running on the client's own account and credentials with his consent against a fixed release deadline where every action is irreversible.
+- Engineered an offline integration test harness covering ~15 real-world scenarios, safety-critical booking verification, and sub-second timing optimizations including clock-offset synchronization and hedged requests.
+- Built a mobile-first Next.js PWA with JWT auth and MongoDB-backed settings so the client can control the bot and receive real-time push notifications from his phone.
+Industrial CNC Router Promotions – Full-Stack Developer (Sole Developer)
+July 2026 | cncrouterpromotions.industrialcnc.com
+- Built a conversion-focused Next.js 16 marketing landing page for an Industrial CNC promotional ad campaign, funneling visitors into a server-validated lead capture form.
+- Integrated the Resend API for lead notification emails, added honeypot spam mitigation, and configured security headers and dynamic SEO metadata.
+- Styled the site with Tailwind CSS 4's token system to match the client's existing brand identity.
+Sous Kitchen Staff Management Web and Mobile App – Full-Stack Developer
+2026 | https://github.com/pvanham/Sous
+- Currently developing a full-stack restaurant workforce scheduling platform using Next.js, React, TypeScript, MongoDB/Mongoose, Clerk, Tailwind CSS, Expo React Native, and Turborepo.
+- Built manager-facing web workflows for staff management, availability, labor requirements, schedule editing, time-off requests, shift exchanges, announcements, billing, and multi-location organization settings.
+- Engineered an AI scheduling assistant with streaming chat, OpenAI-powered tool calling, RBAC-gated actions, proposal approval flows, optimistic concurrency checks, and async task handling.
+- Implemented a schedule generation pipeline using Python FastAPI and Google OR-Tools CP-SAT to optimize weekly staff assignments around skills, availability, labor demand, overtime, clopening rules, and labor cost.
+- Developed a staff-facing Expo React Native mobile app with secure Clerk authentication, persistent sessions, schedule views, profile management, notification preferences, and authenticated API access.
 Personal Portfolio & AI Assistant – Full-Stack Developer / Sole Developer
-parkervanham.com 2025
-- Designed and developed a modern, full-stack portfolio website from scratch using Next.js, React, Typescript, and Tailwindcss
+parkervanham.com | 2025
+- Designed and developed a modern, full-stack portfolio website from scratch using Next.js, React, TypeScript, and Tailwind CSS.
 - Engineered a Retrieval Augmented Generation (RAG) pipeline for an integrated AI chatbot, enabling it to answer questions based on website content.
-- Utilized OpenAI's GPT-4o-mini for conversational responses with the Vercel AI SDK's streamText and tool-based retrieval, and Upstash Vector (hybrid dense + BM25 index) for efficient semantic and keyword search.
+- Utilized OpenAI's GPT models for conversational responses with the Vercel AI SDK's streamText and tool-based retrieval, and Upstash Vector (hybrid dense + BM25 index) for efficient semantic and keyword search.
 - Deployed the application on Vercel, configuring production environment variables and SEO best practices.
 Z3 Wellness Sleep App – Full-Stack Developer
 WPI Major Qualifying Project, August 2023 – May 2024
@@ -28,21 +60,11 @@ Global Projects Program, Fall 2022
 - Conducted and analyzed community surveys, and assessed geographical and financial data.
 - Delivered a final proposal to local stakeholders, including prioritized infrastructure improvements.
 - Final report: https://digital.wpi.edu/concern/student_works/br86b6951?locale=en
-Hospital System Application for Brigham and Women’s Hospital – Frontend Developer
+Hospital System Application for Brigham and Women's Hospital – Frontend Developer
 Software Engineering Course Project, March 2022
 - Worked in a team of 10 to design a hospital service management app.
 - Implemented a meal delivery system, a search function, and contributed to an interactive map feature.
 - Helped oversee main dashboard development and ensure consistent UI design.
-JOB EXPERIENCE
-Common Man Roadside – Cook, Hooksett, NH
-May 2023 – Present
-- Prepared and managed a variety of dishes in a fast-paced kitchen environment.
-Bow Parks and Recreation – Camp Counselor, Bow, NH
-May 2022– August 2022
-- Led daily activities for children ages 5–13, fostering teamwork and communication.
-Page’s Country Store – Cashier & Deli Worker, Dunbarton, NH
-May 2021 – August 2022
-- Handled point-of-sale transactions and food prep in a customer-facing role.
 LEADERSHIP & ACTIVITIES
 Sigma Alpha Epsilon Fraternity – Worcester, MA
 - Member Educator (Aug 2023 – May 2024): Delivered educational modules to members as part of national program.

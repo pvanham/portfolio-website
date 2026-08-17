@@ -1,6 +1,7 @@
 Project: Hospital System Application
 Role: Frontend Developer
 Timeline: March 2022 (WPI Software Engineering Course Project)
+Portfolio Page: https://parkervanham.com/projects/hospital-system
 
 Project Overview:
 As part of a 10-person team for a WPI Software Engineering course, I contributed to the design and development of a comprehensive hospital service management application for Brigham and Women's Hospital. The goal was to create a centralized desktop platform to streamline various internal services.

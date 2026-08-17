@@ -11,7 +11,14 @@ import { Resend } from "resend";
 import ContactEmail from "@/components/email/ContactEmail";
 import { CONTACT_PURPOSES } from "@/lib/constants";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+let _resend: Resend | null = null;
+
+function getResend(): Resend {
+  if (!_resend) {
+    _resend = new Resend(process.env.RESEND_API_KEY);
+  }
+  return _resend;
+}
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
@@ -27,6 +34,9 @@ export type FormState = {
   message: string;
   fields?: Record<string, string>;
   issues?: string[];
+  fieldErrors?: Partial<
+    Record<"name" | "email" | "purpose" | "subject" | "message", string>
+  >;
 };
 
 // ── Spam-detection helpers ──────────────────────────────────────────
@@ -155,9 +165,24 @@ export async function sendContactEmail(
   const result = contactSchema.safeParse(fields);
 
   if (!result.success) {
+    const fieldErrors: FormState["fieldErrors"] = {};
+    for (const issue of result.error.issues) {
+      const key = issue.path[0];
+      if (
+        (key === "name" ||
+          key === "email" ||
+          key === "purpose" ||
+          key === "subject" ||
+          key === "message") &&
+        !fieldErrors[key]
+      ) {
+        fieldErrors[key] = issue.message;
+      }
+    }
     return {
       message: "Invalid form data.",
       issues: result.error.issues.map((issue) => issue.message),
+      fieldErrors,
       fields,
     };
   }
@@ -171,7 +196,7 @@ export async function sendContactEmail(
   }
 
   try {
-    const { error } = await resend.emails.send({
+    const { error } = await getResend().emails.send({
       from: "Portfolio Contact <onboarding@resend.dev>",
       to: ["parkervanham@gmail.com"],
       subject: `[${purpose}] ${subject}`,

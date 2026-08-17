@@ -5,7 +5,7 @@ import { Github, Linkedin } from "lucide-react";
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/projects", label: "Projects" },
+  { href: "/#projects", label: "Projects" },
   { href: "/skills", label: "Skills" },
   { href: "/contact", label: "Contact" },
 ];

@@ -1,0 +1,29 @@
+Project: TeeTimeBot — Automated Tee-Time Booking Assistant
+Role: Sole Developer
+Status: This project is currently in active development, with ongoing tuning based on real-world outcomes.
+Portfolio Page: https://parkervanham.com/projects/tee-time-bot
+
+Project Overview:
+TeeTimeBot is a scheduled booking and notification system I built for a client who is a member of a private golf club. It runs on the client's own account and credentials, with his consent, and reserves only the tee times he is already entitled to book as a member. His club releases bookings on a fixed 30-day schedule, and a reservation is real and irreversible the moment it goes through, which makes the whole system a deadline-driven problem with real side effects. The system combines a Node.js/TypeScript service that handles authentication, timing, and safety-checked checkout against the club's booking platform, and a mobile-first Next.js PWA dashboard that lets the client control the bot's behavior from his phone. Settings sync through a shared MongoDB database, and the client receives real-time push notifications on the outcome of every run.
+
+My Contributions & Responsibilities:
+
+Automated Offline Testing: Because the live booking flow can only safely be exercised against real tee times, I built a mock of the reservation API that intercepts outgoing requests, plus a scenario runner exercising roughly 15 cases — successful bookings, lost availability windows, club-offered substitute times, malformed cart states, and a real production incident I diagnosed from logs, reproduced, and turned into a permanent regression test.
+
+Booking Safety Model: Since a bug here could fail to book, or incorrectly duplicate, a real reservation, I built explicit safety invariants into the pipeline: a hard configuration gate that runs the full pipeline in a dry-run mode logging exactly what it would have sent, a rule that the cart must hold exactly one item immediately before checkout, and mandatory cart re-reads after any operation that could have silently altered its state.
+
+Booking Platform Integration: I built a multi-stage HTTP automation pipeline that signs in to the club's booking portal with the client's own credentials, bridges through an SSO handoff to the club's third-party reservation platform, and completes a full availability search → cart → checkout flow, using a custom cookie-jar implementation to maintain session continuity across roughly ten chained requests.
+
+Performance Engineering: Because availability is short-lived once the release window opens, the single booking attempt has to land at the right moment. I focused heavily on latency: keeping connections warm ahead of the release window, synchronizing to the server's clock by sampling its response timestamps to narrow my estimate to within tens of milliseconds, and firing a hedge request in parallel if the first search hasn't returned quickly enough, so no single slow response costs the booking.
+
+Client-Facing Dashboard: I built a Next.js 16 App Router PWA with JWT-based session authentication (signed httpOnly cookies), a settings screen with a debounced autosaving form for toggling the bot on/off and configuring preferred tee-time window, course, and player count, and full PWA packaging (manifest, icons, Apple meta tags) so the client can install it to his iPhone home screen like a native app.
+
+Scheduling & Timezone Correctness: I designed the cron scheduling so a UTC-fixed job correctly resolves to the client's chosen Eastern wall-clock wake time year-round across the EST/EDT transition, using calendar-date UTC arithmetic rather than host-clock arithmetic to avoid daylight-saving boundary bugs.
+
+Notifications: I integrated real-time push notifications via ntfy.sh so the client receives a summary of the outcome — booked, no matching availability, or error — after every scheduled run, without needing to open the app.
+
+Future Plans:
+The project is still being actively tuned based on real-world outcomes as the client uses it week to week.
+
+Key Technologies Used for TeeTimeBot:
+The tech stack includes TypeScript, Node.js, Next.js 16 (App Router), React 19, MongoDB Atlas, Tailwind CSS, a PWA toolchain (@ducanh2912/next-pwa), JWT-based auth (jose), a scheduled cron job runner, Vercel, ntfy.sh for push notifications, and a hand-rolled HTTP/cookie-jar client.

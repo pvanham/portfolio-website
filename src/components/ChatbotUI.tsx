@@ -44,21 +44,65 @@ function isValidMessageArray(data: unknown): data is UIMessage[] {
   );
 }
 
+const FOCUSABLE_SELECTOR =
+  'button:not([disabled]), [href], input:not([disabled]), textarea, select, [tabindex]:not([tabindex="-1"])';
+
 export default function ChatbotUI() {
   const { isChatOpen, toggleChat: onClose } = useChatState();
   const [input, setInput] = useState("");
   const [hasRestored, setHasRestored] = useState(false);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const lastFocusRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     if (isChatOpen) {
       document.body.style.overflow = "hidden";
+      lastFocusRef.current = document.activeElement as HTMLElement | null;
+      requestAnimationFrame(() => {
+        panelRef.current
+          ?.querySelector<HTMLElement>("[data-chat-close]")
+          ?.focus();
+      });
     } else {
       document.body.style.overflow = "";
+      lastFocusRef.current?.focus();
+      lastFocusRef.current = null;
     }
     return () => {
       document.body.style.overflow = "";
     };
   }, [isChatOpen]);
+
+  useEffect(() => {
+    if (!isChatOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        onClose();
+        return;
+      }
+      if (event.key !== "Tab" || !panelRef.current) return;
+
+      const focusable = [
+        ...panelRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
+      ];
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isChatOpen, onClose]);
 
   // Track the full visual viewport rectangle so the chatbot stays pinned
   // to exactly what the user sees on iOS, even when the keyboard opens.
@@ -191,6 +235,10 @@ export default function ChatbotUI() {
 
   return (
     <div
+      ref={panelRef}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="chatbot-title"
       className="fixed inset-0 z-[60] w-full sm:inset-auto sm:right-4 sm:bottom-4 sm:h-auto sm:w-auto sm:max-w-lg md:max-w-xl lg:max-w-2xl"
       style={mobileStyle}
     >
@@ -199,9 +247,12 @@ export default function ChatbotUI() {
         <div className="border-border from-primary/10 to-background flex items-center justify-between border-b bg-gradient-to-r p-3 sm:p-4">
           <div className="flex items-center space-x-3">
             <Bot className="text-primary h-6 w-6" />
-            <h3 className="text-foreground text-lg font-semibold">
+            <h2
+              id="chatbot-title"
+              className="text-foreground text-lg font-semibold"
+            >
               Portfolio Assistant
-            </h3>
+            </h2>
           </div>
           <div className="flex gap-2">
             <button
@@ -212,6 +263,7 @@ export default function ChatbotUI() {
               <RotateCcw size={18} />
             </button>
             <button
+              data-chat-close
               onClick={onClose}
               className="text-muted-foreground hover:text-primary focus-visible:ring-primary rounded-full p-1.5 transition-colors focus-visible:ring-2 focus-visible:outline-none"
               aria-label="Close chat"
@@ -257,7 +309,7 @@ export default function ChatbotUI() {
               {m.role === "assistant" && m.id !== "greeting" && (
                 <button
                   onClick={() => regenerate({ messageId: m.id })}
-                  className="text-muted-foreground hover:text-primary mt-auto mb-1 p-1 transition-colors"
+                  className="text-muted-foreground hover:text-primary focus-visible:ring-primary mt-auto mb-1 rounded-full p-1 transition-colors focus-visible:ring-2 focus-visible:outline-none"
                   aria-label="Regenerate response"
                 >
                   <RotateCcw size={16} />
