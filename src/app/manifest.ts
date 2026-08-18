@@ -7,7 +7,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Parker Van Ham — Portfolio",
     short_name: "Parker Van Ham",
     description:
-      "The professional portfolio of Parker Van Ham, a Computer Science student at WPI specializing in full-stack development and AI.",
+      "The professional portfolio of Parker Van Ham, a Computer Science graduate of WPI specializing in full-stack development and AI.",
     start_url: "/",
     display: "standalone",
     background_color: "#0c1417",

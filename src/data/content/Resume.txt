@@ -2,7 +2,7 @@ PARKER VAN HAM
 Portfolio: parkervanham.com | LinkedIn: www.linkedin.com/in/parker-van-ham-8545ab220
 EDUCATION
 Worcester Polytechnic Institute (WPI) – Worcester, MA
-Bachelor of Science in Computer Science, August 2026
+Bachelor of Science in Computer Science, Graduated August 2026
 TECHNICAL SKILLS
 Languages: Java, Python, JavaScript, TypeScript, C, C++, HTML, CSS, SQL
 Frameworks/Tools: React, React Native, Next.js, LangChain.js, Vercel AI SDK, Node.js, Express, Expo, FastAPI, MongoDB, Mongoose, PostgreSQL, AstraDB (Vector), Tailwind CSS, shadcn/ui, TanStack React Query, Zod, Clerk, Stripe, Google OR-Tools CP-SAT, Turborepo, Vercel, Git, Microsoft Office, Oracle, SolidWorks
@@ -15,9 +15,9 @@ June 2026 – Present
 - Configured a custom checkout session to automate payments for the client's industrial products and services using Square.
 - Provided advice and insight into current SEO best practices for both online search results and answer engine optimization.
 - Currently developing a CNC router Wikipedia-style directory with informational pages to inform clients and boost SEO.
-Common Man Roadside – Cook, Hooksett, NH
+Common Man Roadside – Cook (Full-Time), Hooksett, NH
 May 2023 – Present
-- Prepared and managed a variety of dishes in a fast-paced, high-pressure kitchen environment while concurrently managing academic coursework and freelance software development.
+- Prepared and managed a variety of dishes in a fast-paced, high-pressure kitchen environment. This is a current full-time role held alongside freelance software development.
 PROJECTS
 Buy a CNC Router – Industrial CNC Storefront – Sole Developer
 June 2026 – July 2026 | cncrouters.industrialcnc.com
