@@ -61,7 +61,10 @@ export default function ContactForm() {
       className="border-border bg-background/50 space-y-6 rounded-lg border p-6 shadow-sm"
     >
       {/* Honeypot — invisible to real users, bots will auto-fill */}
-      <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+      <div
+        className="absolute -left-[9999px] h-0 w-0 overflow-hidden"
+        aria-hidden="true"
+      >
         <label htmlFor="website">Website</label>
         <input
           type="text"
@@ -109,7 +112,9 @@ export default function ContactForm() {
           required
           defaultValue={state.fields?.email}
           aria-invalid={Boolean(state.fieldErrors?.email)}
-          aria-describedby={state.fieldErrors?.email ? "email-error" : undefined}
+          aria-describedby={
+            state.fieldErrors?.email ? "email-error" : undefined
+          }
           className="border-input bg-background text-foreground focus:border-primary focus:ring-primary mt-1 block w-full rounded-md border-2 px-3 py-2 shadow-sm sm:text-sm"
         />
         {state.fieldErrors?.email && (

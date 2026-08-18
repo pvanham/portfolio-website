@@ -10,7 +10,7 @@ import { H2 } from "@/components/ui/H2";
 import { H3 } from "@/components/ui/H3";
 import { AnimateIn } from "@/components/ui/AnimateIn";
 import { TypewriterRoles } from "@/components/TypewriterRoles";
-import { ChatCTAButton } from "@/components/ChatCTAButton";
+import { HomeChatPrompt } from "@/components/chat/HomeChatPrompt";
 import { ProjectGrid } from "@/components/ProjectGrid";
 import ContactForm from "@/components/ContactForm";
 import { JsonLd } from "@/components/JsonLd";
@@ -90,11 +90,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Chatbot mock preview */}
+      {/* Live AI assistant */}
       <div className="bg-muted/30 relative z-10 py-20 md:py-28">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <AnimateIn>
-            <section className="bg-card/80 overflow-hidden rounded-xl shadow-2xl backdrop-blur-sm">
+            <section
+              aria-labelledby="assistant-heading"
+              className="bg-card/80 border-border overflow-hidden rounded-xl border shadow-2xl backdrop-blur-sm"
+            >
               <div className="border-border from-primary/10 to-background flex items-center gap-3 border-b bg-gradient-to-r px-5 py-3">
                 <Bot className="text-primary h-5 w-5" />
                 <span className="text-foreground text-sm font-semibold">
@@ -102,31 +105,20 @@ export default function HomePage() {
                 </span>
               </div>
 
-              <div className="space-y-4 p-5 md:p-8">
-                {/* Mock user bubble */}
-                <div className="flex justify-end">
-                  <div className="bg-primary text-primary-foreground max-w-[80%] rounded-2xl rounded-br-none px-4 py-2.5 shadow-sm">
-                    What projects has Parker built?
-                  </div>
-                </div>
-
-                {/* Mock bot bubble */}
-                <div className="flex items-end gap-2">
-                  <Bot className="text-primary h-5 w-5 flex-shrink-0 opacity-50" />
-                  <div className="bg-muted text-foreground max-w-[80%] rounded-2xl rounded-bl-none px-4 py-2.5 shadow-sm">
-                    Parker has built several projects including the Buy a CNC
-                    Router storefront, Sous (an AI-powered kitchen scheduling
-                    platform), and this portfolio website with a RAG-powered
-                    chatbot. Would you like details on any of them?
-                  </div>
-                </div>
-
-                <div className="text-center">
-                  <p className="text-muted-foreground text-sm">
-                    Curious about my skills, project details, or experience? Ask
-                    my AI assistant anything.
-                  </p>
-                  <ChatCTAButton />
+              <div className="p-5 md:p-8">
+                <H2
+                  id="assistant-heading"
+                  className="text-2xl font-bold tracking-tight sm:text-3xl"
+                >
+                  Ask about my work
+                </H2>
+                <p className="text-muted-foreground mt-3">
+                  This assistant answers from a knowledge base of my projects,
+                  skills, and experience, and cites the pages it pulled from.
+                  Ask it anything.
+                </p>
+                <div className="mt-6">
+                  <HomeChatPrompt />
                 </div>
               </div>
             </section>

@@ -205,11 +205,7 @@ export default function HeroCanvas() {
   }, []);
 
   return (
-    <div
-      ref={wrapperRef}
-      className="absolute inset-0"
-      aria-hidden="true"
-    >
+    <div ref={wrapperRef} className="absolute inset-0" aria-hidden="true">
       <canvas ref={canvasRef} className="h-full w-full">
         Interactive particle flow-field background
       </canvas>

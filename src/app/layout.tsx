@@ -1,18 +1,14 @@
-/** Root layout — sets fonts, metadata, and global shell (Navbar, ChatbotUI, Footer). */
+/** Root layout — sets fonts, metadata, and global shell (Navbar, chat, Footer). */
 
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { ChatStateProvider } from "@/components/ChatContext";
-import ChatbotLazy from "@/components/ChatbotLazy";
-import {
-  SITE_DESCRIPTION,
-  SITE_NAME,
-  SITE_TITLE,
-  SITE_URL,
-} from "@/lib/site";
+import { ChatProvider } from "@/components/chat/ChatProvider";
+import { ChatLauncher } from "@/components/chat/ChatLauncher";
+import ChatLoader from "@/components/chat/ChatLoader";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -52,6 +48,16 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  colorScheme: "dark",
+  // Lets the browser shrink the layout viewport when the on-screen keyboard
+  // opens, so the chat panel stays put. Chromium honors this; iOS Safari
+  // still needs the visualViewport fallback in useVisualViewport.
+  interactiveWidget: "resizes-content",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -62,7 +68,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ChatStateProvider>
+        <ChatProvider>
           <a
             href="#main-content"
             className="bg-primary text-primary-foreground focus:ring-ring sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:rounded-md focus:px-4 focus:py-2 focus:ring-2 focus:outline-none"
@@ -71,9 +77,10 @@ export default function RootLayout({
           </a>
           <Navbar />
           <main id="main-content">{children}</main>
-          <ChatbotLazy />
           <Footer />
-        </ChatStateProvider>
+          <ChatLauncher />
+          <ChatLoader />
+        </ChatProvider>
       </body>
     </html>
   );

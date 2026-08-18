@@ -17,11 +17,7 @@ interface ChunkMetadata extends Record<string, unknown> {
   source: string;
 }
 
-function findBreakPoint(
-  text: string,
-  start: number,
-  maxPos: number,
-): number {
+function findBreakPoint(text: string, start: number, maxPos: number): number {
   const minPos = start + Math.floor((maxPos - start) * 0.5);
 
   const paragraphBreak = text.lastIndexOf("\n\n", maxPos);
