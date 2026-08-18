@@ -1,20 +1,25 @@
-/** Dynamic sitemap generation for all static pages. */
+/** Dynamic sitemap generation for static pages and project detail routes. */
 
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
+import { projects } from "@/data/projects";
+import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // Replace this with your actual custom domain once you have it
-  const baseUrl = "https://parkervanham.com";
-
-  // List all your static pages here
-  const staticPages = ["/", "/projects", "/skills", "/contact", "/privacy"];
+  const staticPages = ["/", "/skills", "/contact", "/privacy"];
 
   const staticPageUrls = staticPages.map((path) => ({
-    url: `${baseUrl}${path}`,
+    url: `${SITE_URL}${path}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: path === "/" ? 1.0 : 0.8,
   }));
 
-  return [...staticPageUrls];
+  const projectUrls = projects.map((p) => ({
+    url: `${SITE_URL}/projects/${p.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  return [...staticPageUrls, ...projectUrls];
 }

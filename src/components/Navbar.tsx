@@ -1,17 +1,16 @@
 "use client";
 
-/** Sticky navigation bar with mobile hamburger menu, section-aware active highlighting, and chat/theme toggles. */
+/** Sticky navigation bar with mobile hamburger menu, section-aware active highlighting, and chat toggle. */
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Bot, Menu, X } from "lucide-react";
-import { useChatState } from "@/components/ChatContext";
-import ThemeToggle from "@/components/ThemeToggle";
+import { CHAT_PANEL_ID, useChatUI } from "@/components/chat/ChatProvider";
 import { cn } from "@/lib/utils";
 
 export default function Navbar() {
-  const { toggleChat } = useChatState();
+  const { isOpen: isChatOpen, toggle: toggleChat, prefetch } = useChatUI();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const pathname = usePathname();
@@ -34,7 +33,7 @@ export default function Navbar() {
           if (e.isIntersecting) setActiveSection(e.target.id);
         });
       },
-      { rootMargin: "-40% 0px -55% 0px" }
+      { rootMargin: "-40% 0px -55% 0px" },
     );
     sections.forEach((s) => observer.observe(s));
     return () => observer.disconnect();
@@ -43,9 +42,7 @@ export default function Navbar() {
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/" && activeSection === "home";
     const hashFromHref = href.startsWith("/#") ? href.slice(1) : null;
-    return (
-      pathname === "/" && hashFromHref === `#${activeSection}`
-    );
+    return pathname === "/" && hashFromHref === `#${activeSection}`;
   };
 
   return (
@@ -77,11 +74,14 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <ThemeToggle />
           <button
             onClick={toggleChat}
+            onPointerEnter={prefetch}
+            onFocus={prefetch}
             className="text-foreground hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring rounded-full p-2 transition-colors focus-visible:ring-2 focus-visible:outline-none"
-            aria-label="Toggle AI Chatbot"
+            aria-label={isChatOpen ? "Close AI assistant" : "Open AI assistant"}
+            aria-expanded={isChatOpen}
+            aria-controls={CHAT_PANEL_ID}
           >
             <Bot size={24} />
           </button>
@@ -91,6 +91,8 @@ export default function Navbar() {
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-foreground focus:ring-ring rounded-md p-2 focus:ring-2 focus:outline-none"
               aria-label="Toggle menu"
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-nav"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -98,7 +100,10 @@ export default function Navbar() {
         </div>
 
         {isMenuOpen && (
-          <nav className="mt-2 flex w-full flex-col items-start space-y-2 sm:hidden">
+          <nav
+            id="mobile-nav"
+            className="mt-2 flex w-full flex-col items-start space-y-2 sm:hidden"
+          >
             {navLinks.map((link) => (
               <Link
                 key={link.href}

@@ -1,5 +1,6 @@
 /** /privacy — static privacy policy page. */
 
+import Link from "next/link";
 import { H1 } from "@/components/ui/H1";
 import { H2 } from "@/components/ui/H2";
 import { H3 } from "@/components/ui/H3";
@@ -7,14 +8,15 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
+  alternates: { canonical: "/privacy" },
 };
 
 export default function PrivacyPage() {
   return (
-    <main className="mx-auto max-w-5xl px-4 py-12 sm:px-6 md:py-16 lg:px-8 lg:py-20">
+    <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 md:py-16 lg:px-8 lg:py-20">
       <div className="space-y-3">
         <H1>Privacy Policy</H1>
-        <p>Last Updated: April 2026</p>
+        <p>Last Updated: August 2026</p>
       </div>
       <div className="space-y-3">
         <H2>Introduction</H2>
@@ -41,9 +43,9 @@ export default function PrivacyPage() {
         </p>
         <H3>2. Contact Information</H3>
         <p>
-          If you take advantage of the option to contact me via email or a
-          contact form, any information you provide is voluntary and used solely
-          to respond to your inquiries.
+          If you take advantage of the option to contact me via the contact
+          form, any information you provide is voluntary and used solely to
+          respond to your inquiries.
         </p>
         <H2>Use of Information</H2>
         <p>The information I collect is used in the following ways:</p>
@@ -75,7 +77,7 @@ export default function PrivacyPage() {
         </p>
         <H2>Changes to This Privacy Policy</H2>
         <p>
-          This Privacy Policy is effective as of April 2026 and will remain in
+          This Privacy Policy is effective as of August 2026 and will remain in
           effect except with respect to any changes in its provisions in the
           future, which will be in effect immediately after being posted on this
           page. I reserve the right to update or change our Privacy Policy at
@@ -83,10 +85,14 @@ export default function PrivacyPage() {
         </p>
         <H2>Contact Us</H2>
         <p>
-          If you have any questions about this Privacy Policy, please contact me
-          at parkervanham@gmail.com.
+          If you have any questions about this Privacy Policy, please reach out
+          through the{" "}
+          <Link href="/contact" className="text-primary hover:underline">
+            contact form
+          </Link>
+          .
         </p>
       </div>
-    </main>
+    </div>
   );
 }

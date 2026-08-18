@@ -1,11 +1,11 @@
-"use client";
-
-/** Clickable project card showing thumbnail, title, role, and tech badges. */
+/** Project card linking to the dedicated /projects/[slug] page. */
 
 import Image from "next/image";
+import Link from "next/link";
 import type { StaticImageData } from "next/image";
 
 interface ProjectCardProps {
+  slug: string;
   title: string;
   role: string;
   image: StaticImageData;
@@ -13,10 +13,10 @@ interface ProjectCardProps {
   overview: string;
   technologies: string[];
   status?: "in-progress";
-  onClick: () => void;
 }
 
 export function ProjectCard({
+  slug,
   title,
   role,
   image,
@@ -24,19 +24,20 @@ export function ProjectCard({
   overview,
   technologies,
   status,
-  onClick,
 }: ProjectCardProps) {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="bg-card border-border hover:border-primary/50 group flex h-full w-full cursor-pointer flex-col rounded-xl border text-left shadow-md transition-all hover:shadow-xl"
+    <Link
+      href={`/projects/${slug}`}
+      className="bg-card border-border hover:border-primary/50 focus-visible:ring-ring group flex h-full w-full flex-col rounded-xl border text-left shadow-md transition-all hover:shadow-xl focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
     >
-      <div className="bg-muted relative flex aspect-video flex-shrink-0 items-center justify-center overflow-hidden rounded-t-xl">
+      <div className="bg-muted relative aspect-video flex-shrink-0 overflow-hidden rounded-t-xl">
         <Image
           src={image}
           alt={imageAlt}
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          placeholder="blur"
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
         {status === "in-progress" && (
           <span className="absolute top-3 left-3 inline-flex items-center rounded-full bg-amber-500/90 px-2.5 py-1 text-xs font-semibold text-white shadow-sm backdrop-blur-sm">
@@ -68,6 +69,6 @@ export function ProjectCard({
           )}
         </div>
       </div>
-    </button>
+    </Link>
   );
 }

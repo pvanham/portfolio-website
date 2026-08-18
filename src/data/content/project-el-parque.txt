@@ -1,6 +1,7 @@
 Project: El Parque Redevelopment, Panama
 Role: Data Analyst & Community Researcher
 Timeline: Fall 2022 (WPI Global Projects Program)
+Portfolio Page: https://parkervanham.com/projects/el-parque
 
 Project Overview:
 This international project was a partnership with the Ciudad del Saber (City of Knowledge) foundation in Panama City. Our team was tasked with providing data-driven recommendations for the redevelopment of "El Parque," a large and vital public green space. The objective was to understand who was using the park, how they were using it, and what improvements the community wanted to see to increase visitor satisfaction and foot traffic.

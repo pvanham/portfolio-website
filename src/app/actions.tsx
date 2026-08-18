@@ -4,11 +4,21 @@
 
 import { z } from "zod";
 import { headers } from "next/headers";
+import { checkBotId } from "botid/server";
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
 import { Resend } from "resend";
 import ContactEmail from "@/components/email/ContactEmail";
 import { CONTACT_PURPOSES } from "@/lib/constants";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+let _resend: Resend | null = null;
+
+function getResend(): Resend {
+  if (!_resend) {
+    _resend = new Resend(process.env.RESEND_API_KEY);
+  }
+  return _resend;
+}
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
@@ -24,6 +34,9 @@ export type FormState = {
   message: string;
   fields?: Record<string, string>;
   issues?: string[];
+  fieldErrors?: Partial<
+    Record<"name" | "email" | "purpose" | "subject" | "message", string>
+  >;
 };
 
 // ── Spam-detection helpers ──────────────────────────────────────────
@@ -89,25 +102,17 @@ function isSpamContent(subject: string, message: string): boolean {
 
 const MIN_SUBMIT_TIME_MS = 3_000;
 
-// In-memory sliding-window rate limiter (per IP, 3 submissions / 10 min)
-const submissions = new Map<string, number[]>();
-const RATE_WINDOW_MS = 10 * 60 * 1000;
-const RATE_MAX = 3;
+let _ratelimit: Ratelimit | null = null;
 
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const timestamps = (submissions.get(ip) ?? []).filter(
-    (t) => now - t < RATE_WINDOW_MS,
-  );
-
-  if (timestamps.length >= RATE_MAX) {
-    submissions.set(ip, timestamps);
-    return true;
+function getRatelimit(): Ratelimit {
+  if (!_ratelimit) {
+    _ratelimit = new Ratelimit({
+      redis: Redis.fromEnv(),
+      limiter: Ratelimit.slidingWindow(3, "10 m"),
+      prefix: "contact",
+    });
   }
-
-  timestamps.push(now);
-  submissions.set(ip, timestamps);
-  return false;
+  return _ratelimit;
 }
 
 // ── Main action ─────────────────────────────────────────────────────
@@ -121,52 +126,77 @@ export async function sendContactEmail(
     string
   >;
 
-  // 1. Honeypot — bots fill this hidden field, real users never see it
-  if (fields.website) {
-    // Silently "succeed" so the bot doesn't know it was caught
+  // 1. Vercel BotID — invisible challenge; silently succeed so bots get no signal
+  const verification = await checkBotId();
+  if (verification.isBot) {
     return { message: "Your message has been sent successfully!" };
   }
 
-  // 2. Timing check — real humans take more than 3 seconds to fill a form
+  // 2. Honeypot — bots fill this hidden field, real users never see it
+  if (fields.website) {
+    return { message: "Your message has been sent successfully!" };
+  }
+
+  // 3. Timing check — real humans take more than 3 seconds to fill a form
   const elapsed = Number(fields._timing ?? 0);
   if (elapsed > 0 && elapsed < MIN_SUBMIT_TIME_MS) {
     return { message: "Your message has been sent successfully!" };
   }
 
-  // 3. In-memory rate limiting (per IP, 3 submissions per 10 min window)
+  // 4. Upstash sliding-window rate limit (per IP, 3 submissions / 10 min)
   const hdrs = await headers();
   const ip =
     hdrs.get("x-forwarded-for")?.split(",")[0]?.trim() ??
     hdrs.get("x-real-ip") ??
     "unknown";
-  if (isRateLimited(ip)) {
-    return {
-      message:
-        "You've sent too many messages recently. Please try again later.",
-    };
+  try {
+    const { success } = await getRatelimit().limit(ip);
+    if (!success) {
+      return {
+        message:
+          "You've sent too many messages recently. Please try again later.",
+      };
+    }
+  } catch (e) {
+    console.error("Contact rate limit error:", e);
   }
 
-  // 4. Schema validation
+  // 5. Schema validation
   const result = contactSchema.safeParse(fields);
 
   if (!result.success) {
+    const fieldErrors: FormState["fieldErrors"] = {};
+    for (const issue of result.error.issues) {
+      const key = issue.path[0];
+      if (
+        (key === "name" ||
+          key === "email" ||
+          key === "purpose" ||
+          key === "subject" ||
+          key === "message") &&
+        !fieldErrors[key]
+      ) {
+        fieldErrors[key] = issue.message;
+      }
+    }
     return {
       message: "Invalid form data.",
       issues: result.error.issues.map((issue) => issue.message),
+      fieldErrors,
       fields,
     };
   }
 
   const { name, email, purpose, subject, message } = result.data;
 
-  // 5. Keyword-based spam filter
+  // 6. Keyword-based spam filter
   if (isSpamContent(subject, message)) {
     console.warn(`Spam blocked from ${email}: "${subject}"`);
     return { message: "Your message has been sent successfully!" };
   }
 
   try {
-    const { error } = await resend.emails.send({
+    const { error } = await getResend().emails.send({
       from: "Portfolio Contact <onboarding@resend.dev>",
       to: ["parkervanham@gmail.com"],
       subject: `[${purpose}] ${subject}`,

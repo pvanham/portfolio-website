@@ -23,10 +23,7 @@ export function TypewriterRoles({ className }: TypewriterRolesProps) {
       wrapper="span"
       speed={40}
       repeat={Infinity}
-      className={cn(
-        "text-primary font-mono text-xl md:text-2xl",
-        className
-      )}
+      className={cn("text-primary font-mono text-xl md:text-2xl", className)}
     />
   );
 }

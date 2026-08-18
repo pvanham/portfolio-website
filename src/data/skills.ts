@@ -10,8 +10,7 @@ export interface SkillCategory {
   skills: SkillItem[];
 }
 
-const DEVICON =
-  "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons";
+const DEVICON = "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons";
 
 export const skillsData: SkillCategory[] = [
   {

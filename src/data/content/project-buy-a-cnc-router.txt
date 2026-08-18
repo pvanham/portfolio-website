@@ -1,0 +1,25 @@
+Project: Buy a CNC Router — Industrial CNC Storefront
+Role: Sole Developer
+Timeline: June 2026 – July 2026 (ongoing)
+Live Site: https://cncrouters.industrialcnc.com/
+Portfolio Page: https://parkervanham.com/projects/buy-a-cnc-router
+
+Project Overview:
+This is a Next.js storefront I built for Industrial CNC, a CNC router manufacturer, to sell its "Short Cut 203" router directly online while directing interest in the other four Pro Series router sizes back to the manufacturer's main site. It combines a fixed-price purchase-order checkout with a "request a quote" alternative, automated email notifications, and structured data engineered specifically to satisfy Google Merchant Center's approval requirements. Product content (descriptions, specs, testimonials, videos) is pulled from the manufacturer's existing legacy pages.
+
+My Contributions & Responsibilities:
+
+Application Architecture: I built the entire storefront on Next.js 16's App Router with React 19 and TypeScript, using Server Actions rather than traditional API routes for every form submission, keeping product-catalog resolution (price, SKU, name) authoritative on the server so a tampered client payload could never change what gets ordered or emailed.
+
+Checkout & Quote System: I designed two parallel conversion paths — a "Place Order" flow that generates a purchase-order reference and a "Get a Quote" flow — each backed by its own typed Server Action (submitPurchaseOrder, submitQuoteRequest) with field validation, honeypot-based bot filtering, and a shared modal UI that can be deep-linked open via ?order=1 or ?quote=1 query parameters.
+
+Email Infrastructure: I integrated Resend to send transactional notifications, hand-building a branded HTML/plain-text email layout system (lib/email.ts) that renders order and quote details, customer info, and delivery addresses into email-client-safe table markup with reply-to routing back to the customer.
+
+SEO & Merchant Compliance: I implemented JSON-LD Product and Offer structured data (price, return policy, availability window) on the product page and Organization schema on the homepage.
+
+Security & Legal Pages: I configured HTTP security headers (HSTS, X-Frame-Options, Referrer-Policy, Permissions-Policy) in the Next.js config and wrote the full set of e-commerce legal pages — privacy policy, terms of service, shipping policy, and return policy — required for a compliant storefront.
+
+Payment Strategy Iteration: I iterated the payment approach across several commits, moving from invoice-only ordering to a Square Payment Link, adapting the flow each time to keep pace with Google Merchant Center's checkout policy requirements.
+
+Key Technologies Used for Buy a CNC Router — Industrial CNC Storefront:
+The tech stack includes Next.js 16 (App Router) & React 19, TypeScript, Tailwind CSS 4, Server Actions, Resend (transactional email), Python (data-extraction scripting), JSON-LD / Schema.org structured data, lucide-react, and Square.

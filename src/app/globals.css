@@ -1,41 +1,10 @@
-/* Global styles — Tailwind v4 base, design-token CSS variables for light/dark themes. */
+/* Global styles — Tailwind v4 base and dark-theme design tokens. */
 
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
 :root {
-  --background: hsl(0 0% 100%);
-  --foreground: hsl(200 20% 8%);
-  --card: hsl(0 0% 100%);
-  --card-foreground: hsl(200 20% 8%);
-  --popover: hsl(0 0% 100%);
-  --popover-foreground: hsl(200 20% 8%);
-  --primary: hsl(185 75% 35%);
-  --primary-foreground: hsl(0 0% 100%);
-  --secondary: hsl(185 20% 90%);
-  --secondary-foreground: hsl(200 20% 12%);
-  --muted: hsl(185 15% 95%);
-  --muted-foreground: hsl(199 13% 38%);
-  --accent: hsl(185 20% 90%);
-  --accent-foreground: hsl(200 20% 12%);
-  --destructive: hsl(0 84.2% 60.2%);
-  --destructive-foreground: hsl(0 0% 100%);
-  --border: hsl(185 15% 88%);
-  --input: hsl(185 15% 88%);
-  --ring: hsl(185 75% 35%);
-  --radius: 0.5rem;
-  --hero-bg: url('/lightmode_background.png');
-
-  --font-geist-sans:
-    "Geist Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-geist-mono:
-    "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
-}
-
-.dark {
+  color-scheme: dark;
   --background: hsl(200 25% 6%);
   --foreground: hsl(185 10% 95%);
   --card: hsl(200 25% 6%);
@@ -55,7 +24,21 @@
   --border: hsl(200 18% 22%);
   --input: hsl(200 20% 15%);
   --ring: hsl(185 80% 50%);
-  --hero-bg: url('/background.png');
+  --radius: 0.5rem;
+
+  /* Stacking order for overlays. The navbar sits at 50, so the chat launcher
+     tucks under it and the chat surfaces sit above it. */
+  --z-chat-launcher: 40;
+  --z-chat-scrim: 60;
+  --z-chat-panel: 70;
+
+  --font-geist-sans:
+    "Geist Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-geist-mono:
+    "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
 }
 
 @theme inline {

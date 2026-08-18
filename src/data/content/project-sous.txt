@@ -1,6 +1,7 @@
 Project: Sous (Actively In Development)
 Role: Full-Stack Developer
 Status: This project is currently in active development.
+Portfolio Page: https://parkervanham.com/projects/sous
 
 Project Overview:
 Sous is an AI-powered staff scheduling platform built for high-volume kitchens. It combines a constraint-optimization solver with a conversational AI assistant to automate and streamline shift planning. Managers interact with a natural-language chat interface to generate, review, and refine schedules while the system enforces labor rules, availability, and coverage requirements behind the scenes. This project is actively in development — next steps include further refining the AI assistant and building an accompanying mobile app for on-the-go staff management.

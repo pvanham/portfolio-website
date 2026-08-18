@@ -1,6 +1,7 @@
 Project: Z³-Wellness Sleep App
 Role: Full-Stack Developer & Researcher
 Timeline: August 2023 - May 2024 (WPI Major Qualifying Project)
+Portfolio Page: https://parkervanham.com/projects/z3-wellness
 
 Project Overview:
 The Z³-Wellness application is a web-based platform designed to help college students monitor and improve their sleep and overall wellness patterns. As part of a large, multi-term team, my role was to continue the development from previous project groups, focusing on enhancing usability and core functionality based on the findings of a comprehensive user study we conducted.
