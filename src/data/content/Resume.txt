@@ -45,7 +45,7 @@ Personal Portfolio & AI Assistant – Full-Stack Developer / Sole Developer
 parkervanham.com | 2025
 - Designed and developed a modern, full-stack portfolio website from scratch using Next.js, React, TypeScript, and Tailwind CSS.
 - Engineered a Retrieval Augmented Generation (RAG) pipeline for an integrated AI chatbot, enabling it to answer questions based on website content.
-- Utilized OpenAI's GPT models for conversational responses with the Vercel AI SDK's streamText and tool-based retrieval, and Upstash Vector (hybrid dense + BM25 index) for efficient semantic and keyword search.
+- Utilized OpenAI's GPT-5.6 Luna for conversational responses with the Vercel AI SDK's streamText and tool-based retrieval, and Upstash Vector (hybrid dense + BM25 index) for efficient semantic and keyword search.
 - Deployed the application on Vercel, configuring production environment variables and SEO best practices.
 Z3 Wellness Sleep App – Full-Stack Developer
 WPI Major Qualifying Project, August 2023 – May 2024

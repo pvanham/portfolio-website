@@ -8,7 +8,7 @@ A modern, full-stack portfolio website with an AI-powered chatbot, contact form,
 
 - **Framework:** Next.js 16 (App Router), React 19, TypeScript 5 (strict mode)
 - **Styling:** Tailwind CSS 4
-- **AI / RAG:** Vercel AI SDK, Upstash Vector (hybrid embeddings + BM25), OpenAI
+- **AI / RAG:** Vercel AI SDK, Upstash Vector (hybrid embeddings + BM25), OpenAI GPT-5.6 Luna
 - **Rate Limiting:** Upstash Redis
 - **Contact:** Resend + react-email for transactional emails
 - **Validation:** Zod
@@ -18,7 +18,7 @@ A modern, full-stack portfolio website with an AI-powered chatbot, contact form,
 
 - **Homepage** — Interactive canvas hero, typewriter roles, project highlights, skills overview
 - **Projects** — Dedicated `/projects/[slug]` pages with unique Open Graph previews
-- **AI Chatbot** — RAG-based assistant that answers questions about the portfolio using Upstash Vector hybrid retrieval and an agentic tool-calling pattern via the Vercel AI SDK
+- **AI Chatbot** — RAG-based assistant powered by OpenAI GPT-5.6 Luna that answers questions about the portfolio using Upstash Vector hybrid retrieval and an agentic tool-calling pattern via the Vercel AI SDK
 - **Contact Form** — Server action with Zod validation, Vercel BotID, honeypot, timing check, spam filtering, and Upstash rate limiting
 - **Skills** — Dedicated page with structured content
 

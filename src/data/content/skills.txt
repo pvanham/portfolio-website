@@ -17,7 +17,7 @@ C: Utilized in systems-level programming coursework at WPI.
 AI/ML & Data (Demonstrated by the Chatbot)
 Vercel AI SDK (streamText & Tool Calling): The core framework used to build the Retrieval Augmented Generation (RAG) pipeline for this portfolio's AI chatbot. Parker used the AI SDK's streamText function with tool-based agentic retrieval, where the LLM decides when and what to retrieve from the knowledge base.
 
-OpenAI GPT-4o-mini: The primary Large Language Model (LLM) used for providing conversational responses in the portfolio chatbot via the @ai-sdk/openai provider.
+OpenAI GPT-5.6 Luna: The primary Large Language Model (LLM) used for providing conversational responses in the portfolio chatbot via the @ai-sdk/openai provider.
 
 Upstash Vector: Used as the hybrid vector database with built-in embedding generation (bge-small-en-v1.5 for dense search and BM25 for keyword search), eliminating the need for a separate embedding API.
 

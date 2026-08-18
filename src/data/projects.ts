@@ -139,7 +139,7 @@ export const projects: ProjectData[] = [
       "Engineered and integrated an AI chatbot from the ground up, leveraging the Vercel AI SDK for streaming UI updates.",
       "Built a Retrieval Augmented Generation (RAG) pipeline using an agentic tool-calling pattern via the Vercel AI SDK, enabling the chatbot to answer questions based on website content.",
       "Set up a hybrid vector index using Upstash Vector with built-in embedding generation and BM25 keyword search for accurate retrieval.",
-      "Utilized OpenAI's GPT-4o-mini for conversational responses with real-time streaming via the Vercel AI SDK's streamText and useChat.",
+      "Utilized OpenAI's GPT-5.6 Luna for conversational responses with real-time streaming via the Vercel AI SDK's streamText and useChat.",
       "Implemented rate limiting with Upstash Redis and request validation with Zod to protect public API endpoints.",
     ],
     technologies: [
@@ -150,7 +150,7 @@ export const projects: ProjectData[] = [
       "Vercel AI SDK",
       "Upstash Vector",
       "Upstash Redis",
-      "OpenAI",
+      "OpenAI GPT-5.6 Luna",
     ],
     link: {
       label: "View Source Code on GitHub",
